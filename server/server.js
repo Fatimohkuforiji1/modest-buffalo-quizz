@@ -1,6 +1,18 @@
 import http from "http";
-
+import {Pool} from "pg";
 import app from "./app";
+
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  //don't push from line 10-15;
+  
+});
+
+pool.connect();
 
 const port = parseInt(process.env.PORT || "3000");
 
