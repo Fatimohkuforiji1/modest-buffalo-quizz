@@ -2,26 +2,16 @@ import { Router } from "express";
 import { Pool } from "pg";
 
 
+
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
- },
-  //don't push from line 12-16;
- 
+  user: "Umm Muhammad",
+  host: "localhost",
+  database: "",
+  password: "",
+  port: 5432,
 });
 
-
-// const pool = new Pool({
-//   user: "Umm Muhammad",
-//   host: "localhost",
-//   database: "teachers",
-//   password: "",
-//   port: 5432,
-// });
-// client / src / App.js;
-// modified: server / api.js;
-// modified: server / server.js;
 pool.connect();
 
 

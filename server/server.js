@@ -3,16 +3,35 @@ import {Pool} from "pg";
 import app from "./app";
 
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  },
-  //don't push from line 10-15;
-  
-});
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//  },
+//   //don't push from line 12-16;
+//   host: "ec2-63-32-7-190.eu-west-1.compute.amazonaws.com",
+//   port: 5432,
+//   user: "",
+//   password: "",
+//   database: ""
+// });
 
-pool.connect();
+// pool.connect();
+
+
+
+
+// app.get("/teachers", (req, res) => {
+// const teacherQuery = `SELECT * FROM teacher;`
+//   pool.query(teacherQuery, (error, result) => {
+//     if (error) {
+//       res.status(500).send(error);
+//     } else {
+//       res.json(result.rows);
+//     }
+//   })}
+// );
+
 
 const port = parseInt(process.env.PORT || "3000");
 
