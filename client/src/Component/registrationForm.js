@@ -67,7 +67,7 @@ const RegistrationForm = () => {
           <h3>
             password is longer than 8 characters and does not include any spaces
           </h3>
-          Password
+          Create Password
           <input
             type="password"
             name="password"
