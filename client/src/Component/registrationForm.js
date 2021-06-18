@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-const RegistrationForm = () => {
+const RegistrationForm = ({student}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +33,7 @@ const RegistrationForm = () => {
   return (
     <div className="Form">
       <h1>Registration</h1>
+      <Header />
       <form className="root" onSubmit={handleSubmit}>
         <label>
           First Name
