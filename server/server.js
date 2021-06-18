@@ -11,9 +11,9 @@ import app from "./app";
 //   //don't push from line 12-16;
 //   host: "ec2-63-32-7-190.eu-west-1.compute.amazonaws.com",
 //   port: 5432,
-//   user: "",
-//   password: "",
-//   database: ""
+//   user: "utrjvtawiylfiq",
+//   password: "31fa1828fcd521be2e4599a96fece2696afc76c788eab72cee16410bd2465f0d",
+//   database: "d4hdbq2ksaqpvm"
 // });
 
 // pool.connect();
