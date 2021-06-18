@@ -4,6 +4,7 @@ import Login from './login';
 import QuestionMultipleChoice from './questionMultipleChoice';
 import Quiz from './quiz';
 import RegistrationForm from './registrationForm';
+
 const AllRegisterFiles = () => {
     return (
       <div>
