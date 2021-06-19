@@ -20,23 +20,96 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
+//Routes for login details 
+router.get("/register", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+
+});
+
 router.post("/register", (req, res) => {
   console.log(req.body)
   res.send("message received");
-  // const newTeacherName = req.body.name;
-  // const newTeacherAddress = req.body.address;
-  // const teacherQuery = `INSERT INTO teacher(name, address) VALUES ($1, $2) RETURNING ID`;
-  // const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
-
-  // if (!regExpression.exec(newTeacherName)) {
-  //   res.status(500).send(error);
-  // } else {
-  //   pool
-  //     .query(teacherQuery, [newTeacherName, newTeacherAddress])
-  //     .then((result) => res.status(201).send(result.rows[0]))
-  //     .catch((error) => res.status(500).send(error));
-  // }
 });
+
+
+ //Routes for teacher
+router.get("/teacher", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+  
+});
+
+router.post("/teacher", (req, res) => {
+  console.log(req.body)
+  res.send("message received");
+});
+
+
+ //Routes for student
+router.get("/student", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+  
+});
+
+router.post("/student", (req, res) => {
+  console.log(req.body)
+  res.send("message received");
+});
+ //Routes for module
+router.get("/module", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+  
+});
+
+router.post("/module", (req, res) => {
+  console.log(req.body)
+  res.send("message received");
+});
+
+//Routes for quizzes
+router.get("/quiz", function (req, res) {
+  console.log(req.body);
+  res.send("Quiz received");
+  
+});
+
+router.post("/quiz", (req, res) => {
+  console.log(req.body)
+  res.send("Quiz received");
+
+});
+
+  //Routes for question 
+router.get("/question", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+  
+});
+
+router.post("/question", (req, res) => {
+  console.log(req.body)
+  res.send("message received");
+});
+
+
+ //Routes for answers
+router.get("/answer", function (req, res) {
+  console.log(req.body);
+  res.send("message received");
+  
+});
+
+router.post("/answer", (req, res) => {
+  console.log(req.body)
+  res.send("message received");
+});
+
+
+
+
 
 
 
