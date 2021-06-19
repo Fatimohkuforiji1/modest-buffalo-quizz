@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './header';
 import Login from './login';
-import QuestionMultipleChoice from './questionMultipleChoice';
-import Quiz from './quiz';
+import QuestionMultipleChoice from '../QuizComponent/questionMultipleChoice';
+import Quiz from '../QuizComponent/quiz';
 import RegistrationForm from './registrationForm';
 
 const AllRegisterFiles = () => {

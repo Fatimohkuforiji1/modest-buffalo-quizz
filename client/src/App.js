@@ -2,13 +2,12 @@ import { Route, Switch } from "react-router-dom";
 import AllRegisterFiles from "./Component/allRegisterFiles";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import AllLoginFiles from "./components/allLoginFiles";
 
 const App = () => (
 
   <Switch>
     
-    <AllLoginFiles />
+	<AllRegisterFiles />
 
     <Route path="/" exact>
       <Home />

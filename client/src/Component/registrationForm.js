@@ -16,9 +16,19 @@ const RegistrationForm = () => {
     }
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
+const newUser = {
+  firstName, lastName, email, password
+}
+const res = await fetch("http://localhost:3100/api/register",{
+ method: "POST",
+ body: JSON.stringify(newUser), 
+ headers: {
+        "Content-type": "application/json"
+    }
+})
+console.log(res) 
     if (
       password === isValid &&
       password.length > 8 &&
