@@ -7,7 +7,9 @@ import AllLoginFiles from "./components/allLoginFiles";
 const App = () => (
 
   <Switch>
+    
     <AllLoginFiles />
+
     <Route path="/" exact>
       <Home />
     </Route>
