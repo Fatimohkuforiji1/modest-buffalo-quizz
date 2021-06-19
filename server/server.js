@@ -1,7 +1,7 @@
 import http from "http";
 import {Pool} from "pg";
 import app from "./app";
-
+import "dotenv/config";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
