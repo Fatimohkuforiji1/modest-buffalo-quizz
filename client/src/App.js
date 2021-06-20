@@ -1,28 +1,31 @@
 import React, {useContext} from "react";
 import { AuthContext } from "./Context/AuthContext";
 import { Route, Switch } from "react-router-dom";
+import AllRegisterFiles from "./Component/allRegisterFiles";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import AllLoginFiles from "./components/allLoginFiles";
 
 const App = () => {
   const {isAuthenticated} = useContext(AuthContext);
-return (
+return(
   <Switch>
-    {isAuthenticated ? (
+    {isAuthenticated?(
       <>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/about/this/site">
-          <About />
-        </Route>
-      </>
-    ) : (
-      <AllLoginFiles />
+      <Route path="/protected" exact>
+      <Home />
+    </Route>
+    <Route path="/about/this/site">
+      <About />
+    </Route>
+    </> 
+    ):(
+	<AllRegisterFiles />
+      
     )}
+
+    
   </Switch>
-);
+)
 };
 
 
