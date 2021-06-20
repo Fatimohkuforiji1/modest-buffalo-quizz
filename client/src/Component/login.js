@@ -12,7 +12,7 @@ const Login = () => {
     <div>
       <form className="Login" onSubmit={handleSubmit}>
         <h3>Login</h3>
-        <labe>
+        <label>
           username
           <input
             type="email"
@@ -20,7 +20,7 @@ const Login = () => {
             value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
-        </labe>
+        </label>
         <label>
           Password
           <input
