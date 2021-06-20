@@ -4,6 +4,10 @@ const RegistrationForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [student, setStudent] = useState("");
+  const [teacher, setTeacher] = useState("");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -72,7 +76,40 @@ console.log(res)
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        <label>
+          City
+          <input
+            type="text"
+            name="city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </label>
 
+        <label>
+          Country
+          <input
+            type="text"
+            name="country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+        </label>
+        <h3>Please select the appropriate box</h3>
+        <label>
+          Student
+          <input
+            type="checkbox"
+            name="student"
+            value={student}
+            onChange={(e) => setStudent(e.target.value)}
+          />
+        </label>
+        <label>
+          Teacher
+          <input type="checkbox" name="Teacher" value= {teacher}  onChange={(e) => setTeacher(e.target.value)}/>
+        </label>
+        
         <label>
           <h3>
             password is longer than 8 characters and does not include any spaces
