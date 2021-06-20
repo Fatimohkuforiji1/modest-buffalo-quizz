@@ -10,30 +10,30 @@ const RegistrationForm = () => {
   const [teacher, setTeacher] = useState("");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(password);
 
-  function passwordMatch(e) {
-    if (confirmPassword !== password) {
-      alert("Password doesn't match");
-    } else {
-      setConfirmPassword(e.target.value);
-    }
-  }
+  // function passwordMatch(e) {
+  //   if (confirmPassword !== password) {
+  //     alert("Password doesn't match");
+  //   } else {
+  //     setConfirmPassword(e.target.value);
+  //   }
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
 const newUser = {
-  firstName, lastName, email, password
+  firstName, lastName, email, password, student, teacher
 }
 console.log(student);
-// const res = await fetch("http://localhost:3100/api/register",{
-//  method: "POST",
-//  body: JSON.stringify(newUser), 
-//  headers: {
-//         "Content-type": "application/json"
-//     }
-// })
-// console.log(res) 
+const res = await fetch("http://localhost:3100/api/register",{
+ method: "POST",
+ body: JSON.stringify(newUser), 
+ headers: {
+        "Content-type": "application/json"
+    }
+})
+console.log(res) 
     if (
       password === isValid &&
       password.length > 8 &&
@@ -108,7 +108,12 @@ console.log(student);
         </label>
         <label>
           Teacher
-          <input type="checkbox" name="Teacher" value= {teacher}  onChange={(e) => setTeacher(e.target.className)}/>
+          <input
+            type="checkbox"
+            name="Teacher"
+            value={teacher}
+            onChange={(e) => setTeacher(e.target.className)}
+          />
         </label>
 
         <label>
@@ -129,7 +134,7 @@ console.log(student);
             type="password"
             name="confirmPassword"
             value={confirmPassword}
-            onChange={passwordMatch}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>
         {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
