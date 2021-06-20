@@ -25,14 +25,15 @@ const RegistrationForm = () => {
 const newUser = {
   firstName, lastName, email, password
 }
-const res = await fetch("http://localhost:3100/api/register",{
- method: "POST",
- body: JSON.stringify(newUser), 
- headers: {
-        "Content-type": "application/json"
-    }
-})
-console.log(res) 
+console.log(student);
+// const res = await fetch("http://localhost:3100/api/register",{
+//  method: "POST",
+//  body: JSON.stringify(newUser), 
+//  headers: {
+//         "Content-type": "application/json"
+//     }
+// })
+// console.log(res) 
     if (
       password === isValid &&
       password.length > 8 &&
@@ -42,7 +43,7 @@ console.log(res)
       //sendDetailsToServer();
     } else {
       setIsValid(false);
-      alert("password not valid");
+      // alert("password not valid");
     }
   }
   return (
@@ -102,14 +103,14 @@ console.log(res)
             type="checkbox"
             name="student"
             value={student}
-            onChange={(e) => setStudent(e.target.value)}
+            onChange={(e) => setStudent(e.target.name)}
           />
         </label>
         <label>
           Teacher
-          <input type="checkbox" name="Teacher" value= {teacher}  onChange={(e) => setTeacher(e.target.value)}/>
+          <input type="checkbox" name="Teacher" value= {teacher}  onChange={(e) => setTeacher(e.target.className)}/>
         </label>
-        
+
         <label>
           <h3>
             password is longer than 8 characters and does not include any spaces
@@ -131,7 +132,7 @@ console.log(res)
             onChange={passwordMatch}
           />
         </label>
-        <p>{`Password is ${isValid ? "" : "not "} valid`}</p>
+        {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
         <button type="submit">Register</button>
       </form>
     </div>
