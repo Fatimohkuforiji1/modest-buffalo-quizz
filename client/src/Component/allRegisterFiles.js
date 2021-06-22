@@ -3,7 +3,7 @@ import Header from './header';
 import Login from './login';
 import QuestionMultipleChoice from '../QuizComponent/questionMultipleChoice';
 import Quiz from '../QuizComponent/quiz';
-import RegistrationForm from './registrationForm';
+// import TeacherRegistrationForm from "./TeacherRegistrationForm";
 
 const AllRegisterFiles = () => {
     return (
@@ -14,7 +14,7 @@ const AllRegisterFiles = () => {
         <Login />
         <Quiz />
         <QuestionMultipleChoice />
-       
+    
       </div>
     );
 }
