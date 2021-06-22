@@ -94,10 +94,10 @@ router.post("/register/teachers", (req, res) => {
 
 
 router.post("/register/students", (req, res) => {
-  const {firstName, lastName, email, password,group_id, city, country } = req.body;
+  const {firstName, lastName, email, password,city, country } = req.body;
   const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
   pool
-    .query(studentsQuery, [firstName, lastName, email, group_id, password, city, country])
+    .query(studentsQuery, [firstName, lastName, email, password, city, country])
     .then((result) => {
       if (result.rowCount > 0) {
         res.status(201).send({
