@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const StudentRegistrationForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,7 +10,8 @@ const StudentRegistrationForm = () => {
   const [isValid, setIsValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [groups, setGroups] = useState([]);
+  const [groupsId, setGroupsId] = useState("");
   // function passwordMatch(e) {
   // }
 
@@ -20,7 +21,7 @@ const StudentRegistrationForm = () => {
     if (e.target.value !== password) {
       setError("Password doesn't match");
     } else {
-      setError("")
+      setError("");
     }
   }
 
@@ -28,19 +29,19 @@ const StudentRegistrationForm = () => {
 
   // function callAPI() {}
 
-   function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     // if (validate()) {
-      // const newUser = {
-      //   firstName,
-      //   lastName,
-      //   email,
-      //   password,
-      //   city,
-      //   country,
-      // };
-    
-      // callAPI(newUser);
+    // const newUser = {
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   password,
+    //   city,
+    //   country,
+    // };
+
+    // callAPI(newUser);
     // }
 
     if (confirmPassword !== password) {
@@ -48,22 +49,34 @@ const StudentRegistrationForm = () => {
     } else {
       setConfirmPassword(e.target.value);
     }
+
+    
     const newUser = {
       firstName,
       lastName,
       email,
       password,
+      groupsId,
       city,
       country,
     };
 
-    const res =  fetch("http://localhost:3100/api/register/students", {
+
+    console.log(newUser)
+     fetch("http://localhost:3100/api/register/students", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
         "Content-type": "application/json",
       },
     });
+
+    //  fetch("http://localhost:3100/api/groups", {
+    //    method: "GET",
+    //    headers: {
+    //      "Content-type": "application/json",
+    //    },
+    //  });
 
     if (
       password === isValid &&
@@ -77,6 +90,23 @@ const StudentRegistrationForm = () => {
       // alert("password not valid");
     }
   }
+
+  useEffect(() => {
+    fetch("http://localhost:3100/api/groups")
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("There is an error with the service");
+        }
+      })
+      .then((data) => {
+        setGroups(data);
+        setGroupsId(data[0].id)
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div className="Form">
       <h1>Registration</h1>
@@ -127,7 +157,6 @@ const StudentRegistrationForm = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
-        <h3>Please select the appropriate box</h3>
 
         <label>
           <h3>
@@ -150,6 +179,19 @@ const StudentRegistrationForm = () => {
             onChange={passwordMatch}
           />
         </label>
+        <label >Choose a group:</label>
+        <select
+          id="groups"
+          name="groups"
+          onChange={(e) => setGroupsId(e.target.value)}
+        >
+          {groups.map((group) => (
+            <option key={group.id} value={group.id}>
+              {group.group_name}
+            </option>
+          ))}
+        </select>
+
         {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
         <button type="submit">Register</button>
       </form>
