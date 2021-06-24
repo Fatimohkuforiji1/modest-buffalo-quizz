@@ -10,7 +10,7 @@ const AllRegisterFiles = () => {
       <div>
         <h1>Hello</h1>
         <Header />
-        <RegistrationForm />
+        {/* <RegistrationForm /> */}
         <Login />
         <Quiz />
         <QuestionMultipleChoice />
