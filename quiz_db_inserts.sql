@@ -43,5 +43,20 @@ INSERT INTO answers (question_id,answer) VALUES (1, 'python');
 INSERT INTO answers (question_id,answer) VALUES (1, 'C#');
 INSERT INTO answers (question_id,answer) VALUES (1, 'PHP');
 INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
-INSERT INTO student_quiz_answers  (question_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
+INSERT INTO student_quiz_answers  (question_id,, student_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
 
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 2','testURL2.....',1,1 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which one of these names is not a programming language?',1,'Lobo');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Python');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Lobo');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Java');
+INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
+INSERT INTO student_quiz_answers  (question_id,, student_id,student_answer,is_correct) VALUES(1,1,'Lobo',false);
+
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which perosn is not related to technology?',1,'John Mayor');
+INSERT INTO answers (question_id,answer) VALUES (1, 'John Mayjor');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Bill Gates');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Steve Jobs');
+INSERT INTO answers (question_id,answer) VALUES (1, 'Todd Howard');
+INSERT INTO student_quiz_answers  (question_id,, student_id,student_answer,is_correct) VALUES(1,1,'John Mayjor',true);
