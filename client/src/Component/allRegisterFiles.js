@@ -3,14 +3,12 @@ import Header from './header';
 import Login from './login';
 import QuestionMultipleChoice from '../QuizComponent/questionMultipleChoice';
 import Quiz from '../QuizComponent/quiz';
-// import TeacherRegistrationForm from "./TeacherRegistrationForm";
 
 const AllRegisterFiles = () => {
     return (
       <div>
         <h1>Hello</h1>
         <Header />
-        {/* <RegistrationForm /> */}
         <Login />
         <Quiz />
         <QuestionMultipleChoice />
