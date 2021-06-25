@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 75px;
+    background-color: rgb(138, 25, 44);
+    
+}
+
+h6{
+    font-size: 15px;
+    color: white;
+
+}
+
+
+.quizzTitle{
+    text-align: center;
+}
+.login{
+  border: 1px solid rgb(87, 87, 57);
+  border-radius: 5px;
+ 
+}
+
+.nav-links{
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    width: 75px;
+
+}
+
+.link{
+     text-decoration: none;
+     margin:0 10px ;
+     color: white;
+     font-size: 15x;
+     cursor: pointer;
+     padding: 10px 20px;
+   
+}
+.logoutLink{
+    background:none;
+    border:none
+}
