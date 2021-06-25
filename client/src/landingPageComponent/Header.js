@@ -38,7 +38,3 @@ const history = useHistory()
 
 export default Header;
 
-//  client/src/Component/Layout.js
-//         client/src/Component/Register.js
-//         client/src/Component/loginDetails.js
-//         client/src/landingPageComponent/
