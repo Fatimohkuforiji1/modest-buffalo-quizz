@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import QuestionMultipleChoice from "../QuizComponent/QuestionMultipleChoice";
 
-const Login = () => {
+const LoginDetails = () => {
+  
+
+  const { authenticate } = useContext(AuthContext);
+
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +18,7 @@ const Login = () => {
     <div>
       <form className="Login" onSubmit={handleSubmit}>
         <h3>Login</h3>
-        <labe>
+        <label>
           username
           <input
             type="email"
@@ -20,7 +26,7 @@ const Login = () => {
             value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
-        </labe>
+        </label>
         <label>
           Password
           <input
@@ -30,10 +36,13 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit">Login</button>
+        <button onClick={()=> authenticate()} type="submit">Login</button>
+        
+
+        
       </form>
     </div>
   );
-}
+};
 
-export default Login;
+export default LoginDetails;

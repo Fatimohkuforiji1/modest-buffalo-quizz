@@ -22,7 +22,7 @@
     "preserve": "npm run build",
     "serve": "npm start",
     "ship": "npm run lint && npm run test && npm run e2e:dev && npm run e2e",
-    "start": "node dist/server.js",
+    "start": "node server/server.js",
     "test": "jest",
     "test:cover": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch"
