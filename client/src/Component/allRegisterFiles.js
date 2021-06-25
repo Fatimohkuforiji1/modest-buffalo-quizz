@@ -1,20 +1,26 @@
-import React from 'react';
-import Header from './header';
-import Login from './login';
-import QuestionMultipleChoice from '../QuizComponent/questionMultipleChoice';
+import React, {useState} from 'react';
+import Header from '../landingPageComponent/Header';
+import Login from './Login'
+import Register from './Register'
+// import LoginDetails from "./loginDetails";
+import QuestionMultipleChoice from '../QuizComponent/QuestionMultipleChoice';
 import Quiz from '../QuizComponent/quiz';
-import RegistrationForm from './registrationForm';
+// import RegistrationForm from "../Component/registrationForm";
+
+// const [landing, setLanding] = useState();
+
 
 const AllRegisterFiles = () => {
     return (
       <div>
-        <h1>Hello</h1>
+        
         <Header />
-        <RegistrationForm />
-        <Login />
+        <Login/>
+        <Register/>
+        {/* <RegistrationForm />
+        <LoginDetails />
         <Quiz />
-        <QuestionMultipleChoice />
-       
+        <QuestionMultipleChoice /> */}
       </div>
     );
 }
