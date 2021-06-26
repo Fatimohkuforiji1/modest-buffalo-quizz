@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 // import TeacherDashboard from "./Component/TeacherDashboard";
-// import StudentDashboard from "./Component/StudentDashboard";
+import StudentDashboard from "./Component/StudentDashboard";
 
 
 const App = () => {
@@ -30,11 +30,12 @@ const App = () => {
 
           <Route path="/register/student">
             <StudentRegistrationForm />
-            </Route>
-            
-          </>
-          
-          
+          </Route>
+
+          <Route path="/dashboard/student">
+            <StudentDashboard />
+          </Route>
+        </>
       )}
     </Switch>
   );
