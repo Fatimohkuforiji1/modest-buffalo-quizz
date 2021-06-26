@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { response } from "msw";
 import  pool  from "./db";
 const router = new Router();
 
@@ -37,10 +38,44 @@ router.post("/register", (req, res) => {
 
 
 // //routes on login 
-// router.post("/register", (req, res) => {
-//   console.log(req.body);
-//   res.send("message received");
-// });
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  const newEmail = req.body.email;
+  const newPassword = req.body.password;
+  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+   const regExpression = /(@)(.+)$/;
+
+  // res.send("message received");
+   if(!regExpression.exec(newEmail)){
+  	res.status(500).json({"message" : "Enter correct email/password"})
+  } else{
+    pool.query(teacherLoginQuery)
+        .then((result) =>{
+        res.status(200);
+        const checkLogin = result.rows[0];
+        if(checkLogin.password === newPassword){
+         res.json({"message" : "UserName Valid"});
+        }
+         })
+       
+      //   if (error){
+      //     res.send(400).json("UserName not found")
+      //   }
+      //   if (result.length > 0){
+      //     res.send(result);
+      //   }else { 
+      //     res.send({Message: "Wrong combination"})
+      //   }
+      // }
+  }})
+  //   // .then((result) => {
+  //     if (result.length > 0) {
+  //       res.status(201).json(result)
+  //     } else {
+  //    res.send(500).json("Wrong username/password combination");
+  // }})
+  
+
 
 
 //  //Routes for teacher
