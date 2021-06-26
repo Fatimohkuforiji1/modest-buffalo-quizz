@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import { AuthContext } from "./Context/AuthContext";
 import { Route, Switch } from "react-router-dom";
-import AllRegisterFiles from "./Component/allRegisterFiles";
+import AllRegisterFiles from "./Component/AllRegisterFiles";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Register from "./Component/Register"
