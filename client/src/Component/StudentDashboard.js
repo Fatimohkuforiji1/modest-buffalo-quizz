@@ -54,7 +54,7 @@ const StudentDashBoard = () => {
           <td>{quizInfo.first_name}</td>
           <td>{quizInfo.last_name}</td>
           <td>{quizInfo.group_name}</td>
-          <td>{quizInfo.quizzes[0]}</td>
+          {/* <td>{quizInfo.quizzes[0]}</td> */}
           <td>{quizInfo.last_name}</td>
           <td>{quizInfo.title}</td>
           <td>{quizInfo.date_added}</td>
