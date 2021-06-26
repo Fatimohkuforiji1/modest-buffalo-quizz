@@ -139,14 +139,21 @@ WHERE s.id = $1`,
           message: `student not found in the database`,
         });
       }
-      const query = `SELECT t.first_name, t.last_name, z.title, z.date_added, sum(CASE WHEN r.is_correct THEN 1 ELSE 0 END), count(r.id)
-FROM student_quiz_answers AS r
-INNER JOIN questions AS q ON r.question_id = q.id
-INNER JOIN quizzes AS z ON q.quiz_id = z.id
-INNER JOIN teachers AS t ON z.teacher_id = t.id
-WHERE r.student_id =$1
-GROUP BY z.id, t.first_name, t.last_name
-ORDER BY z.date_added;`;
+      const query = `SELECT t.first_name, 
+                            t.last_name, 
+                            z.title,
+                            m.module_name, 
+                            z.date_added, 
+                            sum(CASE WHEN r.is_correct THEN 1 ELSE 0 END) AS "total_questions_correct", 
+                            count(r.id) AS "total_questions_answered"
+                    FROM student_quiz_answers AS r
+                      INNER JOIN questions AS q ON r.question_id = q.id
+                      INNER JOIN quizzes AS z ON q.quiz_id = z.id
+                      INNER JOIN teachers AS t ON z.teacher_id = t.id
+                      INNER JOIN modules As m on m.id=z.module_id
+                    WHERE r.student_id =$1
+                    GROUP BY z.id, t.first_name, t.last_name, m.id
+                    ORDER BY z.date_added;`;
       pool
         .query(query, [studentId])
         .then((result2) => {
