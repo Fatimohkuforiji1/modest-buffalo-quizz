@@ -78,4 +78,10 @@ INSERT INTO answers (question_id,answer) VALUES (1, 'A compuer monitor');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'A power adaptor',false);
 
 
-
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Wha',1,'A comb');
+INSERT INTO answers (question_id,answer) VALUES (1, 'A comb');
+INSERT INTO answers (question_id,answer) VALUES (1, 'A computer Keyboard');
+INSERT INTO answers (question_id,answer) VALUES (1, 'A power adaptor');
+INSERT INTO answers (question_id,answer) VALUES (1, 'A compuer monitor');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'A power adaptor',false);
