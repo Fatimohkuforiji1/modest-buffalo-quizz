@@ -71,7 +71,3 @@ console.log(res)
 export default LoginForm;
 
 
-//  client / src / App.js;
-//  modified: client / src / Component / allRegisterFiles.js;
-//  modified: client / src / Component / login.js;
-//  modified: server / api.js;
