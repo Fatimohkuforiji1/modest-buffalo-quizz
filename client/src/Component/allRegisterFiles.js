@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import Header from '../landingPageComponent/Header';
-import Login from './Login'
+import LoginForm from './Login'
 import Register from './Register'
-// import LoginDetails from "./loginDetails";
+
 import QuestionMultipleChoice from '../QuizComponent/QuestionMultipleChoice';
 import Quiz from '../QuizComponent/quiz';
-// import RegistrationForm from "../Component/registrationForm";
-
-// const [landing, setLanding] = useState();
 
 
 const AllRegisterFiles = () => {
@@ -15,7 +12,7 @@ const AllRegisterFiles = () => {
       <div>
         
         <Header />
-        <Login/>
+        <LoginForm/>
         <Register/>
         {/* <RegistrationForm />
         <LoginDetails />
