@@ -11,9 +11,6 @@ const TeacherRegistrationForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  // function passwordMatch(e) {
-  // }
-
   function passwordMatch(e) {
     setConfirmPassword(e.target.value);
 
@@ -23,10 +20,6 @@ const TeacherRegistrationForm = () => {
       setError("");
     }
   }
-
-  function validate() {}
-
-  function callAPI() {}
 
   async function handleSubmit(e) {
     e.preventDefault();
