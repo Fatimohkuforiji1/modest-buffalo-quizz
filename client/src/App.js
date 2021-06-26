@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import { Route, Switch } from "react-router-dom";
-import AllRegisterFiles from "./Component/AllRegisterFiles";
+// import AllRegisterFiles from "./Component/AllRegisterFiles";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Register from "./Component/Register"
+// import Register from "./Component/Register"
 import Login from "./Component/Login"
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
@@ -32,9 +32,9 @@ return (
       ) : (
         // <AllRegisterFiles />
         <>
-          <Route path="/register">
+          {/* <Route path="/register">
             <Register />
-          </Route>
+          </Route> */}
 
           <Route path="/login">
             <Login />
@@ -49,7 +49,8 @@ return (
 
           <Route path="/register/student">
             <StudentRegistrationForm />
-
+            </Route>
+            
           <Route path="/dashboard/student">
             <StudentDashboard />
           </Route>
