@@ -2,47 +2,76 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import QuestionMultipleChoice from "../QuizComponent/QuestionMultipleChoice";
 
-const LoginDetails = () => {
-  
-
+function LoginForm () {
   const { authenticate } = useContext(AuthContext);
-
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
-  function handleSubmit(e) {
+  const [details, setDetails] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+ 
+  async function submitHandler(e){
     e.preventDefault();
+    Login(details)
+const userLogin = {email, password }
+const res = await fetch("http://localhost:3100/api/login",{
+ method: "POST",
+ body: JSON.stringify(userLogin), 
+ headers: {
+        "Content-type": "application/json"
+    }
+})
+console.log(res)
   }
+ const Login = (details) => {
+    if (details.email === user.email && details.password === user.password) {
+      console.log("Logged in");
+      setUser({
+        email: details.email,
+      });
+    } else {
+      console.log("Details do not match");
+      setError("Details do not match");
+    }
+  };
 
   return (
-    <div>
-      <form className="Login" onSubmit={handleSubmit}>
-        <h3>Login</h3>
-        <label>
-          username
+     <form onSubmit={submitHandler}>
+      <div className="form-head">
+        <h2>Login</h2>
+        {error !== "" ? <div className="error">{error}</div> : ""}
+         <div className="form-list">
+          <label name="email">Email:</label>
           <input
             type="email"
-            name="username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
+            name="email"
+            id="email"
+            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            value={details.email}
           />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button onClick={()=> authenticate()} type="submit">Login</button>
-        
 
-        
-      </form>
-    </div>
+          <div className="form-list">
+            <label name="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={(e) =>
+                setDetails({ ...details, password: e.target.value })
+              }
+              value={details.password}
+            />
+          </div>
+         {/* <input type="submit" value="LOGIN" /> */}
+          {/* <button onClick={Logout}>Logout</button> */}
+           <button onClick={()=> authenticate()} type="submit">Login</button>
+        </div>
+      </div>
+    </form>
   );
-};
+}
+export default LoginForm;
 
-export default LoginDetails;
+
+//  client / src / App.js;
+//  modified: client / src / Component / allRegisterFiles.js;
+//  modified: client / src / Component / login.js;
+//  modified: server / api.js;
