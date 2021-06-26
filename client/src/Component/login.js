@@ -70,4 +70,3 @@ console.log(res)
 }
 export default LoginForm;
 
-
