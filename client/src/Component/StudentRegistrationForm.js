@@ -25,24 +25,8 @@ const StudentRegistrationForm = () => {
     }
   }
 
-  // function validate() {}
-
-  // function callAPI() {}
-
   function handleSubmit(e) {
     e.preventDefault();
-    // if (validate()) {
-    // const newUser = {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   password,
-    //   city,
-    //   country,
-    // };
-
-    // callAPI(newUser);
-    // }
 
     if (confirmPassword !== password) {
       alert("Password doesn't match");
@@ -50,7 +34,6 @@ const StudentRegistrationForm = () => {
       setConfirmPassword(e.target.value);
     }
 
-    
     const newUser = {
       firstName,
       lastName,
@@ -61,9 +44,8 @@ const StudentRegistrationForm = () => {
       country,
     };
 
-
-    console.log(newUser)
-     fetch("http://localhost:3100/api/register/students", {
+    console.log(newUser);
+    fetch("http://localhost:3100/api/register/students", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
@@ -71,23 +53,14 @@ const StudentRegistrationForm = () => {
       },
     });
 
-    //  fetch("http://localhost:3100/api/groups", {
-    //    method: "GET",
-    //    headers: {
-    //      "Content-type": "application/json",
-    //    },
-    //  });
-
     if (
       password === isValid &&
       password.length > 8 &&
       !password.includes(" ")
     ) {
       setIsValid(true);
-      //sendDetailsToServer();
     } else {
       setIsValid(false);
-      // alert("password not valid");
     }
   }
 
@@ -102,7 +75,7 @@ const StudentRegistrationForm = () => {
       })
       .then((data) => {
         setGroups(data);
-        setGroupsId(data[0].id)
+        setGroupsId(data[0].id);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -179,7 +152,7 @@ const StudentRegistrationForm = () => {
             onChange={passwordMatch}
           />
         </label>
-        <label >Choose a group:</label>
+        <label>Choose a group:</label>
         <select
           id="groups"
           name="groups"
@@ -191,8 +164,6 @@ const StudentRegistrationForm = () => {
             </option>
           ))}
         </select>
-
-        {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
         <button type="submit">Register</button>
       </form>
       {
