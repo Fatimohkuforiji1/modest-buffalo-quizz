@@ -68,10 +68,10 @@ const TeacherRegistrationForm = () => {
       !password.includes(" ")
     ) {
       setIsValid(true);
-      //sendDetailsToServer();
+      sendDetailsToServer();
     } else {
       setIsValid(false);
-      // alert("password not valid");
+      alert("password not valid");
     }
   }
   return (
@@ -147,7 +147,7 @@ const TeacherRegistrationForm = () => {
             onChange={passwordMatch}
           />
         </label>
-        {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
+        <p>{`Password is ${isValid ? "" : "not "} valid`}</p>
         <button type="submit">Register</button>
       </form>
       {

@@ -1,18 +1,22 @@
-import React from 'react';
-import Header from './header';
-import Login from './login';
-import QuestionMultipleChoice from '../QuizComponent/questionMultipleChoice';
+import React, {useState} from 'react';
+import Header from '../landingPageComponent/Header';
+import LoginForm from './Login'
+// import Register from './Register'
+
+import QuestionMultipleChoice from '../QuizComponent/QuestionMultipleChoice';
 import Quiz from '../QuizComponent/quiz';
 
 const AllRegisterFiles = () => {
     return (
       <div>
-        <h1>Hello</h1>
+        
         <Header />
-        <Login />
+        <LoginForm/>
+        {/* <Register/> */}
+        {/* <RegistrationForm />
+        <LoginDetails />
         <Quiz />
-        <QuestionMultipleChoice />
-    
+        <QuestionMultipleChoice /> */}
       </div>
     );
 }
