@@ -127,7 +127,7 @@ router.get("/dashboard/student/:id", function (req, res) {
 
   pool
     .query(
-      `SELECT s.first_name, s.last_name, g.group_name
+      `SELECT s.id,s.first_name, s.last_name, g.group_name
 FROM students AS s INNER JOIN groups AS g ON s.groups_id = g.id
 WHERE s.id = $1`,
       [studentId]
@@ -257,17 +257,6 @@ router.get("/groups", (_, res) => {
     .catch((error) => res.send(error));
 });
 
-/*
-  id       SERIAL PRIMARY KEY,
-  first_name  VARCHAR(150) NOT NULL,
-  last_name  VARCHAR(150) NOT NULL,
-  email  VARCHAR(150) NOT NULL,
-  user_password  VARCHAR(75) NOT NULL,
-  groups_id   INT REFERENCES groups(id),
-  city     VARCHAR(100) NOT NULL,
-  country  VARCHAR(100) NOT NULL
-
-*/
 //-----------------------------------------------------------
 router.get("/dashboard/students", (req, res) => {
   const { firstName, lastName, email, password, city, country } = req.body;
