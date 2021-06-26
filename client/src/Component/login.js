@@ -46,22 +46,11 @@ const Login = (details) => {
   // };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="form-head">
-        <h2>Login</h2>
-        {error !== "" ? <div className="error">{error}</div> : ""}
-        <div className="form-list">
-          {/* <label name="name">Name:</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              onChange={(e) => setDetails({...details, name: e.target.value})}
-              value={details.name}
-            /> */}
-        </div>
-        <div className="form-list">
-          <label name="email">Email:</label>
+    <div>
+      <form className="Login" onSubmit={handleSubmit}>
+        <h3>Login</h3>
+        <label>
+          username
           <input
             type="email"
             name="email"
@@ -69,23 +58,19 @@ const Login = (details) => {
             onChange={(e) => setDetails({ ...details, email: e.target.value })}
             value={details.email}
           />
-          <div className="form-list">
-            <label name="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={(e) =>
-                setDetails({ ...details, password: e.target.value })
-              }
-              value={details.password}
-            />
-          </div>
-          <input type="submit" value="LOGIN" />
-          {/* <button onClick={Logout}>Logout</button> */}
-        </div>
-      </div>
-    </form>
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 }
 export default Login;

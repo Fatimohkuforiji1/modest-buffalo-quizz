@@ -1,39 +1,67 @@
 import React, { useState } from "react";
 
-const RegistrationForm = () => {
+const TeacherRegistrationForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [student, setStudent] = useState("");
-  const [teacher, setTeacher] = useState("");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState(password);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   // function passwordMatch(e) {
-  //   if (confirmPassword !== password) {
-  //     alert("Password doesn't match");
-  //   } else {
-  //     setConfirmPassword(e.target.value);
-  //   }
   // }
+
+  function passwordMatch(e) {
+    setConfirmPassword(e.target.value);
+
+    if (e.target.value !== password) {
+      setError("Password doesn't match");
+    } else {
+      setError("");
+    }
+  }
+
+  function validate() {}
+
+  function callAPI() {}
 
   async function handleSubmit(e) {
     e.preventDefault();
-const newUser = {
-  firstName, lastName, email, password, student, teacher
-}
-console.log(student);
-const res = await fetch("http://localhost:3100/api/register",{
- method: "POST",
- body: JSON.stringify(newUser), 
- headers: {
-        "Content-type": "application/json"
+    if (validate()) {
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+        city,
+        country,
+      };
+      callAPI(newUser);
     }
-})
-console.log(res) 
+
+    if (confirmPassword !== password) {
+      alert("Password doesn't match");
+    } else {
+      setConfirmPassword(e.target.value);
+    }
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      password,
+      city,
+      country,
+    };
+    const res = await fetch("http://localhost:3100/api/register/teachers", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
     if (
       password === isValid &&
       password.length > 8 &&
@@ -97,24 +125,6 @@ console.log(res)
           />
         </label>
         <h3>Please select the appropriate box</h3>
-        <label>
-          Student
-          <input
-            type="checkbox"
-            name="student"
-            value={student}
-            onChange={(e) => setStudent(e.target.name)}
-          />
-        </label>
-        <label>
-          Teacher
-          <input
-            type="checkbox"
-            name="Teacher"
-            value={teacher}
-            onChange={(e) => setTeacher(e.target.className)}
-          />
-        </label>
 
         <label>
           <h3>
@@ -140,7 +150,10 @@ console.log(res)
         {/* <p>{`Password is ${isValid ? "" : "not "} valid`}</p> */}
         <button type="submit">Register</button>
       </form>
+      {
+        error ? <h3>{error}</h3> : null // if password matches then you will call set error
+      }
     </div>
   );
-}
-export default RegistrationForm;
+};
+export default TeacherRegistrationForm;
