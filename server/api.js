@@ -127,9 +127,10 @@ router.get("/dashboard/student/:id", function (req, res) {
 
   pool
     .query(
-      `SELECT s.id,s.first_name, s.last_name, g.group_name
-FROM students AS s INNER JOIN groups AS g ON s.groups_id = g.id
-WHERE s.id = $1`,
+      `SELECT s.id,s.first_name,
+              s.last_name, g.group_name
+      FROM students AS s INNER JOIN groups AS g ON s.groups_id = g.id
+      WHERE s.id = $1`,
       [studentId]
     )
     .then((result) => {
