@@ -34,12 +34,9 @@ const StudentDashBoard = () => {
       table_rows.push(
         <tr key={index}>
           <td>{quizInfo.id}</td>
-          <td>
-            {`${quizInfo.first_name} ${quizInfo.last_name}`}
-          </td>
+          <td>{`${quizInfo.first_name} ${quizInfo.last_name}`}</td>
           <td>{quizInfo.group_name}</td>
-          <td>{quiz.first_name}</td>
-          <td>{quiz.last_name}</td>
+          <td>{`${quiz.first_name} ${quiz.last_name}`}</td>
           <td>{quiz.title}</td>
           <td>{quiz.module_name}</td>
           <td>{quiz.date_added}</td>
@@ -69,8 +66,7 @@ const StudentDashBoard = () => {
           <th>#</th>
           <th>Student Name</th>
           <th>Group name</th>
-          <th>Teacher First Name</th>
-          <th>Teacher Last Name</th>
+          <th>Teacher Name</th>
           <th>Quiz title </th>
           <th>Module</th>
           <th>Date added</th>
