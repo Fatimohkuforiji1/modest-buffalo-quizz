@@ -19,28 +19,45 @@ router.get("/quizzes", (_, res) => {
     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
+//---------------------QUIZ DETAILS ROUTE-----------------------------
+router.get("/quizDetails", (req, res) => {
+  const displayQuizzes = `SELECT quiz_description, question, answer 
+FROM quizzes 
+INNER JOIN questions ON quizzes.id = questions.quiz_id
+INNER JOIN answers ON questions.id = answers.question_id`;
+    //  const alignQuiz =[];
+    //  result.rows.forEach((obj) => {
+    //     if(!obj.hasOwnProperty(obj.question)){
+    //       console.log(obj.question);
+    //       alignQuiz.push(obj.question);
+    //     } else{
+    //       obj.question = obj.answer;
+    //     }
+    //  })
+  pool
+    .query(displayQuizzes)
+    // .then(result => res.json(result))
+    .then((result) => res.json(result.rows))
+    .catch((error) => res.send(error));
+});
+
 
 router.post("/register", (req, res) => {
   console.log(req.body)
-  const newRegFirstName = req.body.firstName;
-  const newRegLastName = req.body.lastName;
-  const newRegEmail= req.body.email;
-  const newRegPassword = req.body.password;
-  const newCity = req.body.city;
-  const newCountry = req.body.country;
+  const {firstName, lastName, email, password, city, country} = req.body;
   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
   const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
 
   // if(!regExpression.exec(newRegFirstName)){
   // 	res.status(500).send(error)
   // } else{
-    pool.query(teacherQuery, [newRegFirstName, newRegLastName, newRegEmail, newRegPassword, newCity, newCountry])
+    pool.query(teacherQuery, [firstName, lastName, email, password, city, country])
       .then((result) => res.status(201).json(result.rows[0]))
       .catch((error) => res.status(500).json(error));
  // }
   });
 
-
+//--------------------------------------------------------
 // //routes on login 
 router.post("/login", (req, res) => {
   console.log(req.body);
@@ -62,23 +79,9 @@ router.post("/login", (req, res) => {
         }
          })
        
-      //   if (error){
-      //     res.send(400).json("UserName not found")
-      //   }
-      //   if (result.length > 0){
-      //     res.send(result);
-      //   }else { 
-      //     res.send({Message: "Wrong combination"})
-      //   }
-      // }
+      
   }})
-  //   // .then((result) => {
-  //     if (result.length > 0) {
-  //       res.status(201).json(result)
-  //     } else {
-  //    res.send(500).json("Wrong username/password combination");
-  // }})
-  
+ 
 
 
 
@@ -89,18 +92,7 @@ router.post("/login", (req, res) => {
   
 // });
 
-// router.post("/teacher", (req, res) => {
-//   console.log(req.body)
-//   res.send("message received");
-// });
 
-
-//  //Routes for student
-// router.get("/student", function (req, res) {
-//   console.log(req.body);
-//   res.send("message received");
-  
-// });
 
 // router.post("/student", (req, res) => {
 //   console.log(req.body)
