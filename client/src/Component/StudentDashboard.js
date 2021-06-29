@@ -7,7 +7,7 @@ const StudentDashBoard = () => {
   console.log(quizInfo, "bye");
   
   useEffect(() => {
-    fetch(`http://localhost:3100/api/dashboard/student/2`)
+    fetch(`http://localhost:3100/api/dashboard/student/1`) // hardcode until id is available (global context)
       .then((response) => {
         //  console.log(response, "response from use effect")
         if (response.status === 200) {
