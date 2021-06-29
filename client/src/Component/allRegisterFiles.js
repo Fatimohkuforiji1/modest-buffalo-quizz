@@ -3,8 +3,8 @@ import Header from '../landingPageComponent/Header';
 import LoginForm from './Login'
 // import Register from './Register'
 
-import QuestionMultipleChoice from '../QuizComponent/QuestionMultipleChoice';
-import Quiz from '../QuizComponent/quiz';
+// import QuestionMultipleChoice from '../QuizComponent/QuestionMultipleChoice';
+// import Quiz from '../QuizComponent/quiz';
 
 const AllRegisterFiles = () => {
     return (
