@@ -12,9 +12,7 @@ const StudentRegistrationForm = () => {
   const [error, setError] = useState("");
   const [groups, setGroups] = useState([]);
   const [groupsId, setGroupsId] = useState("");
-  // function passwordMatch(e) {
-  // }
-
+ 
   function passwordMatch(e) {
     setConfirmPassword(e.target.value);
 
