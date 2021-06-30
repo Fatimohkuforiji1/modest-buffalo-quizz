@@ -2,11 +2,9 @@ import { Router } from "express";
 import pool from "./db";
 const router = new Router();
 
-//
-//UTILITY FUNCTIONS
-// SQL QUERIES
 
-//---------------------------READ---------------------------
+//================================================READ================================================
+
 router.get("/", (_, res) => {
   res.json({ message: "Hello, world!" });
 });
@@ -20,105 +18,13 @@ router.get("/quizzes", (_, res) => {
     .catch((error) => res.send(error));
 });
 
-router.post("/register", (req, res) => {
-  console.log(req.body)
-  const newRegFirstName = req.body.firstName;
-  const newRegLastName = req.body.lastName;
-  const newRegEmail= req.body.email;
-  const newRegPassword = req.body.password;
-  const newCity = req.body.city;
-  const newCountry = req.body.country;
-  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
-
-  // if(!regExpression.exec(newRegFirstName)){
-  // 	res.status(500).send(error)
-  // } else{
-    pool.query(teacherQuery, [newRegFirstName, newRegLastName, newRegEmail, newRegPassword, newCity, newCountry])
-      .then((result) => res.status(201).json(result.rows[0]))
-      .catch((error) => res.status(500).json(error));
- // }
-  });
-
-
-// //routes on login 
-router.post("/login", (req, res) => {
-  console.log(req.body);
-  const newEmail = req.body.email;
-  const newPassword = req.body.password;
-  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
-   const regExpression = /(@)(.+)$/;
-
-  // res.send("message received");
-   if(!regExpression.exec(newEmail)){
-  	res.status(500).json({"message" : "Enter correct email/password"})
-  } else{
-    pool.query(teacherLoginQuery)
-        .then((result) =>{
-        res.status(200);
-        const checkLogin = result.rows[0];
-        if(checkLogin.password === newPassword){
-         res.json({"message" : "UserName Valid"});
-        }
-         })
-       
-      //   if (error){
-      //     res.send(400).json("UserName not found")
-      //   }
-      //   if (result.length > 0){
-      //     res.send(result);
-      //   }else { 
-      //     res.send({Message: "Wrong combination"})
-      //   }
-      // }
-  }})
-  //   // .then((result) => {
-  //     if (result.length > 0) {
-  //       res.status(201).json(result)
-  //     } else {
-  //    res.send(500).json("Wrong username/password combination");
-  // }})
-  
-
-
-
-//  //Routes for teacher
-// router.get("/teacher", function (req, res) {
-//   console.log(req.body);
-//   res.send("message received");
-  
-// });
-
-// router.post("/teacher", (req, res) => {
-//   console.log(req.body)
-//   res.send("message received");
-// });
-
-
-//  //Routes for student
-// router.get("/student", function (req, res) {
-//   console.log(req.body);
-//   res.send("message received");
-  
-// });
-
-// router.post("/student", (req, res) => {
-//   console.log(req.body)
-//   res.send("message received");
-// });
-//  //Routes for module
-// router.get("/module", function (req, res) {
-//   console.log(req.body);
-//   res.send("message received");
-  
-// });
+ 
 
 router.get("/students", (_, res) => {
   const sql = `SELECT * FROM students`;
   pool
     .query(sql)
-    // .then(result => res.json(result))
-    .then((data) => res.send(data.rows))
+     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
 
@@ -153,28 +59,10 @@ router.get("/group/:id", function (req, res) {
 });
 
 
-// router.get("/group/:id", function (req, res) {
-//   const groupId = req.params.id;
- 
-//   pool
-//     .query(
-//       `SELECT AVG(sum(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS "total_questions_correct")
-//                       FROM groups As g
-//                       INNER JOIN students As s ON s.groups_id=g.id
-//                       INNER JOIN student_quiz_answers AS qa ON qa.student_id=s.id
-//                       INNER JOIN questions AS qs ON qs.id = qa.question_id
-//                       INNER JOIN quizzes AS z ON qs.quiz_id = z.id
-                      
-//             WHERE g.id =$1
-//             GROUP BY 
-//     `,
-//       [groupId]
-//     )
-//     .then((data) => res.send(data.rows))
-//     .catch((error) => res.send(error));
-// });
 
-// west midlands 3 average pass rate?  + how many took the test? select students one by one
+//---------------------------------------------STUDENT DATA---------------------------------------------
+// NOTE: west midlands 3 average pass rate?  + how many took the test? select students one by one
+
 router.get("/dashboard/student/:id", function (req, res) {
   const studentId = req.params.id;
 
@@ -223,38 +111,61 @@ router.get("/dashboard/student/:id", function (req, res) {
     });
 });
 
-//-------------------------------
 
-//--------------------------WRITE--------------------------
-// router.post("/register", (req, res) => {
-//   console.log(req.body);
-//   const newRegFirstName = req.body.firstName;
-//   const newRegLastName = req.body.lastName;
-//   const newRegEmail = req.body.email;
-//   const newRegPassword = req.body.password;
-//   const newCity = req.body.city;
-//   const newCountry = req.body.country;
-//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-//   // const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
 
-//   // if(!regExpression.exec(newRegFirstName)){
-//   // 	res.status(500).send(error)
-//   // } else{
-//   pool
-//     .query(teacherQuery, [
-//       newRegFirstName,
-//       newRegLastName,
-//       newRegEmail,
-//       newRegPassword,
-//       newCity,
-//       newCountry,
-//     ])
-//     .then((result) => res.status(201).json(result.rows[0]))
-//     .catch((error) => res.status(500).json(error));
-//   // }
-// });
+//=================================================CREATE=================================================
 
-//-----------------------------------------CREATE-----------------------------------------
+router.post("/register", (req, res) => {
+  console.log(req.body);
+  const newRegFirstName = req.body.firstName;
+  const newRegLastName = req.body.lastName;
+  const newRegEmail = req.body.email;
+  const newRegPassword = req.body.password;
+  const newCity = req.body.city;
+  const newCountry = req.body.country;
+  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
+  // if(!regExpression.exec(newRegFirstName)){
+  // 	res.status(500).send(error)
+  // } else{
+  pool
+    .query(teacherQuery, [
+      newRegFirstName,
+      newRegLastName,
+      newRegEmail,
+      newRegPassword,
+      newCity,
+      newCountry,
+    ])
+    .then((result) => res.status(201).json(result.rows[0]))
+    .catch((error) => res.status(500).json(error));
+  // }
+});
+
+
+//------------------------------------------LOGIN------------------------------------------ 
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  const newEmail = req.body.email;
+  const newPassword = req.body.password;
+  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+  const regExpression = /(@)(.+)$/;
+
+  // res.send("message received");
+  if (!regExpression.exec(newEmail)) {
+    res.status(500).json({ message: "Enter correct email/password" });
+  } else {
+    pool.query(teacherLoginQuery).then((result) => {
+      res.status(200);
+      const checkLogin = result.rows[0];
+      if (checkLogin.password === newPassword) {
+        res.json({ message: "UserName Valid" });
+      }
+    });
+  }
+});
+
+//----------------------------------------TEACHER REGISTER---------------------------------------- 
 router.post("/register/teachers", (req, res) => {
   const { firstName, lastName, email, password, city, country } = req.body;
   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
@@ -278,6 +189,8 @@ router.post("/register/teachers", (req, res) => {
     });
 });
 
+//----------------------------------------STUDENT REGISTER---------------------------------------- 
+
 router.post("/register/students", (req, res) => {
   const { firstName, lastName, email, password, groupsId, city, country } =
     req.body;
@@ -300,7 +213,6 @@ router.post("/register/students", (req, res) => {
         });
       }
     })
-    // .catch((error) => res.status(500).json(error));
     .catch((e) => {
       console.error(e.stack);
       res.status(500).send({
@@ -309,7 +221,7 @@ router.post("/register/students", (req, res) => {
       });
     });
 });
-
+// do not remove endpoint belongs to the student register endpoint 
 router.get("/groups", (_, res) => {
   const sql = `SELECT * FROM groups`;
   pool
@@ -318,28 +230,5 @@ router.get("/groups", (_, res) => {
     .catch((error) => res.send(error));
 });
 
-//-----------------------------------------------------------
-// router.get("/dashboard/students", (req, res) => {
-//   const { firstName, lastName, email, password, city, country } = req.body;
-//   const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
-//   pool
-//     .query(studentsQuery, [firstName, lastName, email, password, city, country])
-//     .then((result) => {
-//       if (result.rowCount > 0) {
-//         res.status(201).send({
-//           result: `SUCCESS`,
-//           message: `A new post has been created in the database`,
-//         });
-//       }
-//     })
-//     // .catch((error) => res.status(500).json(error));
-//     .catch((e) => {
-//       console.error(e.stack);
-//       res.status(500).send({
-//         result: `FAILURE`,
-//         message: `FATAL ERROR: Internal Server Error`,
-//       });
-//     });
-// });
 
 export default router;
