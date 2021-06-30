@@ -124,10 +124,7 @@ router.post("/register", (req, res) => {
   const newCity = req.body.city;
   const newCountry = req.body.country;
   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
-  // if(!regExpression.exec(newRegFirstName)){
-  // 	res.status(500).send(error)
-  // } else{
+  
   pool
     .query(teacherQuery, [
       newRegFirstName,
@@ -151,7 +148,6 @@ router.post("/login", (req, res) => {
   const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
   const regExpression = /(@)(.+)$/;
 
-  // res.send("message received");
   if (!regExpression.exec(newEmail)) {
     res.status(500).json({ message: "Enter correct email/password" });
   } else {
