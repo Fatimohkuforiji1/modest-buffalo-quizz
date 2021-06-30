@@ -122,6 +122,59 @@ router.get("/students", (_, res) => {
     .catch((error) => res.send(error));
 });
 
+
+
+router.get("/group/:id", function (req, res) {
+  const groupId = req.params.id;
+
+  pool
+    .query(
+      `SELECT z.id, z.title, z.percentage_pass_rate, COUNT(qs.id) AS quiz_question_count
+        FROM quizzes AS z 
+        INNER JOIN questions AS qs ON z.id = qs.quiz_id
+        GROUP BY z.id, z.title, z.percentage_pass_rate
+        ORDER BY z.id;
+
+      SELECT q.id, g.group_name, s.id,
+        COUNT(qa.id) AS Answered_count,
+        SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count
+      FROM students As s
+      INNER JOIN groups As g ON s.groups_id = g.id              
+      LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
+      INNER JOIN questions AS qs ON qa.question_id = qs.id
+      INNER JOIN quizzes AS q ON qs.quiz_id = q.id
+      WHERE g.id =$1
+      GROUP BY q.id, g.group_name, s.id
+`,
+      [groupId]
+    )
+    .then((data) => res.send(data.rows))
+    .catch((error) => res.send(error));
+});
+
+
+// router.get("/group/:id", function (req, res) {
+//   const groupId = req.params.id;
+ 
+//   pool
+//     .query(
+//       `SELECT AVG(sum(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS "total_questions_correct")
+//                       FROM groups As g
+//                       INNER JOIN students As s ON s.groups_id=g.id
+//                       INNER JOIN student_quiz_answers AS qa ON qa.student_id=s.id
+//                       INNER JOIN questions AS qs ON qs.id = qa.question_id
+//                       INNER JOIN quizzes AS z ON qs.quiz_id = z.id
+                      
+//             WHERE g.id =$1
+//             GROUP BY 
+//     `,
+//       [groupId]
+//     )
+//     .then((data) => res.send(data.rows))
+//     .catch((error) => res.send(error));
+// });
+
+// west midlands 3 average pass rate?  + how many took the test? select students one by one
 router.get("/dashboard/student/:id", function (req, res) {
   const studentId = req.params.id;
 
@@ -140,8 +193,8 @@ router.get("/dashboard/student/:id", function (req, res) {
           message: `student not found in the database`,
         });
       }
-      const query = `SELECT t.first_name, 
-                            t.last_name, 
+      const query = `SELECT t.first_name As teacher_first_name, 
+                            t.last_name As teacher_last_name, 
                             z.title,
                             m.module_name, 
                             z.date_added, 
@@ -266,27 +319,27 @@ router.get("/groups", (_, res) => {
 });
 
 //-----------------------------------------------------------
-router.get("/dashboard/students", (req, res) => {
-  const { firstName, lastName, email, password, city, country } = req.body;
-  const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
-  pool
-    .query(studentsQuery, [firstName, lastName, email, password, city, country])
-    .then((result) => {
-      if (result.rowCount > 0) {
-        res.status(201).send({
-          result: `SUCCESS`,
-          message: `A new post has been created in the database`,
-        });
-      }
-    })
-    // .catch((error) => res.status(500).json(error));
-    .catch((e) => {
-      console.error(e.stack);
-      res.status(500).send({
-        result: `FAILURE`,
-        message: `FATAL ERROR: Internal Server Error`,
-      });
-    });
-});
+// router.get("/dashboard/students", (req, res) => {
+//   const { firstName, lastName, email, password, city, country } = req.body;
+//   const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
+//   pool
+//     .query(studentsQuery, [firstName, lastName, email, password, city, country])
+//     .then((result) => {
+//       if (result.rowCount > 0) {
+//         res.status(201).send({
+//           result: `SUCCESS`,
+//           message: `A new post has been created in the database`,
+//         });
+//       }
+//     })
+//     // .catch((error) => res.status(500).json(error));
+//     .catch((e) => {
+//       console.error(e.stack);
+//       res.status(500).send({
+//         result: `FAILURE`,
+//         message: `FATAL ERROR: Internal Server Error`,
+//       });
+//     });
+// });
 
 export default router;
