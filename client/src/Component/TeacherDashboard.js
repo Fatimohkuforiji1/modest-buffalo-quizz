@@ -5,9 +5,9 @@ import { Table } from "react-bootstrap";
 ///dashboard/teacher/:id
 const TeacherDashboard = () => {
   const [groupQuizInfo, setGroupQuizInfo] = useState([]);
-
+  console.log(groupQuizInfo);
   useEffect(() => {
-    fetch(`http://localhost:3100/api/dashboard/teacher/1`)
+    fetch(`http://localhost:3100/api/teacher/1`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -17,12 +17,13 @@ const TeacherDashboard = () => {
       })
       .then((data) => {
         setGroupQuizInfo(data);
+        console.log(setGroupQuizInfo(data));
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
-
+  
   const table_rows = [];
   if (groupQuizInfo && groupQuizInfo.quizzes) {
     for (let index = 0; index < groupQuizInfo.quizzes.length; index++) {
