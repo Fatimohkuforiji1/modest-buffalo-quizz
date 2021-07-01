@@ -2,6 +2,8 @@ INSERT INTO students (first_name, last_name, email,user_password, groups_id, cit
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Sara Sally','Smith-Jackson','sssj@gmail.com','jh9HSKU9-9h',1,'Birmigham','UK');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('John','Smith','js@gmail.com','b-tsg-shsh-js',1,'Dudley','UK');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('Samuel Jacob','Adams','sja@yahoo.com','b-REEK-91191',1,'Coventry','UK');
+INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('Joe Bloggs','Doe','jbd@yahoo.com','b-REEK-9dd1',1,'Wolverhampton','UK');
+
 
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Arno James','Johnson','ajj@yahoo.com','bhj726gvabmUgv',2,'Cape Town','South Africa');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Samantha Jasmine','Gordana','ajj@yahoo.com','bhj726gvabmUgv',2,'Cape Town','South Africa');
