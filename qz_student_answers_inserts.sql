@@ -119,19 +119,22 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(6,12,'Apple',true);
 
 
------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 --JavaScript 
 --A1 JS 
+--West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,1,'ESLint',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,2,'RequireJS',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,3,'RequireJS',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,4,'RequireJS',false);
 
+--South Africa
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,5,'ESLint',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,6,'ESLint',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,7,'ESLint',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,8,'RequireJS',false);
 
+--Palestine
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,9,'ESLint',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,10,'RequireJS',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,11,'ESLint',true);
@@ -139,16 +142,19 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 
 
 --A2 JS 
+--West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,1,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,2'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,3,'Sheryl Sandberg',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,4,'Robert W Clarke',false);
 
+--South Africa
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,5,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,6,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,7,'Sheryl Sandberg',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,8,'Robert W Clarke',false);
 
+--Palestine
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,9,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,10,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,11,'Robert W Clarke',false);
@@ -156,16 +162,19 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 
 
 --A3 JS  
+--West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,1,'npm',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,2,'Node.js',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,3,'Node.js',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,4,'Node.js',false);
 
+--South Africa 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,5,'npm',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,6,'Node.js',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,7,'Node.js',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,8,'Node.js',false);
 
+--Palestine
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,9,'npm',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,10,'npm',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,11,'npm',true);
@@ -173,16 +182,19 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 
 
 --A4 JS
+--West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,1,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,2,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,3,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,4,'str',true);
 
+--South Africa 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,5,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,6,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,7,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,8,'str',true);
 
+--Palestine 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,9,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,10,'str',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,11,'str',true);
@@ -190,16 +202,19 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 
 
 --A5 JS 
+--West Midlands 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,1,'JavaScript Object Notation',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,2,'JavaScript Orientated Notation',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,3,'JavaScript Object Notation',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,4,'JavaScript Orientated Notation',false);
 
+--South Africa 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,5,'JavaScript Object Notation',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,6,'JavaScript Orientated Notation',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,7,'JavaScript Orientated Notation',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,8,'JavaScript Object Notation',true);
 
+--Palestine
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,9,'JavaScript Orientated Notation',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,10,'JavaScript Orientated Notation',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,11,'JavaScript Object Notation',true);
@@ -207,19 +222,20 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 
 
 --A6 JS
+--West Midlands 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,1,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,2,'`book`',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,3,'`book`',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,4,'`book`',false);
 
+--South Africa
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,5,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,6,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,4,'`book`',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,8,'^book^',true);
 
+--Palestine 
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,9,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,10,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,11,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,12,'^book^',true);
-
-
