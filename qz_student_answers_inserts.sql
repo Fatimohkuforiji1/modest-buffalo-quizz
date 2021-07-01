@@ -1,3 +1,4 @@
+DELETE FROM student_quiz_answers;
 --React 
 -- A1 React
 -- West Midlands
@@ -13,10 +14,10 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,8,'PHP',false);
 
 -- Palestine
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,8,'python',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,8,'PHP',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,8,'JavaScript',true);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,8,'JavaScript',true);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,9,'python',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,10,'PHP',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,11,'JavaScript',true);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,12,'JavaScript',true);
 
 
 --A2 React
@@ -82,21 +83,21 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 --A5 React
 -- West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,2,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,3,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,4,'A power adaptor',false);
 
 -- South Africa
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,5,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,6,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,7,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,8,'A power adaptor',false);
 
 -- Palestine
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,9,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,10,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,11,'A power adaptor',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,12,'A power adaptor',false);
 
 
 --A6 React
@@ -144,7 +145,7 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 --A2 JS 
 --West Midlands
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,1,'Brendan Eich',true);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,2'Brendan Eich',true);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,2,'Brendan Eich',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,3,'Sheryl Sandberg',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,4,'Robert W Clarke',false);
 
