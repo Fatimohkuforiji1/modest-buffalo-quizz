@@ -9,7 +9,7 @@ import Login from "./Component/Login"
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
-// import TeacherDashboard from "./Component/TeacherDashboard";
+import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 
 
@@ -20,7 +20,7 @@ const App = () => {
 return (
   <Switch>
     <Layout>
-     {isAuthenticated ? (
+      {isAuthenticated ? (
         <>
           <Route path="/protected" exact>
             <Home />
@@ -43,16 +43,20 @@ return (
           <Route path="/" exact>
             <Home />
           </Route>
-            <Route path="/register/teacher">
+          <Route path="/register/teacher">
             <TeacherRegistrationForm />
           </Route>
 
           <Route path="/register/student">
             <StudentRegistrationForm />
-            </Route>
-            
+          </Route>
+
           <Route path="/dashboard/student">
             <StudentDashboard />
+          </Route>
+
+          <Route path="/dashboard/teacher">
+            <TeacherDashboard />
           </Route>
         </>
       )}
