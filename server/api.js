@@ -28,40 +28,64 @@ router.get("/students", (_, res) => {
     .catch((error) => res.send(error));
 });
 
+//-------------------------------------------TEACHER------------------------------------------- 
+// NOTE: west midlands 3 average pass rate?  + how many took the test? select students one by one
+
+// divide correct by the total multiply by 100 for percentage
+// compare result with pass mark 
+// do this is javaScript
+// how many qs in the current quiz
 
 
-router.get("/group/:id", function (req, res) {
+// single student single quiz summary name q name rows for questions
+// student answer correct answer tick and cross 
+
+// single quiz q title pass mark percentage , single q single group west midland 3 pass mark student name questions answers  tick cross  for each student 
+// total mark passed and work out the percentage which has passed using javascript 
+// students n , hover over crosses 
+// most incorrect answer 
+
+// create some components basic styling
+// add dummy data
+// fetch data 
+
+// get merge 
+// create a dummy json object to run some data calls 
+router.get("/dashboard/teacher/:id", function (req, res) {
   const groupId = req.params.id;
-
   pool
     .query(
       `SELECT z.id, z.title, z.percentage_pass_rate, COUNT(qs.id) AS quiz_question_count
         FROM quizzes AS z 
         INNER JOIN questions AS qs ON z.id = qs.quiz_id
         GROUP BY z.id, z.title, z.percentage_pass_rate
-        ORDER BY z.id;
-
-      SELECT q.id, g.group_name, s.id,
-        COUNT(qa.id) AS Answered_count,
-        SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count
-      FROM students As s
-      INNER JOIN groups As g ON s.groups_id = g.id              
-      LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
-      INNER JOIN questions AS qs ON qa.question_id = qs.id
-      INNER JOIN quizzes AS q ON qs.quiz_id = q.id
-      WHERE g.id =$1
-      GROUP BY q.id, g.group_name, s.id
-`,
-      [groupId]
+        ORDER BY z.id;`
     )
-    .then((data) => res.send(data.rows))
+    .then(data => {
+      pool
+      .query(
+        `SELECT q.id As "quiz id", g.group_name, s.id As "student id",
+          COUNT(qa.id) AS Answered_count,
+          SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count
+        FROM students As s
+        INNER JOIN groups As g ON s.groups_id = g.id              
+        LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
+        INNER JOIN questions AS qs ON qa.question_id = qs.id
+        INNER JOIN quizzes AS q ON qs.quiz_id = q.id
+        WHERE g.id =$1
+        GROUP BY q.id, g.group_name, s.id`, [groupId]
+      )
+      .then(data2 => {
+        const dataAll = { "quiz information": data.rows, "group results": data2.rows };
+        res.send(dataAll);
+      })
+    })
     .catch((error) => res.send(error));
 });
 
 
 
 //---------------------------------------------STUDENT DATA---------------------------------------------
-// NOTE: west midlands 3 average pass rate?  + how many took the test? select students one by one
 
 router.get("/dashboard/student/:id", function (req, res) {
   const studentId = req.params.id;
