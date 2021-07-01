@@ -21,25 +21,58 @@ router.get("/quizzes", (_, res) => {
 });
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 router.get("/quizDetails", (req, res) => {
+
   const displayQuizzes = `SELECT quiz_description, question, answer 
 FROM quizzes 
 INNER JOIN questions ON quizzes.id = questions.quiz_id
 INNER JOIN answers ON questions.id = answers.question_id`;
-    //  const alignQuiz =[];
-    //  result.rows.forEach((obj) => {
-    //     if(!obj.hasOwnProperty(obj.question)){
-    //       console.log(obj.question);
-    //       alignQuiz.push(obj.question);
-    //     } else{
-    //       obj.question = obj.answer;
-    //     }
-    //  })
-  pool
-    .query(displayQuizzes)
-    // .then(result => res.json(result))
-    .then((result) => res.json(result.rows))
-    .catch((error) => res.send(error));
+pool
+  .query(displayQuizzes)
+  // .then(result => res.json(result))
+  .then((result) => {  
+    res.status(200).json(result.rows)
+  }).catch((error) => res.send(error));
 });
+
+//----------------------------get correct answer route-------------------
+
+router.get("/answers", (req, res) => {
+  const getAnswers = `select student_answer, correct_answer from questions 
+inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
+  console.log(getAnswers);
+  pool.query(getAnswers)
+    .then((result) => res.json(result.rows))
+    .catch((error) => res.status(500).send(error));
+});
+//--------------------------module route -------------------------------
+router.get("/modules", (req, res) => {
+  const getModules = `SELECT * FROM modules`;
+    // console.log(getModule);
+  // if(getModules === 'React'){
+  //   res.send(result.rows[0])
+  // } 
+    pool.query(getModules)
+    .then((result) => {
+      const rows = result.rows;
+      const moduleNames = rows.map((row) => {
+        return row.module_name
+      });
+      res.send(moduleNames)
+    })
+    .catch((error) => res.status(500).send(error));
+});
+//-------------------------------------------quiz question and answer-----------------
+router.get("/questions", (req, res) => {
+  const getQuestion = `SELECT * FROM questions;`
+  // const getAnswers = `SELECT * FROM answers where id = $1;`
+  pool
+    .query(getQuestion)
+    .then((result) => res.send(result.rows))
+    .catch((error) => res.status(500).send(error));
+});
+
+
+
 
 
 router.post("/register", (req, res) => {
@@ -82,16 +115,6 @@ router.post("/login", (req, res) => {
       
   }})
  
-
-
-
-//  //Routes for teacher
-// router.get("/teacher", function (req, res) {
-//   console.log(req.body);
-//   res.send("message received");
-  
-// });
-
 
 
 // router.post("/student", (req, res) => {
