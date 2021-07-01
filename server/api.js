@@ -53,28 +53,59 @@ router.get("/students", (_, res) => {
 // create a dummy json object to run some data calls 
 
 /*
-
+By student
 SELECT z.id, z.title, z.percentage_pass_rate, COUNT(qs.id) AS quiz_question_count
         FROM quizzes AS z 
         INNER JOIN questions AS qs ON z.id = qs.quiz_id
         GROUP BY z.id, z.title, z.percentage_pass_rate
         ORDER BY z.id;
 
-      SELECT q.id, g.group_name, s.id,
+      SELECT q.id As quiz_id, g.group_name, s.id As student_id,
         COUNT(qa.id) AS Answered_count,
         SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count,
-        ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id))) As result_percentage
-      FROM students As s
+        ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id))) As result_percentage,
+        (CASE WHEN ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id)))> q.percentage_pass_rate THEN 1 ELSE 0 END ) As Has_passed, 
+      q.percentage_pass_rate,
+      (SELECT COUNT(*)FROM questions WHERE quiz_id=q.id)As number_of_questions,
+      (CASE WHEN COUNT(qa.id)=(SELECT COUNT(*)FROM questions WHERE quiz_id=q.id) THEN 1 ELSE 0 END) AS completed_quiz
+     FROM students As s
       INNER JOIN groups As g ON s.groups_id = g.id              
       LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
       INNER JOIN questions AS qs ON qa.question_id = qs.id
       INNER JOIN quizzes AS q ON qs.quiz_id = q.id
-      WHERE g.id =1
+      WHERE s.id =1
       GROUP BY q.id, g.group_name, s.id;
-	
 */
 
+/** */
 
+router.get("/student/:id/quizzes", function (req, res) {
+  const studentId = req.params.id;
+  
+  pool
+    .query(
+      ` SELECT q.id As quiz_id, g.group_name, s.id As student_id,
+          COUNT(qa.id) AS Answered_count,
+          SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count,
+          ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id))) As result_percentage,
+          (CASE WHEN ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id)))> q.percentage_pass_rate THEN 1 ELSE 0 END ) As Has_passed, 
+          q.percentage_pass_rate,
+          (SELECT COUNT(*)FROM questions WHERE quiz_id=q.id)As number_of_questions,
+          (CASE WHEN COUNT(qa.id)=(SELECT COUNT(*)FROM questions WHERE quiz_id=q.id) THEN 1 ELSE 0 END) AS completed_quiz
+     FROM students As s
+          INNER JOIN groups As g ON s.groups_id = g.id              
+          LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
+          INNER JOIN questions AS qs ON qa.question_id = qs.id
+          INNER JOIN quizzes AS q ON qs.quiz_id = q.id
+          WHERE s.id =$1
+      GROUP BY q.id, g.group_name, s.id; `,
+      [studentId]
+    )
+    .then((data) => {
+      res.send(data.rows);
+    })
+    .catch((error) => res.send(error));
+})
 
 router.get("/teacher/:id", function (req, res) {
   const groupId = req.params.id;
