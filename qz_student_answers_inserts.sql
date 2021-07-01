@@ -232,7 +232,7 @@ INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_cor
 --South Africa
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,5,'^book^',true);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,6,'^book^',true);
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,4,'`book`',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,7,'`book`',false);
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,8,'^book^',true);
 
 --Palestine 
