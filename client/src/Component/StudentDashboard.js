@@ -36,7 +36,7 @@ const StudentDashBoard = () => {
           <td>{quizInfo.id}</td>
           <td>{`${quizInfo.first_name} ${quizInfo.last_name}`}</td>
           <td>{quizInfo.group_name}</td>
-          <td>{`${quiz.first_name} ${quiz.last_name}`}</td>
+          <td>{`${quiz.teacher_first_name} ${quiz.teacher_last_name}`}</td>
           <td>{quiz.title}</td>
           <td>{quiz.module_name}</td>
           <td>{quiz.date_added}</td>
@@ -63,7 +63,7 @@ const StudentDashBoard = () => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
+          <th>Student ID</th>
           <th>Student Name</th>
           <th>Group name</th>
           <th>Teacher Name</th>
