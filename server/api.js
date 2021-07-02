@@ -18,8 +18,6 @@ router.get("/quizzes", (_, res) => {
     .catch((error) => res.send(error));
 });
 
- 
-
 router.get("/students", (_, res) => {
   const sql = `SELECT * FROM students`;
   pool
@@ -36,7 +34,6 @@ router.get("/students", (_, res) => {
 // do this is javaScript
 // how many qs in the current quiz
 
-
 // single student single quiz summary name q name rows for questions
 // student answer correct answer tick and cross 
 
@@ -52,32 +49,8 @@ router.get("/students", (_, res) => {
 // get merge 
 // create a dummy json object to run some data calls 
 
-/*
-By student
-SELECT z.id, z.title, z.percentage_pass_rate, COUNT(qs.id) AS quiz_question_count
-        FROM quizzes AS z 
-        INNER JOIN questions AS qs ON z.id = qs.quiz_id
-        GROUP BY z.id, z.title, z.percentage_pass_rate
-        ORDER BY z.id;
-
-      SELECT q.id As quiz_id, g.group_name, s.id As student_id,
-        COUNT(qa.id) AS Answered_count,
-        SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count,
-        ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id))) As result_percentage,
-        (CASE WHEN ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id)))> q.percentage_pass_rate THEN 1 ELSE 0 END ) As Has_passed, 
-      q.percentage_pass_rate,
-      (SELECT COUNT(*)FROM questions WHERE quiz_id=q.id)As number_of_questions,
-      (CASE WHEN COUNT(qa.id)=(SELECT COUNT(*)FROM questions WHERE quiz_id=q.id) THEN 1 ELSE 0 END) AS completed_quiz
-     FROM students As s
-      INNER JOIN groups As g ON s.groups_id = g.id              
-      LEFT JOIN student_quiz_answers AS qa ON s.id = qa.student_id
-      INNER JOIN questions AS qs ON qa.question_id = qs.id
-      INNER JOIN quizzes AS q ON qs.quiz_id = q.id
-      WHERE s.id =1
-      GROUP BY q.id, g.group_name, s.id;
-*/
-
-/** */
+//--------------------------------------QUIZ_DATA_PER_STUDENT--------------------------------------
+//Summative result of quiz data 
 
 router.get("/student/:id/quizzes", function (req, res) {
   const studentId = req.params.id;
@@ -106,6 +79,8 @@ router.get("/student/:id/quizzes", function (req, res) {
     })
     .catch((error) => res.send(error));
 })
+
+//-----------------------------------------GROUPS_BY_TEACHER-----------------------------------------
 
 router.get("/teacher/:id", function (req, res) {
   const groupId = req.params.id;
@@ -149,8 +124,8 @@ router.get("/teacher/:id", function (req, res) {
 });
 
 
-
-//---------------------------------------------STUDENT DATA---------------------------------------------
+//---------------------------------------------STUDENT_DATA_FOR_CLIENT_DASHBOARD---------------------------------------------
+//DO NOT DELETE ENDPOINT 
 
 router.get("/dashboard/student/:id", function (req, res) {
   const studentId = req.params.id;
@@ -204,32 +179,7 @@ router.get("/dashboard/student/:id", function (req, res) {
 
 //=================================================CREATE=================================================
 
-router.post("/register", (req, res) => {
-  console.log(req.body);
-  const newRegFirstName = req.body.firstName;
-  const newRegLastName = req.body.lastName;
-  const newRegEmail = req.body.email;
-  const newRegPassword = req.body.password;
-  const newCity = req.body.city;
-  const newCountry = req.body.country;
-  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-  
-  pool
-    .query(teacherQuery, [
-      newRegFirstName,
-      newRegLastName,
-      newRegEmail,
-      newRegPassword,
-      newCity,
-      newCountry,
-    ])
-    .then((result) => res.status(201).json(result.rows[0]))
-    .catch((error) => res.status(500).json(error));
-  // }
-});
-
-
-//------------------------------------------LOGIN------------------------------------------ 
+//---------------------------------------------LOGIN--------------------------------------------- 
 router.post("/login", (req, res) => {
   console.log(req.body);
   const newEmail = req.body.email;
@@ -249,6 +199,7 @@ router.post("/login", (req, res) => {
     });
   }
 });
+
 
 //----------------------------------------TEACHER REGISTER---------------------------------------- 
 router.post("/register/teachers", (req, res) => {
@@ -275,7 +226,6 @@ router.post("/register/teachers", (req, res) => {
 });
 
 //----------------------------------------STUDENT REGISTER---------------------------------------- 
-
 router.post("/register/students", (req, res) => {
   const { firstName, lastName, email, password, groupsId, city, country } =
     req.body;
