@@ -95,7 +95,7 @@ router.get("/teacher/:id", function (req, res) {
     .then(data => {
       pool
         .query(
-          ` SELECT q.id As quiz_id, g.group_name, s.id As student_id,
+          ` SELECT q.id As quiz_id, g.group_name, s.id As student_id, s.first_name As student_first_name, s.last_name As student_last_name,
         COUNT(qa.id) AS Answered_count,
         SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END) AS correct_count,
         ((SUM(CASE WHEN qa.is_correct THEN 1 ELSE 0 END)*100/COUNT(qa.id))) As result_percentage,
