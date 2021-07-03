@@ -5,9 +5,9 @@ import { Table } from "react-bootstrap";
 const StudentDashBoard = () => {
   const [quizInfo, setQuizInfo] = useState([]);
   console.log(quizInfo, "bye");
-  
+
   useEffect(() => {
-    fetch(`http://localhost:3100/api/dashboard/student/1`) // hardcode until id is available (global context)
+    fetch(`http://localhost:3100/api/student/1/quizzes`) // hardcode until id is available (global context)
       .then((response) => {
         //  console.log(response, "response from use effect")
         if (response.status === 200) {
@@ -24,29 +24,33 @@ const StudentDashBoard = () => {
         //return <h2>Error Encountered</h2>
       });
   }, []);
-   console.log("QI",quizInfo)
+  console.log("QI", quizInfo);
 
   //code stolen from https://flaviocopes.com/react-how-to-loop/ (brent)
   const table_rows = [];
-  if(quizInfo && quizInfo.quizzes) {
-    for (let index = 0; index < quizInfo.quizzes.length; index++) {
-      const quiz = quizInfo.quizzes[index];
+  if (quizInfo) {
+    for (let index = 0; index < quizInfo.length; index++) {
+      const quiz = quizInfo[index];
+
+      let passed_value = "PASSED";
+      if (quiz.has_passed === 0) {
+        passed_value = "FAILED";
+      }
+    
       table_rows.push(
         <tr key={index}>
-          <td>{quizInfo.id}</td>
-          <td>{`${quizInfo.first_name} ${quizInfo.last_name}`}</td>
-          <td>{quizInfo.group_name}</td>
-          <td>{`${quiz.teacher_first_name} ${quiz.teacher_last_name}`}</td>
+          <td>{quiz.group_name}</td>
           <td>{quiz.title}</td>
-          <td>{quiz.module_name}</td>
           <td>{quiz.date_added}</td>
-          <td>{quiz.total_questions_correct}</td>
-          <td>{quiz.total_questions_answered}</td>
+          <td>{quiz.correct_count}</td>
+          <td>{quiz.answered_count}</td>
+          <td>{quiz.result_percentage}%</td>
+          <td>{passed_value}</td>
         </tr>
       );
     }
   }
-  
+
   /*
 
   if(x > 0) {
@@ -60,22 +64,31 @@ const StudentDashBoard = () => {
   */
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Student ID</th>
-          <th>Student Name</th>
-          <th>Group name</th>
-          <th>Teacher Name</th>
-          <th>Quiz title </th>
-          <th>Module</th>
-          <th>Date added</th>
-          <th>Total Correct </th>
-          <th>Total Answered </th>
-        </tr>
-      </thead>
-      <tbody>
-        {/* {console.log(Array.isArray(quizInfo))}
+    <>
+      {
+        /* Googled for "react return ternary" 
+        https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator */
+        quizInfo && quizInfo.length > 0 && (
+          <h2>
+            {quizInfo[0].student_first_name} {quizInfo[0].student_last_name}'s
+            Quizzes
+          </h2>
+        )
+      }
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Group Name</th>
+            <th>Quiz Title </th>
+            <th>Date Added</th>
+            <th>Total Correct </th>
+            <th>Total Answered </th>
+            <th>Pass Rate</th>
+            <th>Has Passed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* {console.log(Array.isArray(quizInfo))}
          {quizInfo.length <= 0 ? 
         <td>Loading.... </td>
         :     quizInfo.map((info,index) => {
@@ -84,11 +97,11 @@ const StudentDashBoard = () => {
           </tr>
         })
       } */}
-        {/* {console.log(typeof quizInfo, "quizInfo")} */}
-        {console.log("quizzes", quizInfo)}
-        {table_rows}
-        {/* //this is what we had when we started */}
-        {/* <tr>
+          {/* {console.log(typeof quizInfo, "quizInfo")} */}
+          {console.log("quizzes", quizInfo)}
+          {table_rows}
+          {/* //this is what we had when we started */}
+          {/* <tr>
           <td>{quizInfo.id}</td>
           <td>{quizInfo.first_name}</td>
           <td>{quizInfo.last_name}</td>
@@ -100,7 +113,7 @@ const StudentDashBoard = () => {
           <td>{quizInfo.sum}</td>
           <td>{quizInfo.count}</td>
         </tr> */}
-        {/* <tr>
+          {/* <tr>
           <td>3</td>
           <td colSpan="2">Larry the Bird</td>
           <td>@twitter</td>
@@ -111,8 +124,9 @@ const StudentDashBoard = () => {
           <td></td>
           <td></td>
         </tr> */}
-      </tbody>
-    </Table>
+        </tbody>
+      </Table>
+    </>
   );
 };
 
