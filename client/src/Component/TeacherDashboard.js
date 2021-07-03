@@ -48,9 +48,9 @@ const TeacherDashboard = () => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Student ID</th>
-          <th>Student Name</th>
-          <th>Group name</th>
+          <th>Group Name</th>
+          <th>Student full name</th>
+          <th>Quiz title </th>
           <th>Teacher Name</th>
           <th>Quiz title </th>
           <th>Module</th>
