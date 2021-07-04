@@ -25,20 +25,23 @@ const TeacherDashboard = () => {
   }, []);
   
   const table_rows = [];
-  if (groupQuizInfo && groupQuizInfo.quizzes) {
-    for (let index = 0; index < groupQuizInfo.quizzes.length; index++) {
-      const quiz = groupQuizInfo.quizzes[index];
+  if (groupQuizInfo && groupQuizInfo.quiz_information) {
+    for (let index = 0; index < groupQuizInfo.quiz_information.length; index++) {
+      const quiz = groupQuizInfo.quiz_information[index];
       table_rows.push(
         <tr key={index}>
+          <td>{groupQuizInfo.group_name}</td>
           <td>{groupQuizInfo.id}</td>
           <td>{`${groupQuizInfo.first_name} ${groupQuizInfo.last_name}`}</td>
-          <td>{groupQuizInfo.group_name}</td>
-          <td>{`${quiz.teacher_first_name} ${quiz.teacher_last_name}`}</td>
+          <td>{`${quiz.student_first_name} ${quiz.student_last_name}`}</td>
           <td>{quiz.title}</td>
           <td>{quiz.module_name}</td>
           <td>{quiz.date_added}</td>
           <td>{quiz.total_questions_correct}</td>
           <td>{quiz.total_questions_answered}</td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       );
     }
@@ -50,13 +53,13 @@ const TeacherDashboard = () => {
         <tr>
           <th>Group Name</th>
           <th>Student full name</th>
-          <th>Quiz title </th>
-          <th>Teacher Name</th>
-          <th>Quiz title </th>
-          <th>Module</th>
+          <th>Module Name</th>
+          <th>Quiz title</th>
           <th>Date added</th>
-          <th>Total Correct </th>
-          <th>Total Answered </th>
+          <th>Result percentage</th>
+          <th>Percentage pass</th>
+          <th>Has passed</th>
+          <th>Completed quiz</th>
         </tr>
       </thead>
       <tbody>{table_rows}</tbody>
