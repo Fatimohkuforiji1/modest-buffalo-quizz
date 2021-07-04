@@ -7,7 +7,6 @@ function LoginForm() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  
   const Login = (details) => {
     if (details.email === user.email && details.password === user.password) {
       console.log("Logged in");

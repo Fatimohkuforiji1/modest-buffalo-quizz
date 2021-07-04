@@ -2,6 +2,8 @@ INSERT INTO students (first_name, last_name, email,user_password, groups_id, cit
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Sara Sally','Smith-Jackson','sssj@gmail.com','jh9HSKU9-9h',1,'Birmigham','UK');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('John','Smith','js@gmail.com','b-tsg-shsh-js',1,'Dudley','UK');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('Samuel Jacob','Adams','sja@yahoo.com','b-REEK-91191',1,'Coventry','UK');
+INSERT INTO students (first_name, last_name, email,user_password, groups_id, city,country) VALUES ('Joe Bloggs','Doe','jbd@yahoo.com','b-REEK-9dd1',1,'Wolverhampton','UK');
+
 
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Arno James','Johnson','ajj@yahoo.com','bhj726gvabmUgv',2,'Cape Town','South Africa');
 INSERT INTO students (first_name, last_name, email,user_password, groups_id, city, country) VALUES ('Samantha Jasmine','Gordana','ajj@yahoo.com','bhj726gvabmUgv',2,'Cape Town','South Africa');
@@ -35,53 +37,3 @@ INSERT INTO groups (group_name) VALUES ('West Midlands 3');
 INSERT INTO groups (group_name) VALUES ('South Africa 2');
 INSERT INTO groups (group_name) VALUES ('Palestine 1');
 
-
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class','testURL.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('What programming lanugage does React use?',1,'JavaScript');
-INSERT INTO answers (question_id,answer) VALUES (1, 'python');
-INSERT INTO answers (question_id,answer) VALUES (1, 'C#');
-INSERT INTO answers (question_id,answer) VALUES (1, 'PHP');
-INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 2','testURL2.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which one of these names is not a programming language?',1,'Lobo');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Python');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Lobo');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Java');
-INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'Lobo',true);
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which person is not related to technology?',1,'John Mayor');
-INSERT INTO answers (question_id,answer) VALUES (1, 'John Mayjor');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Bill Gates');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Steve Jobs');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Todd Howard');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'John Mayjor',true);
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which of these is not a gaming console?',1,'Lynx X');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Playstation 5');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Lynx X');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Xbox X 360');
-INSERT INTO answers (question_id,answer) VALUES (1, 'Nintendo Switch');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'Lynx X',true);
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which item in the list is not a computer accessary?',1,'A comb');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A comb');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A computer Keyboard');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A power adaptor');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A compuer monitor');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'A power adaptor',false);
-
-
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Wha',1,'A comb');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A comb');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A computer Keyboard');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A power adaptor');
-INSERT INTO answers (question_id,answer) VALUES (1, 'A compuer monitor');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'A power adaptor',false);

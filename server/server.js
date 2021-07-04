@@ -1,5 +1,4 @@
 import http from "http";
-import {Pool} from "pg";
 import app from "./app";
 import "dotenv/config";
 
