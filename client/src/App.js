@@ -4,6 +4,8 @@ import { AuthContext } from "./Context/AuthContext";
 import {Route, Switch } from "react-router-dom";
 import "./App.css";
 import About from "./Pages/Home/About";
+import MainHome from "./pages/MainHome";
+import LoginForm from "./Component/LoginForm"
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
@@ -13,6 +15,7 @@ import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
+import QuizData from "./QuizComponent/QuizData";
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -71,9 +74,15 @@ console.log(name)
                 <Result score={score} name={name} />
               </Route>
 
-                <Route path="/" exact>
-                  <Home />
-                </Route>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/" exact>
+                <LoginForm />
+              </Route>
+              <Route path="/" exact>
+                <MainHome/>
+              </Route>
 
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
@@ -86,15 +95,14 @@ console.log(name)
               <Route path="/dashboard/student">
                 <StudentDashboard />
               </Route>
-                  <Route path="/dashboard/teacher">
-                  <TeacherDashboard />
-                </Route>
+              <Route path="/dashboard/teacher">
+                <TeacherDashboard />
+              </Route>
             </>
           )}
         </Layout>
       </Switch>
     </div>
-
   );
 };
 export default App;

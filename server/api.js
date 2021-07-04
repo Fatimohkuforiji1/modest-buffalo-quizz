@@ -17,37 +17,131 @@ router.get("/quizzes", (_, res) => {
     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
+//---------------------QUIZ DETAILS ROUTE-----------------------------
+router.get("/quizDetails", (req, res) => {
 
-router.get("/students", (_, res) => {
-  const sql = `SELECT * FROM students`;
-  pool
-    .query(sql)
-     .then((data) => res.send(data.rows))
-    .catch((error) => res.send(error));
+  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer 
+FROM quizzes 
+INNER JOIN questions ON quizzes.id = questions.quiz_id
+INNER JOIN answers ON questions.id = answers.question_id`;
+pool
+  .query(displayQuizzes)
+  // .then(result => res.json(result))
+  .then((result) => {  
+    res.status(200).json(result.rows)
+  }).catch((error) => res.send(error));
 });
 
-//-------------------------------------------TEACHER------------------------------------------- 
-// NOTE: west midlands 3 average pass rate?  + how many took the test? select students one by one
+//----------------------------post answer route-------------------
+let stdtAnswerCheck;
+let correctAnswerCheck;
+// `select student_answer, correct_answer from questions 
+// inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
+router.post("/answer", (req, res) => {
+  res.status(200).json(req.body)
+  
 
-// divide correct by the total multiply by 100 for percentage
-// compare percentage result with pass mark 
-// do this is javaScript
-// how many qs in the current quiz
+  // pool.query(getAnswers)
+      
+  //   then((result)=> console.log(result.rows))
+  //   //   result.rows.map((obj)=>{
+  //   //   correctAnswerCheck = [obj.correct_answer]; 
+  //   //   })
+     
+  //   //  console.log(correctAnswerCheck);
+  //  .catch((error) => res.status(500).send(error));
+});
 
-// single student single quiz summary name q name rows for questions
-// student answer correct answer tick and cross 
 
-// single quiz q title pass mark percentage , single q single group west midland 3 pass mark student name questions answers  tick cross  for each student 
-// total mark passed and work out the percentage which has passed using javascript 
-// students n , hover over crosses 
-// most incorrect answer 
+///------------------------------post route to get save student answers----
+// router.put("/savestudentanswers", async (req, res) =>{
+//   let correctAnswer ;
+//   const {questionId, studentId, studentAnswer} = req.body;
+//   const getAnswers = `SELECT correct_answer FROM questions WHERE question.id = '${questionId}' `;
+//   await pool.query(getAnswers)
+//             .then((result)=>{correctAnswer = result.rows
 
-// create some components basic styling
-// add dummy data
-// fetch data 
+//             })
+//   console.log(correctAnswer)
 
-// get merge 
-// create a dummy json object to run some data calls 
+//   const answersQuery = `(UPDATE student_quiz_answers SET student_answer=$1 WHERE question_id = $2,student_id=$3
+//     AND is_correct = $4)`;
+//   pool.query(answersQuery, [questionId, studentId,studentAnswer])
+//       .then((result)=> res.json(result.rows))
+// })
+
+
+//--------------------------module route -------------------------------
+router.get("/modules", (req, res) => {
+  const getModules = `SELECT * FROM modules`;
+    // console.log(getModule);
+  // if(getModules === 'React'){
+  //   res.send(result.rows[0])
+  // } 
+    pool.query(getModules)
+    .then((result) => {
+      const rows = result.rows;
+      const moduleNames = rows.map((row) => {
+        return row.module_name
+      });
+      res.send(moduleNames)
+    })
+    .catch((error) => res.status(500).send(error));
+});
+//-------------------------------------------quiz question and answer-----------------
+router.get("/questions", (req, res) => {
+  const getQuestion = `SELECT * FROM questions;`
+  // const getAnswers = `SELECT * FROM answers where id = $1;`
+  pool
+    .query(getQuestion)
+    .then((result) => res.send(result.rows))
+    .catch((error) => res.status(500).send(error));
+});
+
+
+
+
+
+router.post("/register", (req, res) => {
+  console.log(req.body)
+  const {firstName, lastName, email, password, city, country} = req.body;
+  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
+
+  // if(!regExpression.exec(newRegFirstName)){
+  // 	res.status(500).send(error)
+  // } else{
+    pool.query(teacherQuery, [firstName, lastName, email, password, city, country])
+      .then((result) => res.status(201).json(result.rows[0]))
+      .catch((error) => res.status(500).json(error));
+ // }
+  });
+
+//--------------------------------------------------------
+// //routes on login 
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  const newEmail = req.body.email;
+  const newPassword = req.body.password;
+  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+   const regExpression = /(@)(.+)$/;
+
+  // res.send("message received");
+   if(!regExpression.exec(newEmail)){
+  	res.status(500).json({"message" : "Enter correct email/password"})
+  } else{
+    pool.query(teacherLoginQuery)
+        .then((result) =>{
+        res.status(200);
+        const checkLogin = result.rows[0];
+        if(checkLogin.password === newPassword){
+         res.json({"message" : "UserName Valid"});
+        }
+         })
+       
+      
+  }})
+ 
 
 //--------------------------------------QUIZ_DATA_PER_STUDENT--------------------------------------
 //Summative result of quiz data 
