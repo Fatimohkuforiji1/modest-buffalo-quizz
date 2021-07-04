@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
-function LoginForm () {
+function LoginForm() {
   const { authenticate } = useContext(AuthContext);
   const [details, setDetails] = useState({ email: "", password: "" });
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-
 
   const Login = (details) => {
     if (details.email === user.email && details.password === user.password) {
@@ -19,28 +18,27 @@ function LoginForm () {
       setError("Details do not match");
     }
   };
- 
-  async function submitHandler(e){
+  
+  async function submitHandler(e) {
     e.preventDefault();
-    Login(details)
-const userLogin = {email, password }
-const res = await fetch("http://localhost:3100/api/login",{
- method: "POST",
- body: JSON.stringify(userLogin), 
- headers: {
-        "Content-type": "application/json"
-    }
-})
-console.log(res)
+    Login(details);
+    const userLogin = { email, password };
+    const res = await fetch("http://localhost:3100/api/login", {
+      method: "POST",
+      body: JSON.stringify(userLogin),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    console.log(res);
   }
 
-
   return (
-     <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler}>
       <div className="form-head">
         <h2>Login</h2>
         {error !== "" ? <div className="error">{error}</div> : ""}
-         <div className="form-list">
+        <div className="form-list">
           <label name="email">Email:</label>
           <input
             type="email"
@@ -62,13 +60,14 @@ console.log(res)
               value={details.password}
             />
           </div>
-         {/* <input type="submit" value="LOGIN" /> */}
+          {/* <input type="submit" value="LOGIN" /> */}
           {/* <button onClick={Logout}>Logout</button> */}
-           <button onClick={()=> authenticate()} type="submit">Login</button>
+          <button onClick={() => authenticate()} type="submit">
+            Login
+          </button>
         </div>
       </div>
     </form>
   );
 }
 export default LoginForm;
-

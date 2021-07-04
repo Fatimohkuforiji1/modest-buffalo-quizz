@@ -1,23 +1,25 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {Route, Switch } from "react-router-dom";
 import "./App.css";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
 import About from "./Pages/Home/About";
+import MainHome from "./pages/MainHome";
+import LoginForm from "./Component/LoginForm"
 import Home from "./Pages/Home/Home";
-import Quiz from "./Pages/Home/Quiz/Quiz";
-import Result from "./Pages/Home/Result/Result";
+import Quiz from "./Pages/Quiz/Quiz";
+import Result from "./Pages/Result/Result";
 import Login from "./Component/Login";
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
+import QuizData from "./QuizComponent/QuizData";
 
 const App = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+const { isAuthenticated } = useContext(AuthContext);
+
 
 const [name, setName] = useState("");
 const [questions, setQuestions] = useState();
@@ -41,21 +43,12 @@ console.log(name)
         <Layout>
           {isAuthenticated ? (
             <>
-              {/* <Route path="/protected" exact>
-                <Home />
-              </Route> */}
               <Route path="/about/this/site">
                 <About />
               </Route>
-              
             </>
           ) : (
-            // <AllRegisterFiles />
             <>
-              {/* <Route path="/register">
-            <Register />
-          </Route> */}
-
               <Route path="/login">
                 <Login />
               </Route>
@@ -80,6 +73,17 @@ console.log(name)
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
+
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/" exact>
+                <LoginForm />
+              </Route>
+              <Route path="/" exact>
+                <MainHome/>
+              </Route>
+
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
               </Route>
@@ -91,11 +95,13 @@ console.log(name)
               <Route path="/dashboard/student">
                 <StudentDashboard />
               </Route>
+              <Route path="/dashboard/teacher">
+                <TeacherDashboard />
+              </Route>
             </>
           )}
         </Layout>
       </Switch>
-      {/* <Footer /> */}
     </div>
   );
 };
