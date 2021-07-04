@@ -9,7 +9,6 @@ import LoginForm from "./Component/LoginForm"
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
-import Login from "./Component/Login";
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
@@ -49,10 +48,7 @@ console.log(name)
             </>
           ) : (
             <>
-              <Route path="/login">
-                <Login />
-              </Route>
-
+             
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
