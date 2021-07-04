@@ -3,23 +3,20 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import {Route, Switch } from "react-router-dom";
 import "./App.css";
-// import Header from "./Component/Header/Header";
-// import Footer from "./Component/Footer/Footer";
-// import AllRegisterFiles from "./Component/AllRegisterFiles";
 import About from "./Pages/Home/About";
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
-// import Register from "./Component/Register"
 import Login from "./Component/Login";
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
-// import TeacherDashboard from "./Component/TeacherDashboard";
+import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 
 const App = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+const { isAuthenticated } = useContext(AuthContext);
+
 
 const [name, setName] = useState("");
 const [questions, setQuestions] = useState();
@@ -43,21 +40,12 @@ console.log(name)
         <Layout>
           {isAuthenticated ? (
             <>
-              {/* <Route path="/protected" exact>
-                <Home />
-              </Route> */}
               <Route path="/about/this/site">
                 <About />
               </Route>
-              
             </>
           ) : (
-            // <AllRegisterFiles />
             <>
-              {/* <Route path="/register">
-            <Register />
-          </Route> */}
-
               <Route path="/login">
                 <Login />
               </Route>
@@ -82,6 +70,11 @@ console.log(name)
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
+
+                <Route path="/" exact>
+                  <Home />
+                </Route>
+
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
               </Route>
@@ -93,32 +86,15 @@ console.log(name)
               <Route path="/dashboard/student">
                 <StudentDashboard />
               </Route>
+                  <Route path="/dashboard/teacher">
+                  <TeacherDashboard />
+                </Route>
             </>
           )}
         </Layout>
       </Switch>
-      {/* <Footer /> */}
     </div>
+
   );
-}
+};
 export default App;
-
-//   <Switch>
-//     {isAuthenticated?(
-//       <>
-//       <Route path="/protected" exact>
-//       <Home />
-//     </Route>
-//     <Route path="/about/this/site">
-//       <About />
-//     </Route>
-// </>
-
-// function App() {
-//   return (
-//     <div className="App">
-
-//      <AllLoginFiles/>
-//     </div>
-//   );
-// }

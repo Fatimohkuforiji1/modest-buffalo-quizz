@@ -45,6 +45,7 @@ CREATE TABLE quizzes (
   image_url  VARCHAR(250) NOT NULL,
   teacher_id  INT REFERENCES teachers(id),
   module_id   INT REFERENCES modules(id),
+  percentage_pass_rate DECIMAL(5,2),
   date_added TIMESTAMPTZ DEFAULT(CURRENT_TIMESTAMP)   
 );
 
