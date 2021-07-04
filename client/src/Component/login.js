@@ -1,12 +1,24 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
-import QuestionMultipleChoice from "../QuizComponent/QuestionMultipleChoice";
 
 function LoginForm () {
   const { authenticate } = useContext(AuthContext);
   const [details, setDetails] = useState({ email: "", password: "" });
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+
+
+  const Login = (details) => {
+    if (details.email === user.email && details.password === user.password) {
+      console.log("Logged in");
+      setUser({
+        email: details.email,
+      });
+    } else {
+      console.log("Details do not match");
+      setError("Details do not match");
+    }
+  };
  
   async function submitHandler(e){
     e.preventDefault();
@@ -21,17 +33,7 @@ const res = await fetch("http://localhost:3100/api/login",{
 })
 console.log(res)
   }
- const Login = (details) => {
-    if (details.email === user.email && details.password === user.password) {
-      console.log("Logged in");
-      setUser({
-        email: details.email,
-      });
-    } else {
-      console.log("Details do not match");
-      setError("Details do not match");
-    }
-  };
+
 
   return (
      <form onSubmit={submitHandler}>
