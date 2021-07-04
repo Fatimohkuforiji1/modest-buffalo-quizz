@@ -7,6 +7,19 @@ function LoginForm() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
+  
+  const Login = (details) => {
+    if (details.email === user.email && details.password === user.password) {
+      console.log("Logged in");
+      setUser({
+        email: details.email,
+      });
+    } else {
+      console.log("Details do not match");
+      setError("Details do not match");
+    }
+  };
+  
   async function submitHandler(e) {
     e.preventDefault();
     Login(details);
@@ -20,17 +33,6 @@ function LoginForm() {
     });
     console.log(res);
   }
-  const Login = (details) => {
-    if (details.email === user.email && details.password === user.password) {
-      console.log("Logged in");
-      setUser({
-        email: details.email,
-      });
-    } else {
-      console.log("Details do not match");
-      setError("Details do not match");
-    }
-  };
 
   return (
     <form onSubmit={submitHandler}>

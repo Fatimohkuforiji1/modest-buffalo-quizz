@@ -22,7 +22,7 @@ router.get("/quizzes", (_, res) => {
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 router.get("/quizDetails", (req, res) => {
 
-  const displayQuizzes = `SELECT quiz_description, question, answer 
+  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer 
 FROM quizzes 
 INNER JOIN questions ON quizzes.id = questions.quiz_id
 INNER JOIN answers ON questions.id = answers.question_id`;
@@ -34,16 +34,45 @@ pool
   }).catch((error) => res.send(error));
 });
 
-//----------------------------get correct answer route-------------------
+//----------------------------post answer route-------------------
+let stdtAnswerCheck;
+let correctAnswerCheck;
+// `select student_answer, correct_answer from questions 
+// inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
+router.post("/answer", (req, res) => {
+  res.status(200).json(req.body)
+  
 
-router.get("/answers", (req, res) => {
-  const getAnswers = `select student_answer, correct_answer from questions 
-inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
-  console.log(getAnswers);
-  pool.query(getAnswers)
-    .then((result) => res.json(result.rows))
-    .catch((error) => res.status(500).send(error));
+  // pool.query(getAnswers)
+      
+  //   then((result)=> console.log(result.rows))
+  //   //   result.rows.map((obj)=>{
+  //   //   correctAnswerCheck = [obj.correct_answer]; 
+  //   //   })
+     
+  //   //  console.log(correctAnswerCheck);
+  //  .catch((error) => res.status(500).send(error));
 });
+
+
+///------------------------------post route to get save student answers----
+// router.put("/savestudentanswers", async (req, res) =>{
+//   let correctAnswer ;
+//   const {questionId, studentId, studentAnswer} = req.body;
+//   const getAnswers = `SELECT correct_answer FROM questions WHERE question.id = '${questionId}' `;
+//   await pool.query(getAnswers)
+//             .then((result)=>{correctAnswer = result.rows
+
+//             })
+//   console.log(correctAnswer)
+
+//   const answersQuery = `(UPDATE student_quiz_answers SET student_answer=$1 WHERE question_id = $2,student_id=$3
+//     AND is_correct = $4)`;
+//   pool.query(answersQuery, [questionId, studentId,studentAnswer])
+//       .then((result)=> res.json(result.rows))
+// })
+
+
 //--------------------------module route -------------------------------
 router.get("/modules", (req, res) => {
   const getModules = `SELECT * FROM modules`;
