@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Home.css";
 import { TextField, MenuItem, Button } from "@material-ui/core";
-import Categories from "../../Data/Categories";
+import Categories from "../../Data/Category";
 import { useHistory } from "react-router";
-import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
+import ErrorMessage from "../../Component/ErrorMessage/ErrorMessage";
 
 const Home = ({ name, setName, fetchQuestions }) => {
   const [category, setCategory] = useState("");
@@ -21,7 +21,7 @@ const Home = ({ name, setName, fetchQuestions }) => {
       history.push("/quiz");
     }
   };
-
+console.log(setName)
   return (
     <div className="content">
       <div className="settings">
@@ -29,12 +29,15 @@ const Home = ({ name, setName, fetchQuestions }) => {
 
         <div className="settings_select">
           {error && <ErrorMessage>Please select a category</ErrorMessage>}
+          
           <TextField
-            label="Enter Your Full Name"
-            variant="outlined"
-            style={{ marginBottom: 25 }}
-            onChange={(e) => setName(e.target.value)}
-          ></TextField>
+            label = "Enter Your Full Name"
+            variant = "outlined"
+            style ={{ marginBottom: 25 }}
+            onChange = {(e) => setName(e.target.value)}
+            >
+
+          </TextField>
 
           <TextField
             select

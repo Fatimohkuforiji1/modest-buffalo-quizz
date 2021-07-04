@@ -20,7 +20,7 @@ const Result = ({ name, score }) => {
         color="secondary"
         size="large"
         style={{ alignSelf: "center", marginTop: 20 }}
-        href="http://localhost:3000/Home"
+        href="/"
       >
         Go to homepage
       </Button>
