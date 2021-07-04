@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Home.css";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import Categories from "../../Data/Category";
 import { useHistory } from "react-router";
