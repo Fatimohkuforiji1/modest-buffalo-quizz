@@ -15,6 +15,7 @@ import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 import QuizData from "./QuizComponent/QuizData";
+import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -48,7 +49,6 @@ console.log(name)
             </>
           ) : (
             <>
-             
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
@@ -77,11 +77,15 @@ console.log(name)
                 <LoginForm />
               </Route>
               <Route path="/" exact>
-                <MainHome/>
+                <MainHome />
               </Route>
 
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
+              </Route>
+
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
               </Route>
 
               <Route path="/register/student">
@@ -102,3 +106,7 @@ console.log(name)
   );
 };
 export default App;
+
+
+// modified: client / src / App.js;
+//  client/src/Component/TeacherQuiz/
