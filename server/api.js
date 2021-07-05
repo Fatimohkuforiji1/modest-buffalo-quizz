@@ -187,8 +187,10 @@ router.get("/teacher/:id", function (req, res) {
   pool
     .query(
       `SELECT z.id, 
-              z.title, 
-              z.percentage_pass_rate, 
+              z.title,
+              z.quiz_description, 
+              z.percentage_pass_rate,
+              z.date_added,
               COUNT(qs.id) AS quiz_question_count
        FROM quizzes AS z 
        INNER JOIN questions AS qs ON z.id = qs.quiz_id
