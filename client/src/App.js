@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import {Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import About from "./Pages/Home/About";
 import MainHome from "./pages/MainHome";
-import LoginForm from "./Component/LoginForm"
+import LoginForm from "./Component/LoginForm";
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
@@ -17,22 +17,19 @@ import StudentDashboard from "./Component/StudentDashboard";
 import QuizData from "./QuizComponent/QuizData";
 
 const App = () => {
-const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
+  const [name, setName] = useState("");
+  const [questions, setQuestions] = useState();
+  const [score, setScore] = useState(0);
 
-const [name, setName] = useState("");
-const [questions, setQuestions] = useState();
-const [score, setScore] = useState(0);
-
-const fetchQuestions = async(category = "") => {
-const { data } = await axios.get(
-  `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
-);
-setQuestions(data.results);
-console.log(name)
-
-}
-
+  const fetchQuestions = async (category = "") => {
+    const { data } = await axios.get(
+      `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
+    );
+    setQuestions(data.results);
+    console.log(name);
+  };
 
   return (
     <div className="app">
@@ -48,7 +45,6 @@ console.log(name)
             </>
           ) : (
             <>
-             
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
@@ -77,7 +73,7 @@ console.log(name)
                 <LoginForm />
               </Route>
               <Route path="/" exact>
-                <MainHome/>
+                <MainHome />
               </Route>
 
               <Route path="/register/teacher">
