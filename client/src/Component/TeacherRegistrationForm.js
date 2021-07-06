@@ -21,19 +21,8 @@ const TeacherRegistrationForm = () => {
     }
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    if (validate()) {
-      const newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-        city,
-        country,
-      };
-      callAPI(newUser);
-    }
 
     if (confirmPassword !== password) {
       alert("Password doesn't match");
@@ -48,7 +37,7 @@ const TeacherRegistrationForm = () => {
       city,
       country,
     };
-    const res = await fetch("http://localhost:3100/api/register/teachers", {
+   fetch("http://localhost:3100/api/register/teachers", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
@@ -61,10 +50,8 @@ const TeacherRegistrationForm = () => {
       !password.includes(" ")
     ) {
       setIsValid(true);
-      sendDetailsToServer();
     } else {
       setIsValid(false);
-      alert("password not valid");
     }
   }
   return (
@@ -117,7 +104,6 @@ const TeacherRegistrationForm = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
-        <h3>Please select the appropriate box</h3>
 
         <label>
           <h3>
