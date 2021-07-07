@@ -21,6 +21,24 @@ router.get("/teachers", (_, res) => {
     .catch((error) => res.send(error));
 });
 
+router.get("/students", (_, res) => {
+  const getStudents = `SELECT * FROM students`;
+  pool
+    .query(getStudents)
+    // .then(result => res.json(result))
+    .then((data) => res.send(data.rows))
+    .catch((error) => res.send(error));
+});
+//----------------------Question route----------------------------
+// router.get("/questions", (_, res) => {
+//   const getQuestions = `SELECT question FROM questions LIMIT 5`;
+//   pool
+//     .query(getQuestions)
+//     // .then(result => res.json(result))
+//     .then((data) => res.send(data.rows))
+//     .catch((error) => res.send(error));
+// });
+
 //-----------------register route----------------------------------- 
 router.post("/register", async(req, res) => {
   console.log(req.body);
@@ -76,21 +94,28 @@ router.post("/login", (req, res) => {
   
   })
  
-
+// SELECT quiz_description, question, answers.question_id, answer 
+// FROM quizzes 
+// INNER JOIN questions ON quizzes.id = questions.quiz_id
+// INNER JOIN answers ON questions.id = answers.question_id
 
 
 
 //---------------------QUIZ DETAILS ROUTE-----------------------------
-router.get("/quizDetails", (req, res) => {
-  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer 
+router.post("/quizDetails", (req, res) => {
+  console.log(req.body);
+  const getLesson = req.body.module;
+  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer, module_name
 FROM quizzes 
+INNER JOIN modules ON modules.id = quizzes.module_id
 INNER JOIN questions ON quizzes.id = questions.quiz_id
-INNER JOIN answers ON questions.id = answers.question_id`;
+INNER JOIN answers ON questions.id = answers.question_id 
+WHERE module_name = '${getLesson}'`;
 pool
   .query(displayQuizzes)
   // .then(result => res.json(result))
   .then((result) => {  
-    res.status(200).json(result.rows)
+    res.status(200).send(result.rows)
   }).catch((error) => res.send(error));
 });
 
@@ -136,17 +161,14 @@ router.post("/answer", (req, res) => {
 //--------------------------module route -------------------------------
 router.get("/modules", (req, res) => {
   const getModules = `SELECT * FROM modules`;
-    // console.log(getModule);
+  
   // if(getModules === 'React'){
   //   res.send(result.rows[0])
   // } 
     pool.query(getModules)
     .then((result) => {
       const rows = result.rows;
-      const moduleNames = rows.map((row) => {
-        return row.module_name
-      });
-      res.send(moduleNames)
+      res.json(rows)
     })
     .catch((error) => res.status(500).send(error));
 });

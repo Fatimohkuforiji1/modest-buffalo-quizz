@@ -16,6 +16,7 @@ import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 import QuizData from "./QuizComponent/QuizData";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
+import QuizButton from "./QuizComponent/QuizButton";
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -29,9 +30,18 @@ const fetchQuestions = async(category = "") => {
 const { data } = await axios.get(
   `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
 );
-setQuestions(data.results);
-console.log(name)
-
+const myData = await axios.post("http://localhost:3100/api/quizDetails", {
+  module: category,
+});
+// fetch("http://localhost:3100/api/quizDetails", {
+//       method: "POST",
+//       body: JSON.stringify({ module: moduleType }),
+//       headers: {
+//         "Content-type": "application/json",
+//       },
+setQuestions(myData.data);
+console.log(data.results)
+console.log(myData)
 }
 
 
@@ -91,8 +101,11 @@ console.log(name)
               <Route path="/dashboard/teacher">
                 <TeacherDashboard />
               </Route>
+              <Route path="/quiz/react">
+                <QuizButton />
+              </Route>
 
-              <Route path="/quizDetails">
+              <Route path="/quizDetails/:moduleType">
                 <QuizData />
               </Route>
             </>

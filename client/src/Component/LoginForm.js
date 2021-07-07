@@ -9,27 +9,12 @@ function LoginForm() {
   const history = useHistory();
   const { authenticate } = useContext(AuthContext);
   const [details, setDetails] = useState({ email: "", password: "" });
-  // const [user, setUser] = useState({ email: "", password: "" });
-  // const [error, setError] = useState("");
 
-  // const Login = (details) => {
-  //   console.log(details);
-  //       console.log(user);
-  //   if (details.email === user.email && details.password === user.password) {
-  //     console.log("Logged in");
-  //     setUser({
-  //       email: details.email,
-  //     });
-  //   } else {
-  //     console.log("Details do not match");
-  //     setError("Details do not match");
-  //   }
-  // };
 
   function submitHandler(e) {
     e.preventDefault();
     console.log(details);
-    // Login(details);
+    
     const userLogin = { email : details.email, password : details.password };
     authenticate(userLogin.email);
     fetch("http://localhost:3100/api/login", {
