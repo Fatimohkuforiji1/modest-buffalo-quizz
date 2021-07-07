@@ -1,6 +1,9 @@
 import { Router } from "express";
 import pool from "./db";
 const router = new Router();
+const bcrypt = require("bcrypt");
+
+
 // create dynamic users global context 
 
 //================================================READ================================================
@@ -9,17 +12,76 @@ router.get("/", (_, res) => {
   res.json({ message: "Hello, world!" });
 });
 
-router.get("/quizzes", (_, res) => {
-  const getQuizzes = `SELECT * FROM quizzes`;
+router.get("/teachers", (_, res) => {
+  const getTeachers = `SELECT * FROM teachers`;
   pool
-    .query(getQuizzes)
+    .query(getTeachers)
     // .then(result => res.json(result))
     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
+
+//-----------------register route----------------------------------- 
+router.post("/register", async(req, res) => {
+  console.log(req.body);
+  const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+  const { firstName, lastName, email, city, country } = req.body;
+  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+  try {
+        const password = await bcrypt.hash(req.body.password, 10);
+        if (!regExpression.exec(firstName) && (!regExpression.exec(lastName))){
+            res.status(500).send({ "message":"Fill in correct field" });
+        }else {
+            pool.query(teacherQuery, [firstName, lastName, email, password, city, country])
+            .then((result) => res.status(201).json({ "message": "Account created" }));
+        } } catch {((e) => console.error(e))};
+      
+ 
+});
+
+//--------------------------------------------------------
+// //routes on login 
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  const newEmail = req.body.email;
+  const newPassword = req.body.password;
+  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+   
+    pool.query(teacherLoginQuery)
+        .then((result) =>{
+        res.status(200)
+        // console.log(result.rows);
+        const checkLogin = result.rows[0];
+        if(checkLogin === undefined){
+        return res.status(400).json({ message: "cannot find user" });
+        }
+          const hashed = checkLogin["user_password"];
+          // const userFirstName = checkLogin["first_name"];
+          // const userLastName = loginResult["last_name"];
+          const isValid = bcrypt.compareSync(newPassword, hashed);
+          console.log(isValid);
+                    
+            if ( isValid ){
+             res.status(200).json({ "message": "Login Sucessful" })
+                    .catch((e) => console.error(e));
+                //----------------------------------------direct to the home page---------------------------------
+            }else{
+                res.status(401).json({ "message":"wrong password" })
+                .catch((e) => console.error(e));
+            }
+        
+        
+
+         })
+  
+  })
+ 
+
+
+
+
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 router.get("/quizDetails", (req, res) => {
-
   const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer 
 FROM quizzes 
 INNER JOIN questions ON quizzes.id = questions.quiz_id
@@ -97,51 +159,6 @@ router.get("/questions", (req, res) => {
     .then((result) => res.send(result.rows))
     .catch((error) => res.status(500).send(error));
 });
-
-
-
-
-
-router.post("/register", (req, res) => {
-  console.log(req.body)
-  const {firstName, lastName, email, password, city, country} = req.body;
-  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
-
-  // if(!regExpression.exec(newRegFirstName)){
-  // 	res.status(500).send(error)
-  // } else{
-    pool.query(teacherQuery, [firstName, lastName, email, password, city, country])
-      .then((result) => res.status(201).json(result.rows[0]))
-      .catch((error) => res.status(500).json(error));
- // }
-  });
-
-//--------------------------------------------------------
-// //routes on login 
-router.post("/login", (req, res) => {
-  console.log(req.body);
-  const newEmail = req.body.email;
-  const newPassword = req.body.password;
-  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
-   const regExpression = /(@)(.+)$/;
-
-  // res.send("message received");
-   if(!regExpression.exec(newEmail)){
-  	res.status(500).json({"message" : "Enter correct email/password"})
-  } else{
-    pool.query(teacherLoginQuery)
-        .then((result) =>{
-        res.status(200);
-        const checkLogin = result.rows[0];
-        if(checkLogin.password === newPassword){
-         res.json({"message" : "UserName Valid"});
-        }
-         })
-       
-      
-  }})
- 
 
 //--------------------------------------QUIZ_DATA_PER_STUDENT--------------------------------------
 //Summative result of quiz data 
