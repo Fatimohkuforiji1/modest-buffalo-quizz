@@ -99,3 +99,19 @@ const Question = ({
 };
 
 export default Question;
+//       modified:   client/src/Component/TeacherRegistrationForm.js
+//         deleted:    client/src/Component/allRegisterFiles.js
+//         modified:   client/src/Start.css
+//         modified:   client/src/landingPageComponent/Footer.js
+//         modified:   client/src/landingPageComponent/Header.css
+//         modified:   client/src/landingPageComponent/Header.js
+//         modified:   package-lock.json
+//         modified:   package.json
+//         modified:   quizInserted.sql
+//         modified:   server/api.js
+
+// Untracked files:
+//   (use "git add <file>..." to include in what will be committed)
+//         client/src/Component/AccountSuccess.js
+//         client/src/Component/TeacherQuiz/
+//         client/src/Component/Validate.js

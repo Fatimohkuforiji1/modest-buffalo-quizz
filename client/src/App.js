@@ -10,11 +10,12 @@ import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
 import Layout from "./Component/Layout";
-import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
+import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 import QuizData from "./QuizComponent/QuizData";
+import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -36,8 +37,6 @@ console.log(name)
 
   return (
     <div className="app">
-      {/* <Header /> */}
-      {/* <Header /> */}
       <Switch>
         <Layout>
           {isAuthenticated ? (
@@ -48,7 +47,6 @@ console.log(name)
             </>
           ) : (
             <>
-             
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
@@ -71,17 +69,16 @@ console.log(name)
               </Route>
 
               <Route path="/" exact>
-                <Home />
+                <MainHome />
               </Route>
-              <Route path="/" exact>
+              <Route path="/login" exact>
                 <LoginForm />
               </Route>
-              <Route path="/" exact>
-                <MainHome/>
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
               </Route>
-
-              <Route path="/register/teacher">
-                <TeacherRegistrationForm />
+              <Route path="/register/teachers">
+                <TeacherRegistration />
               </Route>
 
               <Route path="/register/student">
@@ -93,6 +90,10 @@ console.log(name)
               </Route>
               <Route path="/dashboard/teacher">
                 <TeacherDashboard />
+              </Route>
+
+              <Route path="/quizDetails">
+                <QuizData />
               </Route>
             </>
           )}
