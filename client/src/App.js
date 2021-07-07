@@ -91,6 +91,10 @@ console.log(myData)
                 <TeacherRegistration />
               </Route>
 
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
+              </Route>
+
               <Route path="/register/student">
                 <StudentRegistrationForm />
               </Route>
@@ -116,3 +120,7 @@ console.log(myData)
   );
 };
 export default App;
+
+
+// modified: client / src / App.js;
+//  client/src/Component/TeacherQuiz/
