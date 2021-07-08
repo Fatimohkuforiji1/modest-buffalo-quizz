@@ -26,11 +26,14 @@ const [questions, setQuestions] = useState();
 const [score, setScore] = useState(0);
 
 const fetchQuestions = async(category = "") => {
-const { data } = await axios.get(
-  `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
-);
-setQuestions(data.results);
-console.log(name)
+//const { data } = await axios.get(
+  //`https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
+ // );
+  const myData = await axios.post("http://localhost:3100/api/quizDetails", {
+    module: category,
+  });
+//setQuestions(data.results);
+setQuestions(myData)
 
 }
 

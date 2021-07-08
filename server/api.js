@@ -120,7 +120,27 @@ WHERE module_name = '${getLesson}'`;
     .query(displayQuizzes)
     // .then(result => res.json(result))
     .then((result) => {
-      res.status(200).send(result.rows);
+      const groupToResult = []
+      const results = result.rows;
+      let i, j, temporary, chunk = 4;
+      for (i = 0, j = results.length; i < j; i += chunk) {
+        temporary = results.slice(i, i + chunk);
+        console.log(temporary);
+        let tempObj = {
+          category: getLesson,
+          correct_answer: temporary[0].answer,
+          difficulty : "medium",
+          incorrect_answers: [],
+          question : temporary[0].question,
+          type: "multiple"
+        };
+        for ( let k = 1; k < temporary.length; k++) {
+          tempObj.incorrect_answers.push(temporary[k].answer)
+        }
+        groupToResult.push(tempObj);
+      }
+      // console.log(groupToResult);
+      res.status(200).send(groupToResult);
     })
     .catch((error) => res.send(error));
 });
