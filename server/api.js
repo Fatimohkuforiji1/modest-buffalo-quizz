@@ -1,7 +1,9 @@
 import { Router } from "express";
 import pool from "./db";
 const router = new Router();
-// create dynamic users global context 
+const bcrypt = require("bcrypt");
+
+// create dynamic users global context
 
 //================================================READ================================================
 
@@ -9,49 +11,138 @@ router.get("/", (_, res) => {
   res.json({ message: "Hello, world!" });
 });
 
-router.get("/quizzes", (_, res) => {
-  const getQuizzes = `SELECT * FROM quizzes`;
+router.get("/teachers", (_, res) => {
+  const getTeachers = `SELECT * FROM teachers`;
   pool
-    .query(getQuizzes)
+    .query(getTeachers)
     // .then(result => res.json(result))
     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
-//---------------------QUIZ DETAILS ROUTE-----------------------------
-router.get("/quizDetails", (req, res) => {
 
-  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer 
+router.get("/students", (_, res) => {
+  const getStudents = `SELECT * FROM students`;
+  pool
+    .query(getStudents)
+    // .then(result => res.json(result))
+    .then((data) => res.send(data.rows))
+    .catch((error) => res.send(error));
+});
+//----------------------Question route----------------------------
+// router.get("/questions", (_, res) => {
+//   const getQuestions = `SELECT question FROM questions LIMIT 5`;
+//   pool
+//     .query(getQuestions)
+//     // .then(result => res.json(result))
+//     .then((data) => res.send(data.rows))
+//     .catch((error) => res.send(error));
+// });
+
+//-----------------register route-----------------------------------
+router.post("/register", async (req, res) => {
+  console.log(req.body);
+  const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+  const { firstName, lastName, email, city, country } = req.body;
+  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+  try {
+    const password = await bcrypt.hash(req.body.password, 10);
+    if (!regExpression.exec(firstName) && !regExpression.exec(lastName)) {
+      res.status(500).send({ message: "Fill in correct field" });
+    } else {
+      pool
+        .query(teacherQuery, [
+          firstName,
+          lastName,
+          email,
+          password,
+          city,
+          country,
+        ])
+        .then((result) => res.status(201).json({ message: "Account created" }));
+    }
+  } catch {
+    (e) => console.error(e);
+  }
+});
+
+//--------------------------------------------------------
+// //routes on login
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  const newEmail = req.body.email;
+  const newPassword = req.body.password;
+  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+
+  pool.query(teacherLoginQuery).then((result) => {
+    res.status(200);
+    // console.log(result.rows);
+    const checkLogin = result.rows[0];
+    if (checkLogin === undefined) {
+      return res.status(400).json({ message: "cannot find user" });
+    }
+    const hashed = checkLogin["user_password"];
+    // const userFirstName = checkLogin["first_name"];
+    // const userLastName = loginResult["last_name"];
+    const isValid = bcrypt.compareSync(newPassword, hashed);
+    console.log(isValid);
+
+    if (isValid) {
+      res
+        .status(200)
+        .json({ message: "Login Sucessful" })
+        .catch((e) => console.error(e));
+      //----------------------------------------direct to the home page---------------------------------
+    } else {
+      res
+        .status(401)
+        .json({ message: "wrong password" })
+        .catch((e) => console.error(e));
+    }
+  });
+});
+
+// SELECT quiz_description, question, answers.question_id, answer
+// FROM quizzes
+// INNER JOIN questions ON quizzes.id = questions.quiz_id
+// INNER JOIN answers ON questions.id = answers.question_id
+
+//---------------------QUIZ DETAILS ROUTE-----------------------------
+router.post("/quizDetails", (req, res) => {
+  console.log(req.body);
+  const getLesson = req.body.module;
+  const displayQuizzes = `SELECT quiz_description, question, answers.question_id, answer, module_name
 FROM quizzes 
+INNER JOIN modules ON modules.id = quizzes.module_id
 INNER JOIN questions ON quizzes.id = questions.quiz_id
-INNER JOIN answers ON questions.id = answers.question_id`;
-pool
-  .query(displayQuizzes)
-  // .then(result => res.json(result))
-  .then((result) => {  
-    res.status(200).json(result.rows)
-  }).catch((error) => res.send(error));
+INNER JOIN answers ON questions.id = answers.question_id 
+WHERE module_name = '${getLesson}'`;
+  pool
+    .query(displayQuizzes)
+    // .then(result => res.json(result))
+    .then((result) => {
+      res.status(200).send(result.rows);
+    })
+    .catch((error) => res.send(error));
 });
 
 //----------------------------post answer route-------------------
 let stdtAnswerCheck;
 let correctAnswerCheck;
-// `select student_answer, correct_answer from questions 
+// `select student_answer, correct_answer from questions
 // inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
 router.post("/answer", (req, res) => {
-  res.status(200).json(req.body)
-  
+  res.status(200).json(req.body);
 
   // pool.query(getAnswers)
-      
+
   //   then((result)=> console.log(result.rows))
   //   //   result.rows.map((obj)=>{
-  //   //   correctAnswerCheck = [obj.correct_answer]; 
+  //   //   correctAnswerCheck = [obj.correct_answer];
   //   //   })
-     
+
   //   //  console.log(correctAnswerCheck);
   //  .catch((error) => res.status(500).send(error));
 });
-
 
 ///------------------------------post route to get save student answers----
 // router.put("/savestudentanswers", async (req, res) =>{
@@ -70,27 +161,24 @@ router.post("/answer", (req, res) => {
 //       .then((result)=> res.json(result.rows))
 // })
 
-
 //--------------------------module route -------------------------------
 router.get("/modules", (req, res) => {
   const getModules = `SELECT * FROM modules`;
-    // console.log(getModule);
+
   // if(getModules === 'React'){
   //   res.send(result.rows[0])
-  // } 
-    pool.query(getModules)
+  // }
+  pool
+    .query(getModules)
     .then((result) => {
       const rows = result.rows;
-      const moduleNames = rows.map((row) => {
-        return row.module_name
-      });
-      res.send(moduleNames)
+      res.json(rows);
     })
     .catch((error) => res.status(500).send(error));
 });
 //-------------------------------------------quiz question and answer-----------------
 router.get("/questions", (req, res) => {
-  const getQuestion = `SELECT * FROM questions;`
+  const getQuestion = `SELECT * FROM questions;`;
   // const getAnswers = `SELECT * FROM answers where id = $1;`
   pool
     .query(getQuestion)
@@ -98,57 +186,12 @@ router.get("/questions", (req, res) => {
     .catch((error) => res.status(500).send(error));
 });
 
-
-
-
-
-router.post("/register", (req, res) => {
-  console.log(req.body)
-  const {firstName, lastName, email, password, city, country} = req.body;
-  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-  const regExpression = /^[a-zA-Z0-9 -]{1,30}$/;
-
-  // if(!regExpression.exec(newRegFirstName)){
-  // 	res.status(500).send(error)
-  // } else{
-    pool.query(teacherQuery, [firstName, lastName, email, password, city, country])
-      .then((result) => res.status(201).json(result.rows[0]))
-      .catch((error) => res.status(500).json(error));
- // }
-  });
-
-//--------------------------------------------------------
-// //routes on login 
-router.post("/login", (req, res) => {
-  console.log(req.body);
-  const newEmail = req.body.email;
-  const newPassword = req.body.password;
-  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
-   const regExpression = /(@)(.+)$/;
-
-  // res.send("message received");
-   if(!regExpression.exec(newEmail)){
-  	res.status(500).json({"message" : "Enter correct email/password"})
-  } else{
-    pool.query(teacherLoginQuery)
-        .then((result) =>{
-        res.status(200);
-        const checkLogin = result.rows[0];
-        if(checkLogin.password === newPassword){
-         res.json({"message" : "UserName Valid"});
-        }
-         })
-       
-      
-  }})
- 
-
 //--------------------------------------QUIZ_DATA_PER_STUDENT--------------------------------------
-//Summative result of quiz data 
+//Summative result of quiz data
 
 router.get("/student/:id/quizzes", function (req, res) {
   const studentId = req.params.id;
-  
+
   pool
     .query(
       ` SELECT q.id As quiz_id, 
@@ -178,7 +221,7 @@ router.get("/student/:id/quizzes", function (req, res) {
       res.send(data.rows);
     })
     .catch((error) => res.send(error));
-})
+});
 
 //-----------------------------------------GROUPS_BY_TEACHER-----------------------------------------
 
@@ -197,10 +240,10 @@ router.get("/teacher/:id", function (req, res) {
                 z.percentage_pass_rate
        ORDER BY z.id;`
     )
-    .then(data => {
+    .then((data) => {
       pool
         .query(
-     `SELECT q.id As quiz_id, 
+          `SELECT q.id As quiz_id, 
             g.group_name,
             s.id As student_id,
             s.first_name As student_first_name,
@@ -223,8 +266,8 @@ router.get("/teacher/:id", function (req, res) {
         )
         .then((data2) => {
           const dataAll = {
-            "quiz_information": data.rows,
-            "group_results": data2.rows,
+            quiz_information: data.rows,
+            group_results: data2.rows,
           };
           res.send(dataAll);
         });
@@ -232,9 +275,8 @@ router.get("/teacher/:id", function (req, res) {
     .catch((error) => res.send(error));
 });
 
-
 //---------------------------------------------STUDENT_DATA_FOR_CLIENT_DASHBOARD---------------------------------------------
-//DO NOT DELETE ENDPOINT 
+//DO NOT DELETE ENDPOINT
 
 router.get("/dashboard/student/:id", function (req, res) {
   const studentId = req.params.id;
@@ -272,7 +314,7 @@ router.get("/dashboard/student/:id", function (req, res) {
       pool
         .query(query, [studentId])
         .then((result2) => {
-        res.send({ ...result.rows[0], quizzes: result2.rows });
+          res.send({ ...result.rows[0], quizzes: result2.rows });
         })
         .catch((e) => {
           console.error(e.stack);
@@ -284,11 +326,9 @@ router.get("/dashboard/student/:id", function (req, res) {
     });
 });
 
-
-
 //=================================================CREATE=================================================
 
-//---------------------------------------------LOGIN--------------------------------------------- 
+//---------------------------------------------LOGIN---------------------------------------------
 router.post("/login", (req, res) => {
   console.log(req.body);
   const newEmail = req.body.email;
@@ -309,8 +349,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-
-//----------------------------------------TEACHER REGISTER---------------------------------------- 
+//----------------------------------------TEACHER REGISTER----------------------------------------
 router.post("/register/teachers", (req, res) => {
   const { firstName, lastName, email, password, city, country } = req.body;
   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
@@ -334,7 +373,7 @@ router.post("/register/teachers", (req, res) => {
     });
 });
 
-//----------------------------------------STUDENT REGISTER---------------------------------------- 
+//----------------------------------------STUDENT REGISTER----------------------------------------
 router.post("/register/students", (req, res) => {
   const { firstName, lastName, email, password, groupsId, city, country } =
     req.body;
@@ -365,7 +404,7 @@ router.post("/register/students", (req, res) => {
       });
     });
 });
-// do not remove endpoint belongs to the student register endpoint 
+// do not remove endpoint belongs to the student register endpoint
 router.get("/groups", (_, res) => {
   const sql = `SELECT * FROM groups`;
   pool
@@ -373,6 +412,5 @@ router.get("/groups", (_, res) => {
     .then((data) => res.send(data.rows))
     .catch((error) => res.send(error));
 });
-
 
 export default router;
