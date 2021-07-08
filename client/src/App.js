@@ -9,6 +9,9 @@ import Login from "./Component/Login"
 import Layout from "./Component/Layout";
 import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
+// import TeacherDashboard from "./Component/TeacherDashboard";
+import StudentDashboard from "./Component/StudentDashboard";
+
 
   
 
@@ -46,7 +49,10 @@ return (
 
           <Route path="/register/student">
             <StudentRegistrationForm />
-            </Route>
+
+          <Route path="/dashboard/student">
+            <StudentDashboard />
+          </Route>
         </>
       )}
     </Layout>
