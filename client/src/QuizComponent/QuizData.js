@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useParams} from "react-router-dom";
+
 const groupData = (data) => {
   
   let groupedData = [
@@ -6,7 +8,8 @@ const groupData = (data) => {
       quiz_description: data[0].quiz_description,
       question: data[0].question,
       answers: [data[0].answer],
-      questionId: data[0].question_id
+      questionId: data[0].question_id,
+      modules: data[0].module_name
     },
   ];
   
@@ -25,14 +28,19 @@ const groupData = (data) => {
         quiz_description: row.quiz_description,
         question: row.question,
         answers: [row.answer],
-        questionId : row.question_id
+        questionId: row.question_id,
+        modules: row.module_name,
       };
     }
   }
   return groupedData;
 };
 
+
 const QuizData = () => {
+  
+  const {moduleType} = useParams();
+
   const [quizDetails, setQuizDetails] = useState([]);
   const [formValue, setFormValue] = useState([]);
 
@@ -54,38 +62,47 @@ const handleSubmit = (event)=>{
 const updateFormValue =(questionId, answer)=>{
 const index = formValue.findIndex((q) => q.questionId == questionId);
 formValue[index].answer= answer
-
+console.log(formValue)
 setFormValue(formValue);
 }
 
   useEffect(() => {
-    fetch("http://localhost:3100/api/quizDetails")
+    fetch("http://localhost:3100/api/quizDetails", {
+      method: "POST",
+      body: JSON.stringify({ module: moduleType }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
       .then((result) => result.json())
       .then((data) => {
-         setQuizDetails(groupData(data));
-        const mappedValues = data.map((answer)=> answer.question_id).filter( (value, index, _arr) => _arr.indexOf(value) == index) 
-          let formData = [];
-          mappedValues.forEach((question) => {
-            formData.push({
-              questionId: question,
-              answer: "",
-            });
+        setQuizDetails(groupData(data));
+        const mappedValues = data
+          .map((answer) => answer.question_id)
+          .filter((value, index, _arr) => _arr.indexOf(value) == index);
+        let formData = [];
+        mappedValues.forEach((question) => {
+          formData.push({
+            questionId: question,
+            answer: "",
           });
-          setFormValue(formData);
-      
-      })
+        });
+        setFormValue(formData);
+      });
       
     
   }, []);
 
   return quizDetails ? (
+
+    
     <div>
       <form onSubmit={e => e.preventDefault()}>
         <ul>
           {quizDetails.map((q, i) => {
             return (
               <li key={i}>
-                <b>{q.quiz_description}:</b> <i>{q.question}</i>
+                 <i>{q.question}</i>
                 <ol>
                   {q.answers.map((answer, index) => {
                     return (

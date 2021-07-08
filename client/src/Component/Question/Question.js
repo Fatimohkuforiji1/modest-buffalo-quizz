@@ -37,7 +37,7 @@ const Question = ({
     }
   };
   const handleNext = () => {
-    if (currentQuestion > 8) {
+    if (currentQuestion > 4) {
       history.push("/result");
     } else if (selected) {
       setCurrentQuestion(currentQuestion + 1);

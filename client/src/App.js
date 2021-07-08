@@ -10,12 +10,13 @@ import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
 import Layout from "./Component/Layout";
-import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
+import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 import QuizData from "./QuizComponent/QuizData";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
+import QuizButton from "./QuizComponent/QuizButton";
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -29,16 +30,23 @@ const fetchQuestions = async(category = "") => {
 const { data } = await axios.get(
   `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
 );
-setQuestions(data.results);
-console.log(name)
-
+const myData = await axios.post("http://localhost:3100/api/quizDetails", {
+  module: category,
+});
+// fetch("http://localhost:3100/api/quizDetails", {
+//       method: "POST",
+//       body: JSON.stringify({ module: moduleType }),
+//       headers: {
+//         "Content-type": "application/json",
+//       },
+setQuestions(myData.data);
+console.log(data.results)
+console.log(myData)
 }
 
 
   return (
     <div className="app">
-      {/* <Header /> */}
-      {/* <Header /> */}
       <Switch>
         <Layout>
           {isAuthenticated ? (
@@ -71,17 +79,16 @@ console.log(name)
               </Route>
 
               <Route path="/" exact>
-                <Home />
-              </Route>
-              <Route path="/" exact>
-                <LoginForm />
-              </Route>
-              <Route path="/" exact>
                 <MainHome />
               </Route>
-
-              <Route path="/register/teacher">
-                <TeacherRegistrationForm />
+              <Route path="/login" exact>
+                <LoginForm />
+              </Route>
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
+              </Route>
+              <Route path="/register/teachers">
+                <TeacherRegistration />
               </Route>
 
               <Route path="/teacherQuiz" exact>
@@ -97,6 +104,13 @@ console.log(name)
               </Route>
               <Route path="/dashboard/teacher">
                 <TeacherDashboard />
+              </Route>
+              <Route path="/quiz/react">
+                <QuizButton />
+              </Route>
+
+              <Route path="/quizDetails/:moduleType">
+                <QuizData />
               </Route>
             </>
           )}

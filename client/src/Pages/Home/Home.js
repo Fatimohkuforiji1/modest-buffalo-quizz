@@ -47,7 +47,7 @@ console.log(setName)
             value={category}
           >
             {Categories.map((item) => (
-              <MenuItem key={item.category} value={item.value}>
+              <MenuItem key={item.category} value={item.category}>
                 {item.category}
               </MenuItem>
             ))}
