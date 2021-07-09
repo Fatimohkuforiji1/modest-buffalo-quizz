@@ -2,7 +2,25 @@ import { Router } from "express";
 import pool from "./db";
 const router = new Router();
 
-//================================================READ================================================
+/*
+=======================================PLEASE_READ=========================================
+Overall:
+-I have a running tally of the question answers in a state
+made a post request from the app.js
+-I have hardcoded the student id in question as a means to record the data
+ 
+-loop through all the questions 
+-insert a row for each student_quiz_answers
+
+Summary:
+-We have created a categories end point for the quiz drop down on quiz-home
+-We have created a fetch question quiz-categories 
+-We have created an update query in the api
+-improvements to integrate the register with the login to make the student id dynamic
+============================================================================================
+*/
+
+//*******************************************READ*******************************************
 // NB:REFERENCE APIS BY USE OF GET ROUTES
 // OUTPUT: GATHER ACCUMULATIVE DATA FROM DATABASE TABLES
 
@@ -182,9 +200,8 @@ router.get("/categories", (_, res) => {
   const query = `
 SELECT title AS category, id AS value FROM quizzes
 `;
-  pool.query(query)
-  .then(result => {
-      res.send(result.rows);
+  pool.query(query).then((result) => {
+    res.send(result.rows);
   });
 });
 
@@ -199,26 +216,33 @@ FROM questions As qs
       INNER JOIN quizzes As qz ON qz.id=qs.quiz_id
 WHERE qs.quiz_id=$1
 `;
-const quiz_bad_answers = `
+  const quiz_bad_answers = `
 SELECT
-a.question_id,
-a.answer
+    a.question_id,
+    a.answer
 FROM answers As a
-INNER JOIN questions As qs ON qs.id=a.question_id
-INNER JOIN quizzes AS qz ON qs.quiz_id = qz.id
+    INNER JOIN questions As qs ON qs.id=a.question_id
+    INNER JOIN quizzes AS qz ON qs.quiz_id = qz.id
 WHERE a.answer <> qs.correct_answer
 AND qz.id = $1;
 `;
   pool
     .query(quiz_query, [quizId])
-    .then(result => {
-      pool.query(quiz_bad_answers, [quizId])
-      .then(result2 => {
-        const questions = result.rows.map(q => {
-          const bad_answers = result2.rows.filter(a => {
-            return a.question_id === q.id;
-          }).map(a => a.answer);
-          return { category: q.category, question: q.question, correct_answer: q.correct_answer, incorrect_answers: bad_answers, question_id: q.id};
+    .then((result) => {
+      pool.query(quiz_bad_answers, [quizId]).then((result2) => {
+        const questions = result.rows.map((q) => {
+          const bad_answers = result2.rows
+            .filter((a) => {
+              return a.question_id === q.id;
+            })
+            .map((a) => a.answer);
+          return {
+            category: q.category,
+            question: q.question,
+            correct_answer: q.correct_answer,
+            incorrect_answers: bad_answers,
+            question_id: q.id,
+          };
         });
         res.send(questions);
       });
@@ -229,17 +253,11 @@ AND qz.id = $1;
         result: `FAILURE`,
         message: `FATAL ERROR: Internal Server Error`,
       });
-    })
-  
- 
+    });
 });
 
-
-// upsert combination of insert and update - if an answer exists it overwrites it and if it doesnt exists it updates it 
-//INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
-
-*/
 //=================================================CREATE=================================================
+//Output:This inserts the student quiz answers into the database table student_quiz_answers
 router.post("/quiz-submission/", (req, res) => {
   const { question_id, student_id, student_answer, is_correct } = req.body;
   const updateQuery = `
@@ -256,22 +274,29 @@ router.post("/quiz-submission/", (req, res) => {
   INTO student_quiz_answers
   (question_id, student_id,student_answer,is_correct)
   VALUES($1,$2,$3,$4)
-  `
-  pool.query(updateQuery, [student_answer, is_correct, question_id, student_id])
-    .then(result => {
+  `;
+  pool
+    .query(updateQuery, [student_answer, is_correct, question_id, student_id])
+    .then((result) => {
       if (result.rowCount === 0) {
-        pool.query(insertQuery, [question_id, student_id, student_answer, is_correct])
-          .then(_ => {
+        pool
+          .query(insertQuery, [
+            question_id,
+            student_id,
+            student_answer,
+            is_correct,
+          ])
+          .then((_) => {
             res.send({
               result: `SUCCESS`,
-              message: `Answer inserted`
-            })
-          })
+              message: `Answer inserted`,
+            });
+          });
       } else {
         res.send({
           result: `SUCCESS`,
-          message: `Answer updated`
-        })
+          message: `Answer updated`,
+        });
       }
     })
     .catch((e) => {
@@ -280,28 +305,8 @@ router.post("/quiz-submission/", (req, res) => {
         result: `FAILURE`,
         message: `FATAL ERROR: Internal Server Error`,
       });
-    })
+    });
 });
-
-/*
-We have a running tally of the question answers in a state
-made a post request from the app.js
-we need to hardcode the student id in question
-*/  
-  
-/*
-loop through all the questions 
-insert a row for each student_quiz_answers
-*/
-
-/*
-We have created a categories end point for the quiz drop down on quiz-home
-We have created a fetch question quiz-categories 
-We have created an update query in the api
-improvements to integrate the register with the login to make the student id dynamic
-
-
-*/
 
 //----------------------------------------TEACHER REGISTER----------------------------------------
 //OUTPUT: UI elements that input data from a new teacher user
@@ -361,7 +366,7 @@ router.post("/register/students", (req, res) => {
       });
     });
 });
-// do not remove endpoint belongs to the student register endpoint
+// DO NOT REMOVE THIS endpoint belongs to the student register endpoint
 router.get("/groups", (_, res) => {
   const sql = `SELECT * FROM groups`;
   pool
