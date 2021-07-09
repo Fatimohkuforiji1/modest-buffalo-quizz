@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { TextField, MenuItem, Button } from "@material-ui/core";
-import Categories from "../../Data/Category";
+// import Categories from "../../Data/Category";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../Component/ErrorMessage/ErrorMessage";
 
 const Home = ({ name, setName, fetchQuestions }) => {
+  const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    fetch('/api/categories')
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      console.log(data);
+      setCategories(data);
+    })
+  }, [])
   const history = useHistory();
 
   const handleSubmit = () => {
@@ -46,11 +57,13 @@ console.log(setName)
             onChange={(e) => setCategory(e.target.value)}
             value={category}
           >
-            {Categories.map((item) => (
-              <MenuItem key={item.category} value={item.category}>
+            {console.log("cat in menu",categories)}
+            {categories ? (categories.map((item) => (
+              <MenuItem key={item.category} value={item.value}>
+
                 {item.category}
               </MenuItem>
-            ))}
+            ))) : null}
           </TextField>
           <Button
             variant="contained"

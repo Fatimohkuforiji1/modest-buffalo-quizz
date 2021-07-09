@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table } from "react-bootstrap";
-//name routes for specific functions
 ///dashboard/teacher/:id
 const TeacherDashboard = () => {
+  
   const [groupQuizInfo, setGroupQuizInfo] = useState([]);
   console.log(groupQuizInfo);
   useEffect(() => {
@@ -23,24 +23,33 @@ const TeacherDashboard = () => {
         console.log(e);
       });
   }, []);
-  
+
   const table_rows = [];
-  if (groupQuizInfo && groupQuizInfo.quiz_information) {
-    for (let index = 0; index < groupQuizInfo.quiz_information.length; index++) {
-      const quiz = groupQuizInfo.quiz_information[index];
+  if (
+    groupQuizInfo &&
+    groupQuizInfo.quiz_information &&
+    groupQuizInfo.group_results
+  ) {
+    for (let index = 0; index < groupQuizInfo.group_results.length; index++) {
+      const studentInfo = groupQuizInfo.group_results[index];
+      const quiz = groupQuizInfo.quiz_information.filter(qi => qi.id === studentInfo.quiz_id)[0];
+      const quizDate = new Date(quiz.date_added);
+
+      let passed_value = "PASSED";
+      if (studentInfo.has_passed === 0) {
+        passed_value = "FAILED";
+      }
+   
       table_rows.push(
         <tr key={index}>
-          <td>{groupQuizInfo.group_name}</td>
-          <td>{groupQuizInfo.id}</td>
-          <td>{`${groupQuizInfo.first_name} ${groupQuizInfo.last_name}`}</td>
-          <td>{`${quiz.student_first_name} ${quiz.student_last_name}`}</td>
+          <td>{studentInfo.group_name}</td>
+          <td>{`${studentInfo.student_first_name} ${studentInfo.student_last_name}`}</td>
           <td>{quiz.title}</td>
-          <td>{quiz.module_name}</td>
-          <td>{quiz.date_added}</td>
-          <td>{quiz.total_questions_correct}</td>
-          <td>{quiz.total_questions_answered}</td>
-          <td></td>
-          <td></td>
+          <td>{quiz.quiz_description}</td>
+          <td>{quizDate.toDateString()}</td>
+          <td>{studentInfo.result_percentage}%</td>
+          <td>{studentInfo.percentage_pass_rate}%</td>
+          <td>{passed_value}</td>
           <td></td>
         </tr>
       );
@@ -59,7 +68,6 @@ const TeacherDashboard = () => {
           <th>Result percentage</th>
           <th>Percentage pass</th>
           <th>Has passed</th>
-          <th>Completed quiz</th>
         </tr>
       </thead>
       <tbody>{table_rows}</tbody>

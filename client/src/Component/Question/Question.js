@@ -12,6 +12,7 @@ const Question = ({
   correct,
   setScore,
   score,
+  updateStudentAnswers,
 }) => {
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
@@ -35,13 +36,23 @@ const Question = ({
       setScore(score + 1);
       setError(false);
     }
+    updateStudentAnswers({
+      question_id: questions[currentQuestion].question_id,
+      student_answer: i,
+      is_correct: i === correct,
+      student_id: 1, // to make the id dynamic this application requires the student login to be connected to this app
+    });
   };
+
   const handleNext = () => {
-    if (currentQuestion > 4) {
-      history.push("/result");
-    } else if (selected) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelected();
+    if (selected) {
+      if (currentQuestion === questions.length - 1) {
+        history.push("/result"); // go to the results page
+      } else {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelected();
+      }
+
     } else {
       setError("Please select an option first");
     }
@@ -90,7 +101,9 @@ const Question = ({
             style={{ width: 185 }}
             onClick={handleNext}
           >
-            {currentQuestion > 20 ? "Submit" : "Next Question"}
+            {currentQuestion === questions.length - 1
+              ? "Submit"
+              : "Next Question"}
           </Button>
         </div>
       </div>
