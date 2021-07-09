@@ -1,7 +1,6 @@
 import { Router } from "express";
 import pool from "./db";
 const router = new Router();
-// create dynamic users global context
 
 //================================================READ================================================
 // NB:REFERENCE APIS BY USE OF GET ROUTES
@@ -232,25 +231,57 @@ AND qz.id = $1;
       });
     })
   
-  // const 
+ 
 });
 
-/*
-CREATE TABLE student_quiz_answers(
-  id       SERIAL PRIMARY KEY,
-  question_id INT REFERENCES questions(id),
-  student_answer  VARCHAR(150) NOT NULL,
-  student_id INT REFERENCES students(id),
-  is_correct BOOLEAN
-);
 
-
+// upsert combination of insert and update - if an answer exists it overwrites it and if it doesnt exists it updates it 
+//INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
 
 */
 //=================================================CREATE=================================================
-// router.post("/quiz-submission/", (req, res) => {
-// const 
-// }
+router.post("/quiz-submission/", (req, res) => {
+  const { question_id, student_id, student_answer, is_correct } = req.body;
+  const updateQuery = `
+    UPDATE student_quiz_answers
+    SET
+    student_answer = $1,
+    is_correct = $2
+    WHERE
+    question_id = $3 AND
+    student_id = $4
+  `;
+  const insertQuery = `
+  INSERT
+  INTO student_quiz_answers
+  (question_id, student_id,student_answer,is_correct)
+  VALUES($1,$2,$3,$4)
+  `
+  pool.query(updateQuery, [student_answer, is_correct, question_id, student_id])
+    .then(result => {
+      if (result.rowCount === 0) {
+        pool.query(insertQuery, [question_id, student_id, student_answer, is_correct])
+          .then(_ => {
+            res.send({
+              result: `SUCCESS`,
+              message: `Answer inserted`
+            })
+          })
+      } else {
+        res.send({
+          result: `SUCCESS`,
+          message: `Answer updated`
+        })
+      }
+    })
+    .catch((e) => {
+      console.error(e.stack);
+      res.status(500).send({
+        result: `FAILURE`,
+        message: `FATAL ERROR: Internal Server Error`,
+      });
+    })
+});
 
 /*
 We have a running tally of the question answers in a state
@@ -261,9 +292,17 @@ we need to hardcode the student id in question
 /*
 loop through all the questions 
 insert a row for each student_quiz_answers
+*/
+
+/*
+We have created a categories end point for the quiz drop down on quiz-home
+We have created a fetch question quiz-categories 
+We have created an update query in the api
+improvements to integrate the register with the login to make the student id dynamic
 
 
 */
+
 //----------------------------------------TEACHER REGISTER----------------------------------------
 //OUTPUT: UI elements that input data from a new teacher user
 router.post("/register/teachers", (req, res) => {
