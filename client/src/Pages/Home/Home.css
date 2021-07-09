@@ -43,3 +43,18 @@ flex: 0.8;
 justify-content: space;
 
 }
+/* .form-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(237,67,67);
+    width: 100%;
+    margin: auto;
+
+}
+
+.form-list {
+width: 50%;
+} */
+
