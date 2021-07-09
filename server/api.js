@@ -398,7 +398,6 @@ INNER JOIN answers ON questions.id = answers.question_id`;
 //--------------------------module route -------------------------------
 router.get("/modules", (req, res) => {
   const getModules = `SELECT * FROM modules`;
-  // console.log(getModule);
   // if(getModules === 'React'){
   //   res.send(result.rows[0])
   // }
