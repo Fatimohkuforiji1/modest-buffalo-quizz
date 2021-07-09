@@ -47,6 +47,7 @@ const TeacherQuiz = () => {
             onChange={(e) => setQuestion1(e.target.value)}
           />
           <br></br>
+          
           <h2>Please Select the Correct answer</h2>
           <br></br>
           <label>
