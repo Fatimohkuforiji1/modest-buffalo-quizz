@@ -10,7 +10,7 @@ const Quiz = ({
   setQuestions,
   setScore,
   updateStudentAnswers,
-  submitQuiz
+  // submitQuiz
 }) => {
   const [options, setOptions] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -48,7 +48,7 @@ const Quiz = ({
             setScore={setScore}
             setQuestions={setQuestions}
             updateStudentAnswers={updateStudentAnswers}
-            submitQuiz={submitQuiz}
+            // submitQuiz={submitQuiz}
           />
         </>
       ) : (

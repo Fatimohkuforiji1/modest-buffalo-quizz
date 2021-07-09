@@ -13,7 +13,7 @@ const Question = ({
   setScore,
   score,
   updateStudentAnswers,
-  submitQuiz
+  // submitQuiz
 }) => {
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
@@ -41,15 +41,14 @@ const Question = ({
       question_id: questions[currentQuestion].question_id,
       student_answer: i,
       is_correct: i === correct,
-      student_id:1 //please make this id dynamic 
+      student_id: 1, // to make the id dynamic this application requires the student login to be connected to this app
     });
   };
- 
+
   const handleNext = () => {
     if (selected) {
       if (currentQuestion === questions.length - 1) {
-        submitQuiz()
-        // history.push("/result"); // go to the results page
+        history.push("/result"); // go to the results page
       } else {
         setCurrentQuestion(currentQuestion + 1);
         setSelected();
