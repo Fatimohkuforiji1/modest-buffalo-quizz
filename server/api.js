@@ -453,12 +453,10 @@ router.post("/answer", (req, res) => {
   res.status(200).json(req.body);
 
   // pool.query(getAnswers)
-
   //   then((result)=> console.log(result.rows))
   //   //   result.rows.map((obj)=>{
   //   //   correctAnswerCheck = [obj.correct_answer];
   //   //   })
-
   //   //  console.log(correctAnswerCheck);
   //  .catch((error) => res.status(500).send(error));
 });
