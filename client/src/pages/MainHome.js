@@ -30,21 +30,23 @@ export function MainHome() {
 				<h1 className="message" data-qa="message">{message}</h1> */}
         {/* <Link to="/about/this/site">About</Link> */}
 
-	
         <div className="main">
           <div className="welcome-text">
             <p>Welcome to the Quiz</p>
             <p>
-              At CodeYourFuture, our students gain a vast amount of knowledge
-              and skills, which will result in them being able to call
-              themselves a programmer. It’s important that we can track a
-              student's progress over the course to make sure that they are
-              keeping up with the class and developing their understanding of
-              our material.
+              Code Your Future is a non governmental organization that supports
+              the educational development of hundreds of students worldwide each
+              year. As such, throughout the duration of eight month programme our 
+              teachers use a variety of online learning tools to test the 
+              understanding of our students. Hence having a quiz
+              app which would allow our teachers track the success of our
+              students is paramount. Also because a lot of courses are covered,
+              this app will help our students have a better idea of how well they are
+              grasping the material and hopefully motivating them to studying
+              more thereby focusing on the information that still needs more
+              practice.
             </p>
-
           </div>
-
         </div>
       </div>
     </main>

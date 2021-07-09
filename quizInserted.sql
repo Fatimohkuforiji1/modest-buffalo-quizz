@@ -22,7 +22,7 @@ CREATE TABLE students (
   first_name  VARCHAR(150) NOT NULL,
   last_name  VARCHAR(150) NOT NULL,
   email  VARCHAR(150) NOT NULL,
-  user_password  VARCHAR(75) NOT NULL,
+  user_password  VARCHAR(250) NOT NULL,
   groups_id   INT REFERENCES groups(id),
   city     VARCHAR(100) NOT NULL,
   country  VARCHAR(100) NOT NULL
@@ -33,7 +33,7 @@ CREATE TABLE teachers (
   first_name  VARCHAR(150) NOT NULL,
   last_name     VARCHAR(150) NOT NULL,
   email        VARCHAR(150) NOT NULL,
-  user_password     VARCHAR(50) NOT NULL,
+  user_password     VARCHAR(250) NOT NULL,
   city     VARCHAR(50) NOT NULL,
   country  VARCHAR(50) NOT NULL
 );
@@ -45,7 +45,8 @@ CREATE TABLE quizzes (
   image_url  VARCHAR(250) NOT NULL,
   teacher_id  INT REFERENCES teachers(id),
   module_id   INT REFERENCES modules(id),
-  date_added TIMESTAMPTZ DEFAULT(CURRENT_TIMESTAMP)   
+  percentage_pass_rate DECIMAL(5,2),
+  date_added TIMESTAMPTZ DEFAULT(CURRENT_TIMESTAMP) 
 );
 
 CREATE TABLE questions (
@@ -103,47 +104,47 @@ INSERT INTO groups (group_name) VALUES ('Palestine 1');
 
 
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class','testURL.....',1,1 );
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('React','Review React Undertsanding','testURL.....',1,1, 70);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('What programming lanugage does React use?',1,'JavaScript');
-INSERT INTO answers (question_id,answer) VALUES (1, 'python');
+INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
 INSERT INTO answers (question_id,answer) VALUES (1, 'C#');
 INSERT INTO answers (question_id,answer) VALUES (1, 'PHP');
-INSERT INTO answers (question_id,answer) VALUES (1, 'JavaScript');
+INSERT INTO answers (question_id,answer) VALUES (1, 'python');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(1,1,'PHP',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 2','testURL2.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which one of these names is not a programming language?',2,'Lobo');
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('React','Review React Undertsanding','testURL2.....',1,1, 70);
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which one of these names is a programming language?',2,'Python');
 INSERT INTO answers (question_id,answer) VALUES (2, 'Python');
 INSERT INTO answers (question_id,answer) VALUES (2, 'Lobo');
-INSERT INTO answers (question_id,answer) VALUES (2, 'Java');
-INSERT INTO answers (question_id,answer) VALUES (2, 'JavaScript');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(2,1,'Lobo',true);
+INSERT INTO answers (question_id,answer) VALUES (2, 'Perl');
+INSERT INTO answers (question_id,answer) VALUES (2, 'Amharic');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(2,1,'Python',true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which person is not related to technology?',3,'John Mayor');
-INSERT INTO answers (question_id,answer) VALUES (3, 'John Mayjor');
-INSERT INTO answers (question_id,answer) VALUES (3, 'Bill Gates');
-INSERT INTO answers (question_id,answer) VALUES (3, 'Steve Jobs');
-INSERT INTO answers (question_id,answer) VALUES (3, 'Todd Howard');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(3,1,'John Mayjor',true);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('React','Review React Undertsanding','testURL3.....',1,1, 70 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES (' Elements are the smallest building blocks of which apps.',3,'React');
+INSERT INTO answers (question_id,answer) VALUES (3, 'React');
+INSERT INTO answers (question_id,answer) VALUES (3, 'HTML');
+INSERT INTO answers (question_id,answer) VALUES (3, 'Nodes');
+INSERT INTO answers (question_id,answer) VALUES (3, 'CSS');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(3,1,'React',true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which of these is not a gaming console?',4,'Lynx X');
-INSERT INTO answers (question_id,answer) VALUES (4, 'Playstation 5');
-INSERT INTO answers (question_id,answer) VALUES (4, 'Lynx X');
-INSERT INTO answers (question_id,answer) VALUES (4, 'Xbox X 360');
-INSERT INTO answers (question_id,answer) VALUES (4, 'Nintendo Switch');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(4,1,'Lynx X',true);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('React','Review React Undertsanding','testURL4.....',1,1, 70 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('What do we use to render another component for efficiently re-using the code?',4,'Props');
+INSERT INTO answers (question_id,answer) VALUES (4, 'Props');
+INSERT INTO answers (question_id,answer) VALUES (4, 'Component');
+INSERT INTO answers (question_id,answer) VALUES (4, 'Render');
+INSERT INTO answers (question_id,answer) VALUES (4, 'Switch');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(4,1,'Props',true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('React week 1','Review week one react class test 3','testURL3.....',1,1 );
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which item in the list is not a computer accessary?',5,'A comb');
-INSERT INTO answers (question_id,answer) VALUES (5, 'A comb');
-INSERT INTO answers (question_id,answer) VALUES (5, 'A computer Keyboard');
-INSERT INTO answers (question_id,answer) VALUES (5, 'A power adaptor');
-INSERT INTO answers (question_id,answer) VALUES (5, 'A compuer monitor');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'A power adaptor',false);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('React','Review React Undertsanding','testURL3.....',1,1, 70 );
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which word do we use to export a component in React?',5,'export default');
+INSERT INTO answers (question_id,answer) VALUES (5, 'export default');
+INSERT INTO answers (question_id,answer) VALUES (5, 'export react');
+INSERT INTO answers (question_id,answer) VALUES (5, 'default import');
+INSERT INTO answers (question_id,answer) VALUES (5, 'import react');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(5,1,'export react',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('JavaScript','Review JavaScript understanding','testURL1.....',1,2, 60);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('A program that is an Object-based Programming language',6,'JavaScript');
 INSERT INTO answers (question_id,answer) VALUES (6, 'JavaScript');
 INSERT INTO answers (question_id,answer) VALUES (6, 'Node');
@@ -151,23 +152,23 @@ INSERT INTO answers (question_id,answer) VALUES (6, 'HTML');
 INSERT INTO answers (question_id,answer) VALUES (6, 'CSS');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(6,1,'Node',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2);
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('The following are the JavaScript Data types, except:',7,'Null');
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('JavaScript','Review JavaScript understanding','testURL2.....',1,2, 60);
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which one of the names is a JavaScript Data type',7,'Number');
 INSERT INTO answers (question_id,answer) VALUES (7, 'Number');
-INSERT INTO answers (question_id,answer) VALUES (7, 'String');
-INSERT INTO answers (question_id,answer) VALUES (7, 'Boolean');
-INSERT INTO answers (question_id,answer) VALUES (7, 'Null');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,1,'Null',false);
+INSERT INTO answers (question_id,answer) VALUES (7, 'Operator');
+INSERT INTO answers (question_id,answer) VALUES (7, 'Syntax');
+INSERT INTO answers (question_id,answer) VALUES (7, 'TypeOf');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(7,1,'Syntax',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2, 60);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('which sign is used to Break within a string statement',8,'\');
-INSERT INTO answers (question_id,answer) VALUES (8, '|');
+INSERT INTO answers (question_id,answer) VALUES (8, '\');
 INSERT INTO answers (question_id,answer) VALUES (8, '~');
 INSERT INTO answers (question_id,answer) VALUES (8, '*');
-INSERT INTO answers (question_id,answer) VALUES (8, '\');
+INSERT INTO answers (question_id,answer) VALUES (8, '|');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(8,1,'|',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('JavaScript','Review JavaScript understanding','testURL4.....',1,2, 60);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('What is === operator?',9,'strictly equality');
 INSERT INTO answers (question_id,answer) VALUES (9, 'strictly equality');
 INSERT INTO answers (question_id,answer) VALUES (9, 'equality');
@@ -175,66 +176,50 @@ INSERT INTO answers (question_id,answer) VALUES (9, 'partially equality');
 INSERT INTO answers (question_id,answer) VALUES (9, 'All of the above');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(9,1,'strictly equality',true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('JavaScript','Review JavaScript understanding','testURL3.....',1,2);
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('All the following are looping structures in JavaScript, except:',10,'for-while');
-INSERT INTO answers (question_id,answer) VALUES (10, 'for');
-INSERT INTO answers (question_id,answer) VALUES (10, 'while');
-INSERT INTO answers (question_id,answer) VALUES (10, 'Do-while loops');
-INSERT INTO answers (question_id,answer) VALUES (10, 'for-while');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,1,'for-while',true);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('JavaScript','Review JavaScript understanding','testURL5.....',1,2, 60);
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which sign is use for an array in JavaScript',10,'[]');
+INSERT INTO answers (question_id,answer) VALUES (10, '[]');
+INSERT INTO answers (question_id,answer) VALUES (10, '{}');
+INSERT INTO answers (question_id,answer) VALUES (10, '()');
+INSERT INTO answers (question_id,answer) VALUES (10, '||');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(10,1,'[]',true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('SQL','Review understanding of SQL','testURL1.....',1,3, 65);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which SQL function is used to count the number of rows in a SQL query?',11,'COUNT()');
-INSERT INTO answers (question_id,answer) VALUES (11, 'NUMBER()');
 INSERT INTO answers (question_id,answer) VALUES (11, 'COUNT()');
+INSERT INTO answers (question_id,answer) VALUES (11, 'NUMBER()');
 INSERT INTO answers (question_id,answer) VALUES (11, 'SUM()');
 INSERT INTO answers (question_id,answer) VALUES (11, 'TOP()');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,1,'Top',false);
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(11,1,'Top()',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('SQL','Review understanding of SQL','testURL2.....',1,3, 65);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('The FROM SQL clause is used to…',12,'Specify what table we are selecting or deleting data from');
-INSERT INTO answers (question_id,answer) VALUES (12, 'specify range for search condition');
-INSERT INTO answers (question_id,answer) VALUES (12, 'Specify search condition');
 INSERT INTO answers (question_id,answer) VALUES (12, 'Specify what table we are selecting or deleting data from');
+INSERT INTO answers (question_id,answer) VALUES (12, 'Specify search condition');
+INSERT INTO answers (question_id,answer) VALUES (12, 'specify range for search condition');
 INSERT INTO answers (question_id,answer) VALUES (12, 'specify what to do on an operation');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(12,1,'Specify search condition',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3);
-INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which of the following is NOT a SQL keyword or SQL clause?',13,'INSERT');
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3, 65);
+INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which of the following is a SQL keyword or SQL clause?',13,'INSERT');
 INSERT INTO answers (question_id,answer) VALUES (13, 'INSERT');
 INSERT INTO answers (question_id,answer) VALUES (13, 'INVERT');
-INSERT INTO answers (question_id,answer) VALUES (13, 'SELECT');
-INSERT INTO answers (question_id,answer) VALUES (13, 'UPDATE');
-INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(13,1,'SELECT',false);
+INSERT INTO answers (question_id,answer) VALUES (13, 'CHOOSE');
+INSERT INTO answers (question_id,answer) VALUES (13, 'THEN');
+INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(13,1,'INVERT',false);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('SQL','Review understanding of SQL','testURL4.....',1,3, 65);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('What does DML stand for?',14,'Data Manipulation Language');
-INSERT INTO answers (question_id,answer) VALUES (14, 'Data Model Language');
+INSERT INTO answers (question_id,answer) VALUES (14, 'Data Manipulation Language');
 INSERT INTO answers (question_id,answer) VALUES (14, 'Different Mode Level');
 INSERT INTO answers (question_id,answer) VALUES (14, 'Data Mode Lane');
-INSERT INTO answers (question_id,answer) VALUES (14, 'Data Manipulation Language');
+INSERT INTO answers (question_id,answer) VALUES (14, 'Data Model Language');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(14,1,'Data Manipulation Language', true);
 
-INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id) VALUES ('SQL','Review understanding of SQL','testURL3.....',1,3);
+INSERT INTO quizzes (title,quiz_description,image_url,teacher_id,module_id, percentage_pass_rate) VALUES ('SQL','Review understanding of SQL','testURL5.....',1,3, 65);
 INSERT INTO questions (question,quiz_id,correct_answer) VALUES ('Which SQL keyword is used to retrieve a maximum value?',15,'MAX');
-INSERT INTO answers (question_id,answer) VALUES (15, 'MOST');
 INSERT INTO answers (question_id,answer) VALUES (15, 'MAX');
+INSERT INTO answers (question_id,answer) VALUES (15, 'MOST');
 INSERT INTO answers (question_id,answer) VALUES (15, 'TOP');
 INSERT INTO answers (question_id,answer) VALUES (15, 'UPPER');
 INSERT INTO student_quiz_answers  (question_id, student_id,student_answer,is_correct) VALUES(15,1,'UPPER',false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

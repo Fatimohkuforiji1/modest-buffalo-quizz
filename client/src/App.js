@@ -10,12 +10,14 @@ import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
 import Layout from "./Component/Layout";
-import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
-import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
+import StudentRegistrationForm from "./Component/StudentRegistrationForm";
+import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentDashboard from "./Component/StudentDashboard";
-import QuizData from "./QuizComponent/QuizData";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
+
+
+
 
 const App = () => {
 const { isAuthenticated } = useContext(AuthContext);
@@ -26,32 +28,32 @@ const [questions, setQuestions] = useState();
 const [score, setScore] = useState(0);
 
 const fetchQuestions = async(category = "") => {
-//const { data } = await axios.get(
-  //`https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
- // );
+// const { data } = await axios.get(
+//   `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
+//  );
+//  setQuestions(data.results);
+//  console.log(data.results);
+
   const myData = await axios.post("http://localhost:3100/api/quizDetails", {
     module: category,
   });
-//setQuestions(data.results);
-setQuestions(myData)
+console.log(myData);
+setQuestions(myData.data)
+
 
 }
 
 
+
   return (
     <div className="app">
-      {/* <Header /> */}
-      {/* <Header /> */}
       <Switch>
         <Layout>
           {isAuthenticated ? (
             <>
-              <Route path="/about/this/site">
+              {/* <Route path="/about/this/site">
                 <About />
-              </Route>
-            </>
-          ) : (
-            <>
+              </Route> */}
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
@@ -72,19 +74,19 @@ setQuestions(myData)
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
-
-              <Route path="/" exact>
-                <Home />
-              </Route>
-              <Route path="/" exact>
+            </>
+          ) : (
+            <>
+              
+              <Route path="/login" exact>
                 <LoginForm />
               </Route>
               <Route path="/" exact>
                 <MainHome />
               </Route>
 
-              <Route path="/register/teacher">
-                <TeacherRegistrationForm />
+              <Route path="/register">
+                <TeacherRegistration />
               </Route>
 
               <Route path="/teacherQuiz" exact>

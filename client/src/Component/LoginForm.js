@@ -1,47 +1,50 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 
+
 function LoginForm() {
+  let history = useHistory();
   const { authenticate } = useContext(AuthContext);
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [user, setUser] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+  const [isCorrect, setIsCorrect] = useState(false);
 
-  const Login = (details) => {
-    if (details.email === user.email && details.password === user.password) {
-      console.log("Logged in");
-      setUser({
-        email: details.email,
-      });
-    } else {
-      console.log("Details do not match");
-      setError("Details do not match");
-    }
-  };
-  
-  async function submitHandler(e) {
+
+  function submitHandler(e) {
     e.preventDefault();
-    Login(details);
-    const userLogin = { email, password };
-    const res = await fetch("http://localhost:3100/api/login", {
+    // console.log(details);    
+    const userLogin = { email: details.email, password: details.password };
+
+    fetch("http://localhost:3100/api/login", {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {
         "Content-type": "application/json",
       },
-    });
-    console.log(res);
+    })
+      .then((result) => result.json())
+      .then((data) => {
+        console.log(data);
+        if (data.message === "Login Sucessful") {
+          setIsCorrect(true);
+          authenticate();
+           history.push("/quiz-home");
+        } else {
+
+          setIsCorrect(false);
+        }
+      });
   }
 
   return (
-    <form onSubmit={submitHandler}>
+    <form>
       <div className="form-head">
         <h2>Login</h2>
-        {error !== "" ? <div className="error">{error}</div> : ""}
+        {/* {error !== "" ? <div className="error">{error}</div> : ""} */}
         <div className="form-list">
           <label name="email">Email:</label>
           <input
-            type="email"
+            type="text"
             name="email"
             id="email"
             onChange={(e) => setDetails({ ...details, email: e.target.value })}
@@ -62,9 +65,16 @@ function LoginForm() {
           </div>
           {/* <input type="submit" value="LOGIN" /> */}
           {/* <button onClick={Logout}>Logout</button> */}
-          <button onClick={() => authenticate()} type="submit">
+          <button type="submit" onClick={submitHandler}>
             Login
           </button>
+          {/* 
+            <Link to="/quiz-home" className="link">
+              <button type="submit">Login</button>
+          </Link>
+           <Link to="/quiz-home" className="link">
+              <button type="submit">Login</button>
+          </Link> */}
         </div>
       </div>
     </form>
