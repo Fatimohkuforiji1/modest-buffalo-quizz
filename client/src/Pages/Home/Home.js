@@ -60,6 +60,7 @@ console.log(setName)
             {console.log("cat in menu",categories)}
             {categories ? (categories.map((item) => (
               <MenuItem key={item.category} value={item.value}>
+
                 {item.category}
               </MenuItem>
             ))) : null}

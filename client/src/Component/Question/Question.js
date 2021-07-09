@@ -13,7 +13,6 @@ const Question = ({
   setScore,
   score,
   updateStudentAnswers,
-  // submitQuiz
 }) => {
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
@@ -53,6 +52,7 @@ const Question = ({
         setCurrentQuestion(currentQuestion + 1);
         setSelected();
       }
+
     } else {
       setError("Please select an option first");
     }

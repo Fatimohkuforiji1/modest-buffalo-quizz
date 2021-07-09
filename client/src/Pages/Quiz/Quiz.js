@@ -12,15 +12,16 @@ const Quiz = ({
   updateStudentAnswers,
   // submitQuiz
 }) => {
+
   const [options, setOptions] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
+console.log(questions);
   useEffect(() => {
     setOptions(
-      questions &&
+      questions.length > 0 &&
         handleShuffle([
-          questions[currentQuestion]?.correct_answer,
-          ...questions[currentQuestion]?.incorrect_answers,
+          questions[currentQuestion]?.answer,
+          //...questions[currentQuestion]?.incorrectAnswerArrayOfObject,
         ])
     );
   }, [questions, currentQuestion]);
@@ -32,10 +33,11 @@ const Quiz = ({
   return (
     <div className="quiz">
       <span className="subtitle"> Welcome: {name}</span>
-      {questions ? (
+      {questions.length > 0 ? (
         <>
           <div className="quizInfo">
-            <span>{questions[currentQuestion].category}</span>
+            {console.log(questions, currentQuestion, options)}
+            <span>{questions[currentQuestion].module_name}</span>
             <span>Score: {score}</span>
           </div>
           <Question
@@ -43,7 +45,7 @@ const Quiz = ({
             setCurrentQuestion={setCurrentQuestion}
             questions={questions}
             options={options}
-            correct={questions[currentQuestion]?.correct_answer}
+            correct={questions[currentQuestion]?.answer}
             score={score}
             setScore={setScore}
             setQuestions={setQuestions}

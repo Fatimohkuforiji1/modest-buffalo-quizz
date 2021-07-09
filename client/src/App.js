@@ -10,11 +10,12 @@ import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
 import Layout from "./Component/Layout";
-import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
+import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
+import QuizButton from "./QuizComponent/QuizButton";
 
 const App = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -38,6 +39,7 @@ const App = () => {
     setStudent_answer(student_answer);
   };
 
+
   const fetchQuestions = async (category = "") => {
     const { data } = await axios.get(
       `http://localhost:3100/api/quiz/${category}`
@@ -46,6 +48,7 @@ const App = () => {
     setQuestions(data);
     console.log(name);
   };
+
 
   return (
     <div className="app">
@@ -80,19 +83,22 @@ const App = () => {
                 <Result score={score} name={name} />
               </Route>
               <Route path="/" exact>
-                <Home />
+                <MainHome />
               </Route>
-              <Route path="/" exact>
+              <Route path="/login" exact>
                 <LoginForm />
               </Route>
-              <Route path="/" exact>
-                <MainHome />
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
+              </Route>
+
+              <Route path="/register/teachers">
+                <TeacherRegistration />
               </Route>
 
               <Route path="/teacherQuiz" exact>
                 <TeacherQuiz />
               </Route>
-
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
               </Route>
@@ -105,6 +111,7 @@ const App = () => {
               <Route path="/dashboard/teacher">
                 <TeacherDashboard />
               </Route>
+             
             </>
           )}
         </Layout>
