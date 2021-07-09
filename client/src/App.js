@@ -14,7 +14,7 @@ import TeacherRegistrationForm from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
-// import QuizData from "./QuizComponent/QuizData";
+import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
 
 const App = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -24,24 +24,21 @@ const App = () => {
   const [score, setScore] = useState(0);
 
   const updateStudentAnswers = (answer) => {
-    console.log("to student answer", typeof student_answer);
-    console.log("student answer", student_answer);
-    student_answer.push(answer);
-    setStudent_answer(student_answer);
-  };
-
-  const submitQuiz = () => {
+    console.log(answer);
     fetch("http://localhost:3100/api/quiz-submission", {
       method: "POST",
-      body: JSON.stringify(student_answer),
+      body: JSON.stringify(answer),
       headers: {
         "Content-type": "application/json",
       },
-    });
+    })
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e));
+    student_answer.push(answer.student_answer);
+    setStudent_answer(student_answer);
   };
 
   const fetchQuestions = async (category = "") => {
-    // const { data } = await axios.get(`http://localhost:3100/api/quiz/1`); //${category}`);
     const { data } = await axios.get(
       `http://localhost:3100/api/quiz/${category}`
     );
@@ -52,8 +49,6 @@ const App = () => {
 
   return (
     <div className="app">
-      {/* <Header /> */}
-      {/* <Header /> */}
       <Switch>
         <Layout>
           {isAuthenticated ? (
@@ -79,7 +74,6 @@ const App = () => {
                   setScore={setScore}
                   setQuestions={setQuestions}
                   updateStudentAnswers={updateStudentAnswers}
-                  submitQuiz={submitQuiz}
                 />
               </Route>
               <Route path="/result" exact>
@@ -94,6 +88,11 @@ const App = () => {
               <Route path="/" exact>
                 <MainHome />
               </Route>
+
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
+              </Route>
+
               <Route path="/register/teacher">
                 <TeacherRegistrationForm />
               </Route>
@@ -114,7 +113,3 @@ const App = () => {
   );
 };
 export default App;
-
-
-// modified: client / src / App.js;
-//  client/src/Component/TeacherQuiz/
