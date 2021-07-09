@@ -177,8 +177,93 @@ router.get("/dashboard/student/:id", function (req, res) {
     });
 });
 
-//=================================================CREATE=================================================
+//---------------------QUIZ_QUESTION_DATA-----------------------------
+//Outcome: Fetches the name of the title of the quizzes for the quiz drop down on the quiz page
+router.get("/categories", (_, res) => {
+  const query = `
+SELECT title AS category, id AS value FROM quizzes
+`;
+  pool.query(query)
+  .then(result => {
+      res.send(result.rows);
+  });
+});
 
+router.get("/quiz/:id", (req, res) => {
+  const quizId = req.params.id;
+  const quiz_query = `
+SELECT qz.title As category,
+       qs.id,
+       qs.question,
+       qs.correct_answer
+FROM questions As qs
+      INNER JOIN quizzes As qz ON qz.id=qs.quiz_id
+WHERE qs.quiz_id=$1
+`;
+const quiz_bad_answers = `
+SELECT
+a.question_id,
+a.answer
+FROM answers As a
+INNER JOIN questions As qs ON qs.id=a.question_id
+INNER JOIN quizzes AS qz ON qs.quiz_id = qz.id
+WHERE a.answer <> qs.correct_answer
+AND qz.id = $1;
+`;
+  pool
+    .query(quiz_query, [quizId])
+    .then(result => {
+      pool.query(quiz_bad_answers, [quizId])
+      .then(result2 => {
+        const questions = result.rows.map(q => {
+          const bad_answers = result2.rows.filter(a => {
+            return a.question_id === q.id;
+          }).map(a => a.answer);
+          return { category: q.category, question: q.question, correct_answer: q.correct_answer, incorrect_answers: bad_answers, question_id: q.id};
+        });
+        res.send(questions);
+      });
+    })
+    .catch((e) => {
+      console.error(e.stack);
+      res.status(500).send({
+        result: `FAILURE`,
+        message: `FATAL ERROR: Internal Server Error`,
+      });
+    })
+  
+  // const 
+});
+
+/*
+CREATE TABLE student_quiz_answers(
+  id       SERIAL PRIMARY KEY,
+  question_id INT REFERENCES questions(id),
+  student_answer  VARCHAR(150) NOT NULL,
+  student_id INT REFERENCES students(id),
+  is_correct BOOLEAN
+);
+
+
+
+*/
+//=================================================CREATE=================================================
+// router.post("/quiz-submission/", (req, res) => {
+// const 
+// }
+
+/*
+We have a running tally of the question answers in a state
+made a post request from the app.js
+we need to hardcode the student id in question
+*/  
+  
+/*
+loop through all the questions 
+insert a row for each student_quiz_answers
+
+
+*/
 //----------------------------------------TEACHER REGISTER----------------------------------------
 //OUTPUT: UI elements that input data from a new teacher user
 router.post("/register/teachers", (req, res) => {
