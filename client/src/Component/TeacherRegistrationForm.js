@@ -38,21 +38,26 @@ const TeacherRegistrationForm = () => {
       country,
     };
    fetch("http://localhost:3100/api/register/teachers", {
-      method: "POST",
-      body: JSON.stringify(newUser),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    if (
-      password === isValid &&
-      password.length > 8 &&
-      !password.includes(" ")
-    ) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+     method: "POST",
+     body: JSON.stringify(newUser),
+     headers: {
+       "Content-type": "application/json",
+     },
+   }).then((data) => {
+     console.log(data); // data.rows[0].id
+     //const id = data.rows[0].id;
+   });
+    
+    
+    // if (
+    //   password === isValid &&
+    //   password.length > 8 &&
+    //   !password.includes(" ")
+    // ) {
+    //   setIsValid(true);
+    // } else {
+    //   setIsValid(false);
+    // }
   }
   return (
     <div className="Form">
@@ -106,9 +111,9 @@ const TeacherRegistrationForm = () => {
         </label>
 
         <label>
-          <h3>
+          {/* <h3>
             password is longer than 8 characters and does not include any spaces
-          </h3>
+          </h3> */}
           Create Password
           <input
             type="password"
