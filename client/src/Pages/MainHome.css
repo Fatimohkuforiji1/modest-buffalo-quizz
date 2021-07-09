@@ -23,6 +23,8 @@
 
 .image {
     margin-top: 2rem;
+    width: 60%;
+    height: auto;
 }
 
 .footer {
