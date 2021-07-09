@@ -114,3 +114,7 @@ const App = () => {
   );
 };
 export default App;
+
+
+// modified: client / src / App.js;
+//  client/src/Component/TeacherQuiz/
