@@ -70,6 +70,7 @@ function LoginForm() {
         <button className="login-btn" type="submit" onClick="window.location.href='/teacherQuiz'">
           Login
         </button>
+        
       </div>
     </form>
   );
