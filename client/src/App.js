@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import {Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import About from "./Pages/Home/About";
 import MainHome from "./pages/MainHome";
-import LoginForm from "./Component/LoginForm"
+import LoginForm from "./Component/LoginForm";
 import Home from "./Pages/Home/Home";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
@@ -14,36 +14,39 @@ import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherDashboard from "./Component/TeacherDashboard";
 import StudentDashboard from "./Component/StudentDashboard";
-import QuizData from "./QuizComponent/QuizData";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
 import QuizButton from "./QuizComponent/QuizButton";
 
 const App = () => {
-const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [student_answer, setStudent_answer] = useState([]);
+  const [name, setName] = useState("");
+  const [questions, setQuestions] = useState();
+  const [score, setScore] = useState(0);
 
+  const updateStudentAnswers = (answer) => {
+    console.log(answer);
+    fetch("http://localhost:3100/api/quiz-submission", {
+      method: "POST",
+      body: JSON.stringify(answer),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e));
+    student_answer.push(answer.student_answer);
+    setStudent_answer(student_answer);
+  };
 
-const [name, setName] = useState("");
-const [questions, setQuestions] = useState();
-const [score, setScore] = useState(0);
-
-const fetchQuestions = async(category = "") => {
-const { data } = await axios.get(
-  `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
-);
-const myData = await axios.post("http://localhost:3100/api/quizDetails", {
-  module: category,
-});
-// fetch("http://localhost:3100/api/quizDetails", {
-//       method: "POST",
-//       body: JSON.stringify({ module: moduleType }),
-//       headers: {
-//         "Content-type": "application/json",
-//       },
-setQuestions(myData.data);
-console.log(data.results)
-console.log(myData)
-}
-
+  const fetchQuestions = async (category = "") => {
+    const { data } = await axios.get(
+      `http://localhost:3100/api/quiz/${category}`
+    );
+    console.log("data", data);
+    setQuestions(data);
+    console.log(name);
+  };
 
   return (
     <div className="app">
@@ -64,7 +67,6 @@ console.log(myData)
                   fetchQuestions={fetchQuestions}
                 />
               </Route>
-
               <Route path="/quiz" exact>
                 <Quiz
                   name={name}
@@ -72,12 +74,12 @@ console.log(myData)
                   score={score}
                   setScore={setScore}
                   setQuestions={setQuestions}
+                  updateStudentAnswers={updateStudentAnswers}
                 />
               </Route>
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
-
               <Route path="/" exact>
                 <MainHome />
               </Route>
@@ -95,10 +97,12 @@ console.log(myData)
                 <TeacherQuiz />
               </Route>
 
+              {/* <Route path="/register/teacher">
+                <TeacherRegistrationForm />
+              </Route> */}
               <Route path="/register/student">
                 <StudentRegistrationForm />
               </Route>
-
               <Route path="/dashboard/student">
                 <StudentDashboard />
               </Route>
@@ -120,7 +124,3 @@ console.log(myData)
   );
 };
 export default App;
-
-
-// modified: client / src / App.js;
-//  client/src/Component/TeacherQuiz/

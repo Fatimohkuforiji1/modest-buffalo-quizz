@@ -49,17 +49,23 @@ const StudentRegistrationForm = () => {
       headers: {
         "Content-type": "application/json",
       },
+    })
+    .then(data => {
+      console.log(data); // data.rows[0].id
+      //const id = data.rows[0].id;
+      
     });
 
-    if (
-      password === isValid &&
-      password.length > 8 &&
-      !password.includes(" ")
-    ) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+    /* get the id then redirect to the student dashboard passing the id across */
+    // if (
+    //   password === isValid &&
+    //   password.length > 8 &&
+    //   !password.includes(" ")
+    // ) {
+    //   setIsValid(true);
+    // } else {
+    //   setIsValid(false);
+    // }
   }
 
   useEffect(() => {
@@ -130,9 +136,9 @@ const StudentRegistrationForm = () => {
         </label>
 
         <label>
-          <h3>
+          {/* <h3>
             password is longer than 8 characters and does not include any spaces
-          </h3>
+          </h3> */}
           Create Password
           <input
             type="password"
