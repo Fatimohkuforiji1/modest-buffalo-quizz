@@ -15,6 +15,8 @@ import StudentRegistrationForm from "./Component/StudentRegistrationForm";
 import TeacherRegistration from "./Component/TeacherRegistrationForm";
 import StudentDashboard from "./Component/StudentDashboard";
 import TeacherQuiz from "./Component/TeacherQuiz/TeacherQuiz";
+import StudentLogin from "./Component/StudentLogin";
+
 
 
 
@@ -54,6 +56,7 @@ setQuestions(myData.data)
               {/* <Route path="/about/this/site">
                 <About />
               </Route> */}
+
               <Route path="/quiz-home" exact>
                 <Home
                   name={name}
@@ -74,10 +77,13 @@ setQuestions(myData.data)
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
+
+              <Route path="/student/login">
+                <StudentLogin />
+              </Route>
             </>
           ) : (
             <>
-              
               <Route path="/login" exact>
                 <LoginForm />
               </Route>
@@ -93,7 +99,7 @@ setQuestions(myData.data)
                 <TeacherQuiz />
               </Route>
 
-              <Route path="/register/student">
+              <Route path="/student-register">
                 <StudentRegistrationForm />
               </Route>
 

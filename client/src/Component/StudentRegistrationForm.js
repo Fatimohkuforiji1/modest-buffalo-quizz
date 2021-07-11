@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const StudentRegistrationForm = () => {
+  // let history = useHistory();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,9 +14,10 @@ const StudentRegistrationForm = () => {
   const [error, setError] = useState("");
   const [groups, setGroups] = useState([]);
   const [groupsId, setGroupsId] = useState("");
- 
+
   function passwordMatch(e) {
     setConfirmPassword(e.target.value);
+    
 
     if (e.target.value !== password) {
       setError("Password doesn't match");
@@ -43,23 +46,27 @@ const StudentRegistrationForm = () => {
     };
 
     console.log(newUser);
-    fetch("http://localhost:3100/api/register/students", {
+    fetch("http://localhost:3100/api/student-register", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
         "Content-type": "application/json",
       },
+    }).then((data) => {
+      console.log(data); // data.rows[0].id
+      //const id = data.rows[0].id;
     });
 
-    if (
-      password === isValid &&
-      password.length > 8 &&
-      !password.includes(" ")
-    ) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+    /* get the id then redirect to the student dashboard passing the id across */
+    // if (
+    //   password === isValid &&
+    //   password.length > 8 &&
+    //   !password.includes(" ")
+    // ) {
+    //   setIsValid(true);
+    // } else {
+    //   setIsValid(false);
+    // }
   }
 
   useEffect(() => {
@@ -77,7 +84,7 @@ const StudentRegistrationForm = () => {
       })
       .catch((e) => console.log(e));
   }, []);
-
+console.log(groups);
   return (
     <div className="Form">
       <h1>Registration</h1>
@@ -86,7 +93,7 @@ const StudentRegistrationForm = () => {
           First Name
           <input
             type="text"
-            name="name"
+            name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -95,7 +102,7 @@ const StudentRegistrationForm = () => {
           Last Name
           <input
             type="text"
-            name="last name"
+            name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -130,9 +137,9 @@ const StudentRegistrationForm = () => {
         </label>
 
         <label>
-          <h3>
+          {/* <h3>
             password is longer than 8 characters and does not include any spaces
-          </h3>
+          </h3> */}
           Create Password
           <input
             type="password"
@@ -164,6 +171,14 @@ const StudentRegistrationForm = () => {
         </select>
         <button type="submit">Register</button>
       </form>
+      <div>
+        <p className="login-register-link">
+          Already have an account.
+          <Link className="link login-register" to="/student/login">
+            Login
+          </Link>
+        </p>
+      </div>
       {
         error ? <h3>{error}</h3> : null // if password matches then you will call set error
       }

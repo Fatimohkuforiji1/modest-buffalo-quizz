@@ -99,10 +99,33 @@ router.post("/login", (req, res) => {
   });
 });
 
-// SELECT quiz_description, question, answers.question_id, answer
-// FROM quizzes
-// INNER JOIN questions ON quizzes.id = questions.quiz_id
-// INNER JOIN answers ON questions.id = answers.question_id
+//-------------------------StudentRegistrations-----------------------------
+// router.post("/register/students", async (req, res) => {
+//   console.log(req.body);
+//   const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+//   const { firstName, lastName, email, city, country } = req.body;
+//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+//   try {
+//     const password = await bcrypt.hash(req.body.password, 10);
+//     if (!regExpression.exec(firstName) && !regExpression.exec(lastName)) {
+//       res.status(500).send({ message: "Fill in correct field" });
+//     } else {
+//       pool
+//         .query(teacherQuery, [
+//           firstName,
+//           lastName,
+//           email,
+//           password,
+//           city,
+//           country,
+//         ])
+//         .then((result) => res.status(201).json({ message: "Account created" }));
+//     }
+//   } catch {
+//     (e) => console.error(e);
+//   }
+// });
+
 
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 
@@ -325,82 +348,110 @@ router.get("/dashboard/student/:id", function (req, res) {
 //=================================================CREATE=================================================
 
 //---------------------------------------------LOGIN---------------------------------------------
-router.post("/login", (req, res) => {
+// router.post("/login", (req, res) => {
+//   console.log(req.body);
+//   const newEmail = req.body.email;
+//   const newPassword = req.body.password;
+//   const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
+//   const regExpression = /(@)(.+)$/;
+
+//   if (!regExpression.exec(newEmail)) {
+//     res.status(500).json({ message: "Enter correct email/password" });
+//   } else {
+//     pool.query(teacherLoginQuery).then((result) => {
+//       res.status(200);
+//       const checkLogin = result.rows[0];
+//       if (checkLogin.password === newPassword) {
+//         res.json({ message: "UserName Valid" });
+//       }
+//     });
+//   }
+// });
+
+//----------------------------------------TEACHER REGISTER----------------------------------------
+// router.post("/register/teachers", (req, res) => {
+//   const { firstName, lastName, email, password, city, country } = req.body;
+//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
+
+//   pool
+//     .query(teacherQuery, [firstName, lastName, email, password, city, country])
+//     .then((result) => {
+//       if (result.rowCount > 0) {
+//         res.status(201).send({
+//           result: `SUCCESS`,
+//           message: `A new post has been created in the database`,
+//         });
+//       }
+//     })
+//     .catch((e) => {
+//       console.error(e.stack);
+//       res.status(500).send({
+//         result: `FAILURE`,
+//         message: `FATAL ERROR: Internal Server Error`,
+//       });
+//     });
+// });
+
+//----------------------------------------STUDENT REGISTER----------------------------------------
+
+router.post("/student-register", async (req, res) => {
+  console.log(req.body)
+    const { firstName, lastName, email, groupsId, city, country } =req.body;
+     const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+  const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password,groups_id, city, country) VALUES ($1, $2, $3, $4, $5, $6,$7) returning id`;
+
+ try {
+    const password = await bcrypt.hash(req.body.password, 10);
+    if (!regExpression.exec(firstName) && !regExpression.exec(lastName)) {
+      res.status(500).send({ message: "Fill in correct field" });
+    } else {
+      pool
+        .query(studentsQuery, [
+          firstName,
+          lastName,
+          email,
+          password,
+          groupsId,
+          city,
+          country,
+        ])
+        .then((result) =>res.status(201).json({ message: "Account created" }));
+      }
+  } catch {
+    (e) => console.error(e);
+  }
+
+});
+
+router.post("/student/login", (req, res) => {
   console.log(req.body);
   const newEmail = req.body.email;
   const newPassword = req.body.password;
-  const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
-  const regExpression = /(@)(.+)$/;
+  const studentLoginQuery = `SELECT first_name, last_name, user_password, groups_id, FROM students WHERE email = '${newEmail}'`;
 
-  if (!regExpression.exec(newEmail)) {
-    res.status(500).json({ message: "Enter correct email/password" });
-  } else {
-    pool.query(teacherLoginQuery).then((result) => {
-      res.status(200);
-      const checkLogin = result.rows[0];
-      if (checkLogin.password === newPassword) {
-        res.json({ message: "UserName Valid" });
-      }
-    });
-  }
+  pool.query(studentLoginQuery).then((result) => {
+    res.status(200);
+    // console.log(result.rows);
+    const checkLogin = result.rows[0];
+    if (checkLogin === undefined) {
+      return res.status(400).json({ message: "cannot find user" });
+    }
+    const hashed = checkLogin["user_password"];
+    // const userFirstName = checkLogin["first_name"];
+    // const userLastName = loginResult["last_name"];
+    const isValid = bcrypt.compareSync(newPassword, hashed);
+    console.log(isValid);
+
+    if (isValid) {
+      res.status(200).json({ message: "Login Sucessful" });
+      // .catch((e) => console.error(e));
+    } else {
+      res.status(401).json({ message: "wrong password" });
+      // .catch((e) => console.error(e));
+    }
+  });
 });
-
-//----------------------------------------TEACHER REGISTER----------------------------------------
-router.post("/register/teachers", (req, res) => {
-  const { firstName, lastName, email, password, city, country } = req.body;
-  const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
-
-  pool
-    .query(teacherQuery, [firstName, lastName, email, password, city, country])
-    .then((result) => {
-      if (result.rowCount > 0) {
-        res.status(201).send({
-          result: `SUCCESS`,
-          message: `A new post has been created in the database`,
-        });
-      }
-    })
-    .catch((e) => {
-      console.error(e.stack);
-      res.status(500).send({
-        result: `FAILURE`,
-        message: `FATAL ERROR: Internal Server Error`,
-      });
-    });
-});
-
-//----------------------------------------STUDENT REGISTER----------------------------------------
-router.post("/register/students", (req, res) => {
-  const { firstName, lastName, email, password, groupsId, city, country } =
-    req.body;
-  const studentsQuery = `INSERT INTO students(first_name, last_name, email, user_password,groups_id, city, country) VALUES ($1, $2, $3, $4, $5, $6,$7) returning id`;
-  pool
-    .query(studentsQuery, [
-      firstName,
-      lastName,
-      email,
-      password,
-      groupsId,
-      city,
-      country,
-    ])
-    .then((result) => {
-      if (result.rowCount > 0) {
-        res.status(200).send({
-          result: `SUCCESS`,
-          message: `A new post has been created in the database`,
-        });
-      }
-    })
-    .catch((e) => {
-      console.error(e.stack);
-      res.status(500).send({
-        result: `FAILURE`,
-        message: `FATAL ERROR: Internal Server Error`,
-      });
-    });
-});
-// do not remove endpoint belongs to the student register endpoint
+// DO NOT REMOVE THIS endpoint belongs to the student register endpoint
 router.get("/groups", (_, res) => {
   const sql = `SELECT * FROM groups`;
   pool
