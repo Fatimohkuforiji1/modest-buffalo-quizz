@@ -38,6 +38,7 @@ exports.logErrors = () => (err, _, res, next) => {
 
 // export const pushStateRouting = (apiRoot, staticDir) => (req, res, next) => {
 	exports.pushStateRouting = (apiRoot, staticDir) => (req, res, next) => {
+    console.log(`${apiRoot}, ${staticDir}`)
 	if (req.method === "GET" && !req.url.startsWith(apiRoot)) {
 		return res.sendFile(path.join(staticDir, "index.html"));
 	}
