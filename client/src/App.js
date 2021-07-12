@@ -77,26 +77,27 @@ setQuestions(myData.data)
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
-
-              <Route path="/student/login">
-                <StudentLogin />
+              
+              <Route path="/teacherQuiz" exact>
+                <TeacherQuiz />
               </Route>
             </>
           ) : (
             <>
-              <Route path="/login" exact>
-                <LoginForm />
-              </Route>
               <Route path="/" exact>
                 <MainHome />
               </Route>
 
-              <Route path="/register">
-                <TeacherRegistration />
+              <Route path="/login" exact>
+                <LoginForm />
               </Route>
 
-              <Route path="/teacherQuiz" exact>
-                <TeacherQuiz />
+              <Route path="/student-login">
+                <StudentLogin />
+              </Route>
+
+              <Route path="/register-teacher">
+                <TeacherRegistration />
               </Route>
 
               <Route path="/student-register">
