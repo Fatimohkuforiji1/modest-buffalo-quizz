@@ -12,7 +12,6 @@ function LoginForm() {
 
   function submitHandler(e) {
     e.preventDefault();
-    // console.log(details);    
     const userLogin = { email: details.email, password: details.password };
 
     fetch("http://localhost:3100/api/login", {
@@ -28,9 +27,7 @@ function LoginForm() {
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
           authenticate();
-           //history.push("/quiz-home");
-          
-           history.push("teacherQuiz");
+          history.push("teacherQuiz");
         } else {
 
           setIsCorrect(false);
@@ -43,41 +40,36 @@ function LoginForm() {
     <form>
       <div className="form-head">
         <h2>Login</h2>
-        {/* {error !== "" ? <div className="error">{error}</div> : ""} */}
+
         <div className="form-list">
-          <label name="email">Email:</label>
+          <label name="email"></label>
           <input
             type="text"
             name="email"
             id="email"
+            placeholder="Enter your email"
             onChange={(e) => setDetails({ ...details, email: e.target.value })}
             value={details.email}
           />
 
           <div className="form-list">
-            <label name="password">Password:</label>
+            <label name="password"></label>
             <input
               type="password"
               name="password"
               id="password"
+              placeholder="Enter your password"
               onChange={(e) =>
                 setDetails({ ...details, password: e.target.value })
               }
               value={details.password}
             />
           </div>
-          {/* <input type="submit" value="LOGIN" /> */}
-          {/* <button onClick={Logout}>Logout</button> */}
-          <button type="submit" onClick={submitHandler}>
+          
+          <button className="login-btn" type="submit" onClick={submitHandler}>
             Login
           </button>
-          {/* 
-            <Link to="/quiz-home" className="link">
-              <button type="submit">Login</button>
-          </Link>
-           <Link to="/quiz-home" className="link">
-              <button type="submit">Login</button>
-          </Link> */}
+        
         </div>
       </div>
     </form>

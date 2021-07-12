@@ -1,6 +1,11 @@
-import http from "http";
-import app from "./app";
-import "dotenv/config";
+// import http from "http";
+// import app from "./app";
+// import "dotenv/config";
+
+const app = require("./app");
+const http = require("http");
+const dotenv = require("dotenv");
+
 
 
 const port = parseInt(process.env.PORT || "3000");

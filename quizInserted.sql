@@ -98,9 +98,9 @@ INSERT INTO modules (module_name) VALUES ('React');
 INSERT INTO modules (module_name) VALUES ('JavaScript');
 INSERT INTO modules (module_name) VALUES ('SQL');
 
-INSERT INTO groups (group_name) VALUES ('West Midlands 3');
-INSERT INTO groups (group_name) VALUES ('South Africa 2');
-INSERT INTO groups (group_name) VALUES ('Palestine 1');
+INSERT INTO groups (group_name) VALUES ('West Midlands ');
+INSERT INTO groups (group_name) VALUES ('South Africa ');
+INSERT INTO groups (group_name) VALUES ('Palestine ');
 
 
 
