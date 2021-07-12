@@ -32,7 +32,8 @@ const TeacherRegistration = () => {
     console.log(Validate(values));
     setErrors(Validate(values));
     if (Object.keys(Validate(values)).length === 0) {
-      fetch("/api/register/", {
+      const link = values.role === "teacher" ? "/api/register-teacher" : "/api/student-register"
+      fetch( link, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -63,7 +64,7 @@ const TeacherRegistration = () => {
   return (
     <div>
       {isSubmitted ? (
-        <AccountSuccess />
+        <AccountSuccess role={values.role} />
       ) : (
         <div className="signUp-container">
           <div className="header">
@@ -242,7 +243,10 @@ const TeacherRegistration = () => {
           <p className="login-register-link">
             Already have an account.
             <Link className="link login-register" to="/login">
-              Login
+              Teacher Login
+            </Link>
+            <Link className="link login-register" to="/student-login">
+              Student Login
             </Link>
           </p>
         </div>

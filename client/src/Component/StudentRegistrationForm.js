@@ -46,7 +46,7 @@ const StudentRegistrationForm = () => {
     };
 
     console.log(newUser);
-    fetch("http://localhost:3100/api/student-register", {
+    fetch("/api/student-register", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {

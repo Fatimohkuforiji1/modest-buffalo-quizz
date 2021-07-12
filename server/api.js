@@ -39,7 +39,7 @@ router.get("/students", (_, res) => {
 // });
 
 //-----------------register route-----------------------------------
-router.post("/register", async (req, res) => {
+router.post("/register-teacher", async (req, res) => {
   console.log(req.body);
   const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
   const { firstName, lastName, email, city, country } = req.body;
@@ -423,11 +423,11 @@ router.post("/student-register", async (req, res) => {
 
 });
 
-router.post("/student/login", (req, res) => {
+router.post("/student-login", (req, res) => {
   console.log(req.body);
   const newEmail = req.body.email;
   const newPassword = req.body.password;
-  const studentLoginQuery = `SELECT first_name, last_name, user_password, groups_id, FROM students WHERE email = '${newEmail}'`;
+  const studentLoginQuery = `SELECT first_name, last_name, user_password, groups_id FROM students WHERE email = '${newEmail}'`;
 
   pool.query(studentLoginQuery).then((result) => {
     res.status(200);
@@ -460,4 +460,33 @@ router.get("/groups", (_, res) => {
     .catch((error) => res.send(error));
 });
 
+router.post("/set-quiz", (req, res) => {
+  const newQuizTitle = req.body.title;
+  const newQuizDescription = req.body.description;
+  const newModuleId = parseInt(req.body.moduleId);
+  const newTeacherId = parseInt(req.body.teacherId); 
+  const quizQuery = `insert into quizzes (title, quiz_description, image_url, teacher_id, module_id) 
+  values ($1, $2, 'www...testing', $3, $4 ) returning id;`;
+  const questionQuery = ` insert into questions(question, quiz_id, correct_answer) 
+  values ($1, $2, $3) returning id;`;
+  const answerQuery = `insert into answers (question_id, answer) values ($1, $2);`;
+
+  pool
+    .query(quizQuery, [newQuizTitle, newQuizDescription, newTeacherId, newModuleId])
+    .then((data) => {console.log(data) 
+      const quizId = data.rows[0].id
+      const questionArray = Object.keys(req.body).filter((item)=> item.includes("question"))
+      for(let question of questionArray){
+        const questionObject = req.body[question]
+        pool.query(questionQuery, [questionObject.question, quizId, questionObject.correct_answer])
+        .then((data)=>{
+          const questionId = data.rows[0].id;
+          for(let i = 0; i < 4; i++){
+            pool.query(answerQuery, [questionId, questionObject.answers[i]]);
+          }
+           res.sendStatus(200)});
+     }
+    })
+    .catch((error) => res.send(error));
+});
 export default router;

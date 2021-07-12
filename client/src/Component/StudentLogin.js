@@ -12,11 +12,10 @@ const StudentLogin =() => {
 
   function submitHandler(e) {
     e.preventDefault();
-    history.push 
     // console.log(details);    
     const userLogin = { email: details.email, password: details.password };
 
-    fetch("http://localhost:3100/api/student/login", {
+    fetch("http://localhost:3100/api/student-login", {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {
@@ -31,7 +30,7 @@ const StudentLogin =() => {
           authenticate();
            history.push("/quiz-home");
         } else {
-
+        alert("Incorrect login details ")
           setIsCorrect(false);
         }
       });

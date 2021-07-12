@@ -28,10 +28,13 @@ function LoginForm() {
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
           authenticate();
-           history.push("/quiz-home");
+           //history.push("/quiz-home");
+          
+           history.push("teacherQuiz");
         } else {
 
           setIsCorrect(false);
+          alert("Incorrect login details")
         }
       });
   }
