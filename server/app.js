@@ -1,18 +1,31 @@
-import express from "express";
-import morgan from "morgan";
-import path from "path";
+// import express from "express";
+// import morgan from "morgan";
+// import path from "path";
 
 
+const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
 const cors = require("cors");
 
+const router = require("./api");
 
-import router from "./api";
-import {
+// const cors = require("cors");
+
+
+// import router from "./api";
+// import {
+//   configuredHelmet,
+//   httpsOnly,
+//   logErrors,
+//   pushStateRouting,
+// } from "./middleware";
+const {
   configuredHelmet,
   httpsOnly,
   logErrors,
   pushStateRouting,
-} from "./middleware";
+} = require("./middleware");
 
 const apiRoot = "/api";
 const staticDir = path.join(__dirname, "static");
@@ -35,4 +48,5 @@ app.use(apiRoot, router);
 app.use(express.static(staticDir));
 app.use(pushStateRouting(apiRoot, staticDir));
 
-export default app;
+// export default app;
+module.exports = app;

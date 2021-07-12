@@ -1,18 +1,23 @@
-import { Router } from "express";
-import pool from "./db";
+// import { Router } from "express";
+// import pool from "./db";
+
+const { Router } = require("express");
+const { pool } = require("./db");
 const router = new Router();
 const bcrypt = require("bcrypt");
+
+
+
 
 // create dynamic users global context
 
 //================================================READ================================================
 
-// router.get("/", (_, res) => {
-//   res.json({ message: "Hello, world!" });
-// });
+
 
 router.get("/teachers", (_, res) => {
   const getTeachers = `SELECT * FROM teachers`;
+  console.log("teachers")
   pool
     .query(getTeachers)
     // .then(result => res.json(result))
@@ -22,6 +27,7 @@ router.get("/teachers", (_, res) => {
 
 router.get("/students", (_, res) => {
   const getStudents = `SELECT * FROM students`;
+  console.log("students");
   pool
     .query(getStudents)
     // .then(result => res.json(result))
@@ -175,6 +181,7 @@ let correctAnswerCheck;
 // `select student_answer, correct_answer from questions
 // inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
 router.post("/answer", (req, res) => {
+  console.log("answer");
   res.status(200).json(req.body);
 
 });
@@ -182,6 +189,7 @@ router.post("/answer", (req, res) => {
 
 //--------------------------module route -------------------------------
 router.get("/modules", (req, res) => {
+  console.log("modules");
   const getModules = `SELECT * FROM modules`;
 
   // if(getModules === 'React'){
@@ -197,6 +205,7 @@ router.get("/modules", (req, res) => {
 });
 //-------------------------------------------quiz question and answer-----------------
 router.get("/questions", (req, res) => {
+  console.log("questions")
   const getQuestion = `SELECT * FROM questions;`;
   // const getAnswers = `SELECT * FROM answers where id = $1;`
   pool
@@ -428,10 +437,10 @@ router.post("/student-login", (req, res) => {
   const newEmail = req.body.email;
   const newPassword = req.body.password;
   const studentLoginQuery = `SELECT first_name, last_name, user_password, groups_id FROM students WHERE email = '${newEmail}'`;
-
+console.log(studentLoginQuery)
   pool.query(studentLoginQuery).then((result) => {
     res.status(200);
-    // console.log(result.rows);
+    console.log(result.rows);
     const checkLogin = result.rows[0];
     if (checkLogin === undefined) {
       return res.status(400).json({ message: "cannot find user" });
@@ -488,5 +497,12 @@ router.post("/set-quiz", (req, res) => {
      }
     })
     .catch((error) => res.send(error));
-});
-export default router;
+
+    });
+
+// router.get("/", (_, res) => {
+//   res.json({ message: "Hello, world!" });
+// });
+
+// export default router;
+module.exports = router;
