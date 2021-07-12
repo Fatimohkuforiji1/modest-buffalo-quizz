@@ -29,7 +29,7 @@ const {
 
 const apiRoot = "/api";
 // const staticDir = path.join(__dirname, "static");
-const staticDir = path.join(__dirname, "../client");
+const staticDir = path.join(__dirname, "build");
 
 const app = express();
 
