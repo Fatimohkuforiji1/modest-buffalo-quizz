@@ -7,9 +7,9 @@ const bcrypt = require("bcrypt");
 
 //================================================READ================================================
 
-router.get("/", (_, res) => {
-  res.json({ message: "Hello, world!" });
-});
+// router.get("/", (_, res) => {
+//   res.json({ message: "Hello, world!" });
+// });
 
 router.get("/teachers", (_, res) => {
   const getTeachers = `SELECT * FROM teachers`;
