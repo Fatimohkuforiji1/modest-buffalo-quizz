@@ -28,7 +28,8 @@ const {
 } = require("./middleware");
 
 const apiRoot = "/api";
-const staticDir = path.join(__dirname, "static");
+// const staticDir = path.join(__dirname, "static");
+const staticDir = path.join(__dirname, "../client");
 
 const app = express();
 
