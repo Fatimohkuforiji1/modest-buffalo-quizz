@@ -1,7 +1,7 @@
 import { object } from "prop-types";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-
+import "./TeacherQuiz.css"
 
 const TeacherQuiz = () => {
   const [module, setModule] = useState("2");
@@ -52,12 +52,13 @@ console.log(formattedForm);
 
   return (
     <div className="teacher-quiz">
-      <h1>SETTING THE QUIZ</h1>
-      <h1>Please Select Module</h1>
+      <h2>SETTING THE QUIZ</h2>
+      <h3>Please Select Module</h3>
       <form onSubmit={submitHandler}>
         <label>
           Select Module
           <select
+            className="teacher-dropdown"
             name="module"
             onChange={(e) => setModule(e.target.value)}
             value={module}
@@ -69,12 +70,16 @@ console.log(formattedForm);
         </label>
 
         <input
+          className="teacher-input"
           placeholder="title"
           type="text"
           name="title"
           onChange={handleChange}
         ></input>
+
         <input
+
+          className="teacher-input"
           placeholder="description"
           type="text"
           name="description"
@@ -86,6 +91,7 @@ console.log(formattedForm);
           return (
             <div key={index}>
               <input
+                className="teacher-input"
                 type="text"
                 placeholder="question"
                 name={`question${index + 1}_question`}
@@ -93,6 +99,7 @@ console.log(formattedForm);
               ></input>
 
               <input
+                className="teacher-input"
                 type="text"
                 placeholder="answer1"
                 name={`question${index + 1}_answer1`}
@@ -100,6 +107,7 @@ console.log(formattedForm);
               ></input>
 
               <input
+                className="teacher-input"
                 type="text"
                 placeholder="answer2"
                 name={`question${index + 1}_answer2`}
@@ -107,6 +115,7 @@ console.log(formattedForm);
               ></input>
 
               <input
+                className="teacher-input"
                 type="text"
                 placeholder="answer3"
                 name={`question${index + 1}_answer3`}
@@ -114,6 +123,7 @@ console.log(formattedForm);
               ></input>
 
               <input
+                className="teacher-input"
                 type="text"
                 placeholder="answer4"
                 name={`question${index + 1}_answer4`}
@@ -121,6 +131,7 @@ console.log(formattedForm);
               ></input>
 
               <select
+                className ="teacher-dropdown"
                 name={`question${index + 1}_correctAnswer`}
                 onChange={handleChange}
               >

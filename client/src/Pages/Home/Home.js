@@ -3,11 +3,12 @@ import { TextField, MenuItem, Button } from "@material-ui/core";
 import Categories from "../../Data/Category";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../Component/ErrorMessage/ErrorMessage";
+import quiz from "../../Component/img/quiz.png";
+import "./Home.css"
 
 const Home = ({ name, setName, fetchQuestions }) => {
   const [category, setCategory] = useState("");
   const [error, setError] = useState(false);
-
   const history = useHistory();
 
   const handleSubmit = () => {
@@ -22,6 +23,7 @@ const Home = ({ name, setName, fetchQuestions }) => {
   };
 console.log(setName)
   return (
+    
     <div className="content">
       <div className="settings">
         <span style={{ fontSize: 30 }}>Quiz Modules</span>
@@ -59,13 +61,13 @@ console.log(setName)
             onClick={handleSubmit}
           >
             Start Quiz
-          </Button>
+          </Button> 
         </div>
       </div>
       <img
-        src="https://thumbs.dreamstime.com/z/quiz-time-quiz-online-laptop-concept-question-answer-test-survey-exam-vector-concept-quiz-time-quiz-online-133831749.jpg"
-        className="banner"
-        alt="quiz img"
+        src={quiz}
+        className="quiz-img"
+        alt="quiz-img"
       />
     </div>
   );

@@ -140,7 +140,7 @@ const TeacherRegistration = () => {
                 <input
                   id="email"
                   onChange={handleChange}
-                  className="s-input-e"
+                  className="s-input-n"
                   type="email"
                   name="email"
                   value={values.email}
@@ -153,7 +153,7 @@ const TeacherRegistration = () => {
                 <input
                   id="email2"
                   onChange={handleChange}
-                  className="s-input-confirm-e"
+                  className="s-input-n"
                   type="email2"
                   name="email2"
                   value={values.email2}

@@ -10,14 +10,15 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 75px;
-    background-color: rgb(138, 25, 44);
+    height: 100px;
+    /* background-color: rgb(138, 25, 44); */
+    background-color: rgb(209, 206, 206);
     
 }
 
 h6{
     font-size: 15px;
-    color: white;
+    color: #331313;
 
 }
 
@@ -36,6 +37,9 @@ h6{
     justify-content: flex-end;
     list-style: none;
     width: 75px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font: small;
+   
 
 }
 
@@ -60,4 +64,8 @@ h6{
    background:#6cf;
 }
 
+.logo{
+    width: 120px;
+    height: 70px;
 
+}

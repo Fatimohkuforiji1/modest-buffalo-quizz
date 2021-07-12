@@ -1,0 +1,29 @@
+.teacher-quiz{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(209, 206, 206);
+   
+}
+
+.teacher-input{
+ border-radius: 10px;
+ padding: 5px;
+ margin-bottom: 1rem;
+ margin-left:1rem;
+ width: 150px;
+ }
+
+ .teacher-input:focus{
+     outline: none;
+ }
+
+.teacher-dropdown{
+width: 150px;
+margin-bottom: 3rem;
+margin-left: 1rem;
+margin-right: 1rem;
+border-radius: 10px;
+padding: 5px;
+}

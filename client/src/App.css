@@ -74,7 +74,8 @@ a {
   margin: auto;
   margin-top: 2rem;
   border-style: solid;
-  border-color: rgb(138, 25, 44);
+  border-color: rgb(231, 142, 157);
+  box-shadow: rgb(240, 144, 114);
   background-color: rgb(230, 219, 219);
   border-radius: 5%;
 }
@@ -150,6 +151,7 @@ font-weight: bold;
 }
 
 .login-link {
-font-size: large;
+font-size:small;
 font-weight: bold;
+padding: 0.5rem 1rem;
 }
