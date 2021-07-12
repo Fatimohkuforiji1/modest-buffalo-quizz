@@ -67,9 +67,9 @@ const TeacherRegistration = () => {
         <AccountSuccess role={values.role} />
       ) : (
         <div className="signUp-container">
-          <div className="header">
+          {/* <div className="header">
             <h2>Sign up</h2>
-          </div>
+          </div> */}
           <div className="signUp-wrapper">
             <div>
               <h2 className="signUp-title">Create Account</h2>
@@ -81,10 +81,8 @@ const TeacherRegistration = () => {
               method="POST"
               autoComplete="off"
             >
-              <div>
-                <label className="s-name" htmlFor="name">
-                  First Name
-                </label>
+              {/* <div> */}
+                <label className="s-name" htmlFor="name"></label>
                 <input
                   id="fName"
                   onChange={handleChange}
@@ -97,11 +95,9 @@ const TeacherRegistration = () => {
                 {errors.firstName && (
                   <p className="error">{errors.firstName}</p>
                 )}
-              </div>
-              <div>
-                <label className="s-name" htmlFor="name">
-                  Last Name
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label className="s-name" htmlFor="name"></label>
                 <input
                   id="lName"
                   onChange={handleChange}
@@ -112,11 +108,9 @@ const TeacherRegistration = () => {
                   placeholder="Last name"
                 />
                 {errors.lastName && <p className="error">{errors.lastName}</p>}
-              </div>
-              <div>
-                <label className="s-name" htmlFor="name">
-                  City
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label className="s-name" htmlFor="name"></label>
                 <input
                   id="city"
                   onChange={handleChange}
@@ -127,11 +121,9 @@ const TeacherRegistration = () => {
                   placeholder="City"
                 />
                 {errors.city && <p className="error">{errors.city}</p>}
-              </div>
-              <div>
-                <label className="s-name" htmlFor="name">
-                  Country
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label className="s-name" htmlFor="name"></label>
                 <input
                   id="country"
                   onChange={handleChange}
@@ -142,11 +134,9 @@ const TeacherRegistration = () => {
                   placeholder="Country"
                 />
                 {errors.country && <p className="error">{errors.country}</p>}
-              </div>
-              <div>
-                <label htmlFor="email" className="s-email">
-                  Email
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label htmlFor="email" className="s-email"></label>
                 <input
                   id="email"
                   onChange={handleChange}
@@ -157,11 +147,9 @@ const TeacherRegistration = () => {
                   placeholder="Email"
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
-              </div>
-              <div>
-                <label htmlFor="email2" className="s-confirm-e">
-                  Confirm Email
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label htmlFor="email2" className="s-confirm-e"></label>
                 <input
                   id="email2"
                   onChange={handleChange}
@@ -172,30 +160,26 @@ const TeacherRegistration = () => {
                   placeholder="Confirm Email"
                 />
                 {errors.email2 && <p className="error">{errors.email2}</p>}
-              </div>
-              <div>
-                <label htmlFor="password" className="s-password">
-                  Password
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label htmlFor="password" className="s-password"></label>
                 <input
                   id="password"
                   onChange={handleChange}
-                  className="s-input-p"
+                  className="s-input-n"
                   type="password"
                   name="password"
                   value={values.password}
                   placeholder="Password"
                 />
                 {errors.password && <p className="error">{errors.password}</p>}
-              </div>
-              <div>
-                <label htmlFor="password2" className="s-confirm-p">
-                  Confirm Password
-                </label>
+              {/* </div> */}
+              {/* <div> */}
+                <label htmlFor="password2" className="s-confirm-p"></label>
                 <input
                   id="password2"
                   onChange={handleChange}
-                  className="s-input-confirm-p"
+                  className="s-input-n"
                   type="password"
                   name="password2"
                   value={values.password2}
@@ -204,16 +188,20 @@ const TeacherRegistration = () => {
                 {errors.password2 && (
                   <p className="error">{errors.password2}</p>
                 )}
-              </div>
+              {/* </div> */}
               <div className="sign-up-dropdown">
-                <div>
-                  <select name="role" onChange={handleChange}>
+                {/* <div> */}
+                  <select
+                    className="select_option"
+                    name="role"
+                    onChange={handleChange}
+                  >
                     <option>Select Role</option>
                     <option value="teacher">Teacher</option>
                     <option value="student">Student</option>
                   </select>
                   {errors.role && <p className="error">{errors.role}</p>}
-                </div>
+                {/* </div> */}
                 {/* <div>
                   <select name="region" onChange={handleChange}>
                     <option>Select Region</option>
@@ -226,7 +214,11 @@ const TeacherRegistration = () => {
                   {errors.region && <p className="error">{errors.region}</p>}
                 </div> */}
               </div>
-              <div>
+              <div className= "btn-container">
+                <Link className="link-home" to="/">
+                  Cancel
+                </Link>
+
                 <button
                   className="signUp-btn"
                   type="submit"
@@ -234,21 +226,20 @@ const TeacherRegistration = () => {
                 >
                   Sign Up
                 </button>
-                <Link className="link-home" to="/">
-                  Cancel
-                </Link>
               </div>
             </form>
           </div>
-          <p className="login-register-link">
-            Already have an account.
-            <Link className="link login-register" to="/login">
+              <div className="login-btn-wrapper">
+          <p className="login-info">
+            Already have an account? &nbsp;
+            <Link className="login-link" to="/login">
               Teacher Login
             </Link>
-            <Link className="link login-register" to="/student-login">
+            <Link className="login-link" to="/student-login">
               Student Login
             </Link>
           </p>
+        </div>
         </div>
       )}
     </div>

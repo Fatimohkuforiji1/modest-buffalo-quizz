@@ -13,9 +13,143 @@ a {
   text-decoration: inherit;
   color: inherit;
 }
-.app {
+/* .app {
   min-height: 98vh;
   border: 8px solid #39445a93;
   margin: 5px;
   padding: 5px;
+} */
+
+.form-head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 2rem;
+  background-color: rgb(230, 219, 219);
+  border-style: solid;
+  border-color: rgb(138, 25, 44);
+  border-radius: 5%;
+  
+}
+
+.form-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+
+}
+
+.form-input {
+  margin-top: 1rem;
+  padding: 0.75rem;
+}
+
+.login-btn {
+  margin-top: 2rem;
+  padding: 0.25rem 1rem;
+  border-radius: 7px;
+  background-color: rgb(138, 25, 44);
+  color: rgb(255,252,252);
+  font-size: 1.5rem;
+  text-decoration: none !important;
+  
+}
+
+.login-btn:hover {
+  background-color: rgb(143, 44, 60);
+  color: rgb(255,252,252);
+}
+
+.signUp-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 2rem;
+  border-style: solid;
+  border-color: rgb(138, 25, 44);
+  background-color: rgb(230, 219, 219);
+  border-radius: 5%;
+}
+
+.signUp-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+  
+  
+}
+
+.signUp-form {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  place-items: center;
+  width: 100%;
+  margin-top: 2rem;
+  
+}
+
+.s-input-n {
+  width: 60%;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.sign-up-dropdown {
+  margin: 2rem;
+}
+
+.select_option {
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  background-color: rgb(143, 44, 60);
+  color: rgb(230, 219, 219);
+}
+
+.signUp-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  background-color: royalblue;
+  color: rgb(230, 219, 219);
+  border-radius: 5px;
+}
+
+.btn-container {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.link-home {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  background-color: rgb(199, 163, 97);
+  color: crimson;
+  border-radius: 5px;
+}
+
+.login-btn-wrapper {
+  margin: 2rem 0;
+  border-style: none !important;
+}
+.login-info {
+font-size: larger;
+font-weight: bold;
+}
+
+.login-link {
+font-size: large;
+font-weight: bold;
 }
