@@ -47,7 +47,8 @@ if (app.get("env") === "production") {
 app.use(apiRoot, router);
 
 app.use(express.static(staticDir));
-app.use(pushStateRouting(apiRoot, staticDir));
+// app.use(pushStateRouting(apiRoot, staticDir));
+app.use(pushStateRouting("/app", staticDir));
 
 // export default app;
 module.exports = app;
