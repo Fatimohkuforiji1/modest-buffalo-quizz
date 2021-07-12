@@ -28,8 +28,8 @@ const {
 } = require("./middleware");
 
 const apiRoot = "/api";
-// const staticDir = path.join(__dirname, "static");
-const staticDir = path.join(__dirname, "/client/build");
+ const staticDir = path.join(__dirname, "static");
+// const staticDir = path.join(__dirname, "/client/build");
 
 const app = express();
 
@@ -48,7 +48,7 @@ app.use(apiRoot, router);
 
 app.use(express.static(staticDir));
 // app.use(pushStateRouting(apiRoot, staticDir));
-app.use(pushStateRouting("/app", staticDir));
+app.use(pushStateRouting("/app", "/client/build"));
 
 // export default app;
 module.exports = app;
