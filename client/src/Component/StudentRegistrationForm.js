@@ -70,7 +70,7 @@ const StudentRegistrationForm = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3100/api/groups")
+    fetch("/api/groups")
       .then((response) => {
         if (response.status === 200) {
           return response.json();

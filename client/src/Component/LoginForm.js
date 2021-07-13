@@ -14,7 +14,7 @@ function LoginForm() {
     e.preventDefault();
     const userLogin = { email: details.email, password: details.password };
 
-    fetch("http://localhost:3100/api/login", {
+    fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {

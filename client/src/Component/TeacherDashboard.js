@@ -7,7 +7,7 @@ const TeacherDashboard = () => {
   const [groupQuizInfo, setGroupQuizInfo] = useState([]);
   console.log(groupQuizInfo);
   useEffect(() => {
-    fetch(`http://localhost:3100/api/teacher/1`)
+    fetch(`/api/teacher/1`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();

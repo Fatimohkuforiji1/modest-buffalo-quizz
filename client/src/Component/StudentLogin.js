@@ -28,7 +28,7 @@ const StudentLogin =() => {
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
           authenticate();
-           history.push("/quiz-home");
+           history.push("/api/quiz-home");
         } else {
         alert("Incorrect login details ")
           setIsCorrect(false);
