@@ -36,7 +36,7 @@ const fetchQuestions = async(category = "") => {
 //  setQuestions(data.results);
 //  console.log(data.results);
 
-  const myData = await axios.post("http://localhost:3100/api/quizDetails", {
+  const myData = await axios.post("/api/quizDetails", {
     module: category,
   });
 console.log(myData);
