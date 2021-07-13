@@ -15,7 +15,7 @@ const StudentLogin =() => {
     // console.log(details);    
     const userLogin = { email: details.email, password: details.password };
 
-    fetch("/student-login", {
+    fetch("/api/student-login", {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {
