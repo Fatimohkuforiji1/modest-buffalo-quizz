@@ -15,7 +15,7 @@ const StudentLogin =() => {
     // console.log(details);    
     const userLogin = { email: details.email, password: details.password };
 
-    fetch("/api/student-login", {
+    fetch("/student-login", {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {
@@ -28,7 +28,7 @@ const StudentLogin =() => {
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
           authenticate();
-           history.push("/api/quiz-home");
+           history.push("/quiz-home");
         } else {
         alert("Incorrect login details ")
           setIsCorrect(false);

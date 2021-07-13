@@ -27,7 +27,7 @@ function LoginForm() {
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
           authenticate();
-          history.push("teacherQuiz");
+          history.push("/teacherQuiz");
         } else {
 
           setIsCorrect(false);
