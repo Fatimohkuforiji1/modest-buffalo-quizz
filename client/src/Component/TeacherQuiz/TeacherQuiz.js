@@ -52,11 +52,11 @@ console.log(formattedForm);
 
   return (
     <div className="teacher-quiz">
-      <h2>SETTING THE QUIZ</h2>
-      <h3>Please Select Module</h3>
+      <h3>SET THE QUIZ</h3>
+      <h4>Please Select Module</h4>
       <form onSubmit={submitHandler}>
         <label>
-          Select Module
+          <h4>Select Module</h4>
           <select
             className="teacher-dropdown"
             name="module"
@@ -78,7 +78,6 @@ console.log(formattedForm);
         ></input>
 
         <input
-
           className="teacher-input"
           placeholder="description"
           type="text"
@@ -131,7 +130,7 @@ console.log(formattedForm);
               ></input>
 
               <select
-                className ="teacher-dropdown"
+                className="teacher-dropdown"
                 name={`question${index + 1}_correctAnswer`}
                 onChange={handleChange}
               >

@@ -6,7 +6,7 @@
 
 *::-webkit-scrollbar {
   width: 8px;
-  background-color: rgb(45, 48, 221);
+  background-color: rgb(95, 13, 13);
 }
 
 a {
@@ -19,6 +19,41 @@ a {
   margin: 5px;
   padding: 5px;
 } */
+/* .main-container{
+  display: flex;
+  flex-direction: row;
+  height: auto;
+} */
+
+.welcome-text {
+display: flex;
+flex-direction: column;
+width: 95%;
+justify-content: center;
+align-items: center;
+margin: auto;
+
+}
+
+.welcome-text h2 {
+  margin-top: 2rem;
+font-family: "Stencil Std, fantasy";
+}
+.welcome-text p {
+font-family: "Apple Chancery, cursive";
+padding-right: 2rem;
+}
+.welcome-wrapper{
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin: 1rem auto;
+  text-align: justify;
+}
+.welcome-text img {
+width: 50%;
+height: auto;
+}
 
 .form-head {
   display: flex;
@@ -31,8 +66,13 @@ a {
   background-color: rgb(230, 219, 219);
   border-style: solid;
   border-color: rgb(138, 25, 44);
-  border-radius: 5%;
-  
+    
+}
+.form-head h2{
+  font-family:"Arial Black";
+  color: brown;
+  margin-top: 1rem;
+  font-size: smaller;
 }
 
 .form-list {
@@ -50,18 +90,18 @@ a {
 }
 
 .login-btn {
-  margin-top: 2rem;
+  margin: 2rem 1rem 1rem 1rem;
   padding: 0.25rem 1rem;
   border-radius: 7px;
-  background-color: rgb(138, 25, 44);
-  color: rgb(255,252,252);
+  background-color: rgb(151, 26, 47);
+  color: rgb(190, 165, 165);
   font-size: 1.5rem;
   text-decoration: none !important;
   
 }
 
 .login-btn:hover {
-  background-color: rgb(143, 44, 60);
+  background-color: rgb(92, 17, 29);
   color: rgb(255,252,252);
 }
 

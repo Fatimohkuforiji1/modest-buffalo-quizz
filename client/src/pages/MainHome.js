@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import cubic from "../Component/img/cubic.png"
+import Footer from "../landingPageComponent/Footer";
 
-
-import logo from "./logo.svg";
 
 export function MainHome() {
 	const [message, setMessage] = useState("Loading...");
@@ -25,30 +24,35 @@ export function MainHome() {
 
 	return (
     <main role="main">
-      <div>
+      
         {/* <img className="logo" data-qa="logo" src={logo} alt="Just the React logo" />
 				<h1 className="message" data-qa="message">{message}</h1> */}
         {/* <Link to="/about/this/site">About</Link> */}
 
-        <div className="main">
+        {/* <div className="main"> */}
           <div className="welcome-text">
-            <p>Welcome to the Quiz</p>
-            <p>
-              Code Your Future is a non governmental organization that supports
-              the educational development of hundreds of students worldwide each
-              year. As such, throughout the duration of eight month programme our 
-              teachers use a variety of online learning tools to test the 
-              understanding of our students. Hence having a quiz
-              app which would allow our teachers track the success of our
-              students is paramount. Also because a lot of courses are covered,
-              this app will help our students have a better idea of how well they are
-              grasping the material and hopefully motivating them to studying
-              more thereby focusing on the information that still needs more
-              practice.
-            </p>
+            <h2>Welcome to the Quiz Page</h2>
+            <div className="welcome-wrapper">
+              <p>
+                Code Your Future is a non governmental organization that
+                supports the educational development of hundreds of students
+                worldwide each year. As such, throughout the duration of eight
+                month programme our teachers use a variety of online learning
+                tools to test the understanding of our students. Hence having a
+                quiz app which would allow our teachers track the success of the
+                students is paramount. Also because a lot of courses are
+                covered, this app will help our students have a better idea of
+                how well they are grasping the material and hopefully motivating
+                them to studying more, focusing on the area that needs more practice.
+              </p>
+              <img src={cubic} alt="An image of a cubic" />
+            </div>
           </div>
-        </div>
-      </div>
+          <div className="footer-wrapper">
+            <Footer />
+          </div>
+        {/* </div> */}
+     
     </main>
   );
 }

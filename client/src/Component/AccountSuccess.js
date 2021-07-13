@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 const AccountSuccess = ({role}) => {
   return (
-    <div className="signup-success">
+    <div className="form-head">
       <h1>CODE YOUR FUTURE</h1>
       <div className="registered-container">
         <div className="registered">

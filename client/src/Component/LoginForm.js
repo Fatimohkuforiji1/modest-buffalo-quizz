@@ -37,6 +37,7 @@ function LoginForm() {
   }
 
   return (
+    
     <form>
       <div className="form-head">
         <h2>Login</h2>
@@ -52,8 +53,7 @@ function LoginForm() {
             value={details.email}
           />
 
-          <div className="form-list">
-            <label name="password"></label>
+          <label name="password"></label>
             <input
               type="password"
               name="password"
@@ -64,15 +64,14 @@ function LoginForm() {
               }
               value={details.password}
             />
-          </div>
-          
+                   
           <button className="login-btn" type="submit" onClick={submitHandler}>
             Login
           </button>
-        
         </div>
       </div>
     </form>
+    
   );
 }
 export default LoginForm;
