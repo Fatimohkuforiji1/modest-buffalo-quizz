@@ -3,9 +3,10 @@
     justify-content: space-evenly;
     flex-direction: column;
     text-align: center;
-    background-color: rgb(236, 171, 171);
+    background-color: rgb(230, 219, 219);
    
 }
+
 
 .teacher-input{
  border-radius: 10px;

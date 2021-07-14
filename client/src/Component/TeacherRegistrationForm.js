@@ -82,125 +82,121 @@ const TeacherRegistration = () => {
               autoComplete="off"
             >
               {/* <div> */}
-                <label className="s-name" htmlFor="name"></label>
-                <input
-                  id="fName"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="text"
-                  name="firstName"
-                  value={values.firstName}
-                  placeholder="First name"
-                />
-                {errors.firstName && (
-                  <p className="error">{errors.firstName}</p>
-                )}
+              <label className="s-name" htmlFor="name"></label>
+              <input
+                id="fName"
+                onChange={handleChange}
+                className="s-input-n"
+                type="text"
+                name="firstName"
+                value={values.firstName}
+                placeholder="First name"
+              />
+              {errors.firstName && <p className="error">{errors.firstName}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label className="s-name" htmlFor="name"></label>
-                <input
-                  id="lName"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="text"
-                  name="lastName"
-                  value={values.lastName}
-                  placeholder="Last name"
-                />
-                {errors.lastName && <p className="error">{errors.lastName}</p>}
+              <label className="s-name" htmlFor="name"></label>
+              <input
+                id="lName"
+                onChange={handleChange}
+                className="s-input-n"
+                type="text"
+                name="lastName"
+                value={values.lastName}
+                placeholder="Last name"
+              />
+              {errors.lastName && <p className="error">{errors.lastName}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label className="s-name" htmlFor="name"></label>
-                <input
-                  id="city"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="text"
-                  name="city"
-                  value={values.city}
-                  placeholder="City"
-                />
-                {errors.city && <p className="error">{errors.city}</p>}
+              <label className="s-name" htmlFor="name"></label>
+              <input
+                id="city"
+                onChange={handleChange}
+                className="s-input-n"
+                type="text"
+                name="city"
+                value={values.city}
+                placeholder="City"
+              />
+              {errors.city && <p className="error">{errors.city}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label className="s-name" htmlFor="name"></label>
-                <input
-                  id="country"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="text"
-                  name="country"
-                  value={values.country}
-                  placeholder="Country"
-                />
-                {errors.country && <p className="error">{errors.country}</p>}
+              <label className="s-name" htmlFor="name"></label>
+              <input
+                id="country"
+                onChange={handleChange}
+                className="s-input-n"
+                type="text"
+                name="country"
+                value={values.country}
+                placeholder="Country"
+              />
+              {errors.country && <p className="error">{errors.country}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label htmlFor="email" className="s-email"></label>
-                <input
-                  id="email"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="email"
-                  name="email"
-                  value={values.email}
-                  placeholder="Email"
-                />
-                {errors.email && <p className="error">{errors.email}</p>}
+              <label htmlFor="email" className="s-email"></label>
+              <input
+                id="email"
+                onChange={handleChange}
+                className="s-input-n"
+                type="email"
+                name="email"
+                value={values.email}
+                placeholder="Email"
+              />
+              {errors.email && <p className="error">{errors.email}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label htmlFor="email2" className="s-confirm-e"></label>
-                <input
-                  id="email2"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="email2"
-                  name="email2"
-                  value={values.email2}
-                  placeholder="Confirm Email"
-                />
-                {errors.email2 && <p className="error">{errors.email2}</p>}
+              <label htmlFor="email2" className="s-confirm-e"></label>
+              <input
+                id="email2"
+                onChange={handleChange}
+                className="s-input-n"
+                type="email2"
+                name="email2"
+                value={values.email2}
+                placeholder="Confirm Email"
+              />
+              {errors.email2 && <p className="error">{errors.email2}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label htmlFor="password" className="s-password"></label>
-                <input
-                  id="password"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="password"
-                  name="password"
-                  value={values.password}
-                  placeholder="Password"
-                />
-                {errors.password && <p className="error">{errors.password}</p>}
+              <label htmlFor="password" className="s-password"></label>
+              <input
+                id="password"
+                onChange={handleChange}
+                className="s-input-n"
+                type="password"
+                name="password"
+                value={values.password}
+                placeholder="Password"
+              />
+              {errors.password && <p className="error">{errors.password}</p>}
               {/* </div> */}
               {/* <div> */}
-                <label htmlFor="password2" className="s-confirm-p"></label>
-                <input
-                  id="password2"
-                  onChange={handleChange}
-                  className="s-input-n"
-                  type="password"
-                  name="password2"
-                  value={values.password2}
-                  placeholder="Confirm Password"
-                />
-                {errors.password2 && (
-                  <p className="error">{errors.password2}</p>
-                )}
+              <label htmlFor="password2" className="s-confirm-p"></label>
+              <input
+                id="password2"
+                onChange={handleChange}
+                className="s-input-n"
+                type="password"
+                name="password2"
+                value={values.password2}
+                placeholder="Confirm Password"
+              />
+              {errors.password2 && <p className="error">{errors.password2}</p>}
               {/* </div> */}
               <div className="sign-up-dropdown">
                 {/* <div> */}
-                  <select
-                    className="select_option"
-                    name="role"
-                    onChange={handleChange}
-                  >
-                    <option>Select Role</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="student">Student</option>
-                  </select>
-                  {errors.role && <p className="error">{errors.role}</p>}
+                <select
+                  className="select_option"
+                  name="role"
+                  onChange={handleChange}
+                >
+                  <option>Select Role</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="student">Student</option>
+                </select>
+                {errors.role && <p className="error">{errors.role}</p>}
                 {/* </div> */}
                 {/* <div>
                   <select name="region" onChange={handleChange}>
@@ -214,7 +210,7 @@ const TeacherRegistration = () => {
                   {errors.region && <p className="error">{errors.region}</p>}
                 </div> */}
               </div>
-              <div className= "btn-container">
+              <div className="btn-container">
                 <Link className="link-home" to="/">
                   Cancel
                 </Link>
@@ -229,17 +225,17 @@ const TeacherRegistration = () => {
               </div>
             </form>
           </div>
-              <div className="login-btn-wrapper">
-          <p className="login-info">
-            Already have an account? &nbsp;
+          {/* <div className="login-btn-wrapper"> */}
+          <p className="login-info">Already have an account? &nbsp;</p>
+          <div className="link-wrapper">
             <Link className="login-link" to="/login">
               Teacher Login
             </Link>
             <Link className="login-link" to="/student-login">
               Student Login
             </Link>
-          </p>
-        </div>
+          </div>
+          {/* </div> */}
         </div>
       )}
     </div>
