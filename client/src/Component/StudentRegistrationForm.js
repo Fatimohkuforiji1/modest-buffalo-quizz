@@ -7,7 +7,6 @@ const StudentRegistrationForm = () => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
-  const [isValid, setIsValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [groups, setGroups] = useState([]);
@@ -28,10 +27,9 @@ const StudentRegistrationForm = () => {
 
     if (confirmPassword !== password) {
       alert("Password doesn't match");
-    } else {
-      setConfirmPassword(e.target.value);
+      return;
     }
-
+   
     const newUser = {
       firstName,
       lastName,
@@ -56,16 +54,7 @@ const StudentRegistrationForm = () => {
       
     });
 
-    /* get the id then redirect to the student dashboard passing the id across */
-    // if (
-    //   password === isValid &&
-    //   password.length > 8 &&
-    //   !password.includes(" ")
-    // ) {
-    //   setIsValid(true);
-    // } else {
-    //   setIsValid(false);
-    // }
+  
   }
 
   useEffect(() => {
@@ -136,9 +125,7 @@ const StudentRegistrationForm = () => {
         </label>
 
         <label>
-          {/* <h3>
-            password is longer than 8 characters and does not include any spaces
-          </h3> */}
+         
           Create Password
           <input
             type="password"
