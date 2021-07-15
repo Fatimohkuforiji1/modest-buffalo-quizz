@@ -12,6 +12,7 @@ const path = require("path");
           defaultSrc: ["'self'"],
           objectSrc: ["'none'"],
           scriptSrc: ["'self'", "unpkg.com", "polyfill.io"],
+          fontSrc: ["'self'", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0"],
           styleSrc: ["'self'", "https: 'unsafe-inline'"],
           upgradeInsecureRequests: [],
         },
