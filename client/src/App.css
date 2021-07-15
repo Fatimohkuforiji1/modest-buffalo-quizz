@@ -119,8 +119,16 @@ height: auto;
   border-style: solid;
  border-color: rgb(138, 25, 44);
   background-color: rgb(230, 219, 219);
+
   
 }
+.signUp-container h2 {
+  font-family:"Arial Black";
+  font-size: medium;
+  color: brown;
+ 
+}
+
 
 .signUp-wrapper {
   display: flex;
@@ -153,14 +161,15 @@ height: auto;
 
 .select_option {
   padding: 0.5rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: rgb(143, 44, 60);
   color: rgb(230, 219, 219);
+  border-radius: 5px;
 }
 
 .signUp-btn {
   padding: 0.5rem 1rem;
-  font-size: 1.25rem;
+  font-size: .90rem;
   background-color:rgb(143, 44, 60);
   color: rgb(230, 219, 219);
   border-radius: 5px;
@@ -172,6 +181,7 @@ height: auto;
   justify-content: space-between;
   align-items: center;
 
+
 }
 
 .link-home {
@@ -180,6 +190,7 @@ height: auto;
   background-color: rgb(199, 163, 97);
   color: crimson;
   border-radius: 5px;
+   font-size: 1rem;
 }
 
 /* .login-btn-wrapper {

@@ -12,6 +12,9 @@ const TeacherQuiz = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    // setModule("");
+    // setForm("");
+
     let formattedForm = {}
     for(let i = 1; i <= 10; i++ ){
       if (Object.keys(form).includes(`question${i}_question`)){ 
@@ -27,6 +30,7 @@ const TeacherQuiz = () => {
         };
       }
     }
+
 console.log(formattedForm);
     fetch("/api/set-quiz", {
         method: "POST",
@@ -46,7 +50,8 @@ console.log(formattedForm);
   const handleChange = (e)=>{
     setForm({...form, [e.target.name]: e.target.value})
     console.log(form)
-  }
+     }
+     
 
   console.log(Object.keys(form))
 

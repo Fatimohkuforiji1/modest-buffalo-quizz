@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 const AccountSuccess = ({role}) => {
   return (
     <div className="form-head">
-      <h1>CODE YOUR FUTURE</h1>
       <div className="registered-container">
-        <div className="registered">
-          <h1>Account Created</h1>
+        <div className="signUp-title">
+          <h2>Account Created</h2>
         </div>
         {role === "teacher" ? (
           <button>

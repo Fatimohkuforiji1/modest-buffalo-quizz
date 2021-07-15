@@ -37,11 +37,11 @@ export function MainHome() {
                 Code Your Future is a non governmental organization that
                 supports the educational development of hundreds of students
                 worldwide each year. As such, throughout the duration of eight
-                month programme our teachers use a variety of online learning
-                tools to test the understanding of our students. Hence having a
+                month programme teachers use a variety of online learning
+                tools to test the understanding of the students. Hence having a
                 quiz app which would allow our teachers track the success of the
                 students is paramount. Also because a lot of courses are
-                covered, this app will help our students have a better idea of
+                covered, this app will help the students have a better idea of
                 how well they are grasping the material and hopefully motivating
                 them to studying more, focusing on the area that needs more practice.
               </p>

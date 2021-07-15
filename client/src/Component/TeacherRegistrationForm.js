@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Validate from "./Validate";
 import { Link } from "react-router-dom";
 import AccountSuccess from "./AccountSuccess";
+import "../App.css"
 
 // import logo from "./Images/cyf_logo.jpeg";
 
