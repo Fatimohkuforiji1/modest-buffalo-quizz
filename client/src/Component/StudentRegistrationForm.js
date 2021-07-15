@@ -86,95 +86,106 @@ const StudentRegistrationForm = () => {
   }, []);
 console.log(groups);
   return (
-    <div className="Form">
-      <h1>Registration</h1>
-      <form className="root" onSubmit={handleSubmit}>
-        <label>
-          First Name
+    <div className="signUp-container">
+      <div className="signUp-wrapper">
+        <div>
+          <h2 className="signUp-title">Create Account</h2>
+        </div>
+
+        <form className="signUp-form" onSubmit={handleSubmit}>
+          <label className="s-name"> </label>
           <input
             type="text"
             name="firstName"
             value={firstName}
+            placeholder="First name"
+            className="s-input-n"
             onChange={(e) => setFirstName(e.target.value)}
           />
-        </label>
-        <label>
-          Last Name
+
+          <label className="s-name"></label>
           <input
             type="text"
             name="lastName"
             value={lastName}
+            className="s-input-n"
+            placeholder="Last name"
             onChange={(e) => setLastName(e.target.value)}
           />
-        </label>
-        <label>
-          Email
+
+          <label className="s-email"></label>
           <input
             type="email"
             name="email"
             value={email}
+            placeholder="Email"
+            className="s-input-n"
             onChange={(e) => setEmail(e.target.value)}
           />
-        </label>
-        <label>
-          City
+
+          <label className="s-name"></label>
           <input
             type="text"
             name="city"
+            className="s-input-n"
             value={city}
+            placeholder="City"
             onChange={(e) => setCity(e.target.value)}
           />
-        </label>
 
-        <label>
-          Country
+          <label className="s-name"></label>
           <input
             type="text"
             name="country"
             value={country}
+            className="s-input-n"
+            placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
           />
-        </label>
 
-        <label>
+          <label className="s-password"></label>
           {/* <h3>
             password is longer than 8 characters and does not include any spaces
           </h3> */}
-          Create Password
           <input
             type="password"
             name="password"
             value={password}
+            className="s-input-n"
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <label>
-          Confirm Password
+
+          <label></label>
           <input
             type="password"
             name="confirmPassword"
             value={confirmPassword}
+            placeholder="Confirm Password"
+            className="s-input-n"
             onChange={passwordMatch}
           />
-        </label>
-        <label>Choose a group:</label>
-        <select
-          id="groups"
-          name="groups"
-          onChange={(e) => setGroupsId(e.target.value)}
-        >
-          {groups.map((group) => (
-            <option key={group.id} value={group.id}>
-              {group.group_name}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Register</button>
-      </form>
+
+          <label>Choose a group:</label>
+          <select
+            className="select_option"
+            id="groups"
+            name="groups"
+            onChange={(e) => setGroupsId(e.target.value)}
+          >
+            {groups.map((group) => (
+              <option key={group.id} value={group.id}>
+                {group.group_name}
+              </option>
+            ))}
+          </select>
+          <button type="submit">Register</button>
+        </form>
+      </div>
       <div>
-        <p className="login-register-link">
+        <p className="login-info">
           Already have an account.
-          <Link className="link login-register" to="/student/login">
+          <Link className="login-link" to="/student-login">
             Login
           </Link>
         </p>
