@@ -28,7 +28,7 @@ const { isAuthenticated } = useContext(AuthContext);
 const [name, setName] = useState("");
 const [questions, setQuestions] = useState();
 const [score, setScore] = useState(0);
-
+const [student_answer, setStudent_answer] = useState([]);
 const fetchQuestions = async(category = "") => {
 // const { data } = await axios.get(
 //   `https://opentdb.com/api.php?amount=10&category=${category}&type=multiple`
@@ -42,9 +42,21 @@ const fetchQuestions = async(category = "") => {
 console.log(myData);
 setQuestions(myData.data)
 
-
 }
-
+const updateStudentAnswers = (answer) => {
+  console.log(answer);
+  fetch("/api/quiz-submission", {
+    method: "POST",
+    body: JSON.stringify(answer),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((response) => console.log(response))
+    .catch((e) => console.log(e));
+  student_answer.push(answer.student_answer);
+  setStudent_answer(student_answer);
+};
 
 
   return (
@@ -72,14 +84,21 @@ setQuestions(myData.data)
                   score={score}
                   setScore={setScore}
                   setQuestions={setQuestions}
+                  updateStudentAnswers={updateStudentAnswers}
                 />
               </Route>
               <Route path="/result" exact>
                 <Result score={score} name={name} />
               </Route>
-              
+
               <Route path="/teacherQuiz" exact>
                 <TeacherQuiz />
+              </Route>
+              <Route path="/dashboard/teacher">
+                <TeacherDashboard />
+              </Route>
+              <Route path="/dashboard/student">
+                <StudentDashboard />
               </Route>
             </>
           ) : (
@@ -102,13 +121,6 @@ setQuestions(myData.data)
 
               <Route path="/student-register">
                 <StudentRegistrationForm />
-              </Route>
-
-              <Route path="/dashboard/student">
-                <StudentDashboard />
-              </Route>
-              <Route path="/dashboard/teacher">
-                <TeacherDashboard />
               </Route>
             </>
           )}
