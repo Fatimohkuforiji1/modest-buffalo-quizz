@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table } from "react-bootstrap";
+import { AuthContext } from "../Context/AuthContext";
 
 const StudentDashBoard = () => {
+  const { user } = useContext(AuthContext);
   const [quizInfo, setQuizInfo] = useState([]);
   console.log(quizInfo, "bye");
 
   useEffect(() => {
-    fetch(`http://localhost:3100/api/student/1/quizzes`) // hardcode until id is available (global context)
+    fetch(`/api/student/${user.studentId}/quizzes`) // hardcode until id is available (global context)
       .then((response) => {
         if (response.status === 200) {
           return response.json();

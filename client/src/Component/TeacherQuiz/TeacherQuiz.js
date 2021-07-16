@@ -1,9 +1,11 @@
 import { object } from "prop-types";
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
-import "./TeacherQuiz.css"
+import "./TeacherQuiz.css";
 
 const TeacherQuiz = () => {
+   let history = useHistory();
   const [module, setModule] = useState("2");
   const [form, setForm] = useState({});
 
@@ -15,9 +17,9 @@ const TeacherQuiz = () => {
     // setModule("");
     // setForm("");
 
-    let formattedForm = {}
-    for(let i = 1; i <= 10; i++ ){
-      if (Object.keys(form).includes(`question${i}_question`)){ 
+    let formattedForm = {};
+    for (let i = 1; i <= 10; i++) {
+      if (Object.keys(form).includes(`question${i}_question`)) {
         formattedForm[`question${i}`] = {
           question: form[`question${i}_question`],
           answers: [
@@ -26,41 +28,44 @@ const TeacherQuiz = () => {
             form[`question${i}_answer3`],
             form[`question${i}_answer4`],
           ],
-          correct_answer: form[`question${i}_answer${form[`question${i}_correctAnswer`]}`],
+          correct_answer:
+            form[`question${i}_answer${form[`question${i}_correctAnswer`]}`],
         };
       }
     }
 
-console.log(formattedForm);
+    console.log(formattedForm);
     fetch("/api/set-quiz", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formattedForm, moduleId: module, teacherId :1, title: form.title,
-          description: form.description
-        }),
-      }). then((data)=>{
-        console.log(data)
-      })
-    }
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formattedForm,
+        moduleId: module,
+        teacherId: 1,
+        title: form.title,
+        description: form.description,
+      }),
+    }).then((data) => {
+      console.log(data);
+     history.push("/dashboard/teacher");
+    });
+  };
 
-  const handleChange = (e)=>{
-    setForm({...form, [e.target.name]: e.target.value})
-    console.log(form)
-     }
-     
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form);
+  };
 
-  console.log(Object.keys(form))
+  console.log(Object.keys(form));
 
   return (
     <div className="teacher-quiz">
       <h3>SET THE QUIZ</h3>
       <h4>Please Select Module</h4>
       <form onSubmit={submitHandler}>
-    
         <label>
           <h4>Select Module</h4>
           <select

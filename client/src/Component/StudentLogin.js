@@ -5,7 +5,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const StudentLogin =() => {
   let history = useHistory();
-  const { authenticate } = useContext(AuthContext);
+  const { authenticate, setUserInfo } = useContext(AuthContext);
   const [details, setDetails] = useState({ email: "", password: "" });
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -27,6 +27,7 @@ const StudentLogin =() => {
         console.log(data);
         if (data.message === "Login Sucessful") {
           setIsCorrect(true);
+          setUserInfo({studentId : data.userId, firstName : data.firstName, lastName: data.lastName});
           authenticate();
            history.push("/quiz-home");
         } else {

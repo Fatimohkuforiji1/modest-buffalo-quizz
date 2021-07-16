@@ -1,9 +1,18 @@
 import "./Quiz.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CircularProgress } from "@material-ui/core";
 import Question from "../../Component/Question/Question";
+import { AuthContext } from "../../Context/AuthContext";
 
-const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
+const Quiz = ({
+  name,
+  score,
+  questions,
+  setQuestions,
+  setScore,
+  updateStudentAnswers
+}) => {
+  const { user } = useContext(AuthContext);
   const [options, setOptions] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
@@ -23,7 +32,7 @@ const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
 
   return (
     <div className="quiz">
-      <span className="subtitle"> Welcome: {name}</span>
+      <span className="subtitle"> Welcome: {user.firstName}</span>
       {questions ? (
         <>
           <div className="quizInfo">
@@ -39,6 +48,7 @@ const Quiz = ({ name, score, questions, setQuestions, setScore }) => {
             score={score}
             setScore={setScore}
             setQuestions={setQuestions}
+            updateStudentAnswers={updateStudentAnswers}
           />
         </>
       ) : (

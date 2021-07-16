@@ -1,8 +1,9 @@
 import { Button } from "@material-ui/core";
-import { useState } from "react";
+import { useState , useContext} from "react";
 import { useHistory } from "react-router";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Question = ({
   currentQuestion,
@@ -12,7 +13,9 @@ const Question = ({
   correct,
   setScore,
   score,
+  updateStudentAnswers
 }) => {
+  const { user } = useContext(AuthContext);
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
 
@@ -35,12 +38,19 @@ const Question = ({
       setScore(score + 1);
       setError(false);
     }
+
+    updateStudentAnswers({
+      question_id: questions[currentQuestion].question_id,
+      student_answer: i,
+      is_correct: i === correct,
+      student_id: user.studentId,
+    });
   };
   const handleNext = () => {
-    if (currentQuestion > 3) {
-      history.push("/result");
-    } else if (selected) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (selected) {
+      if (currentQuestion === questions.length - 1) {
+        history.push("/result");
+      } else setCurrentQuestion(currentQuestion + 1);
       setSelected();
     } else {
       setError("Please select an option first");
@@ -90,7 +100,9 @@ const Question = ({
             style={{ width: 185 }}
             onClick={handleNext}
           >
-            {currentQuestion === (questions.length -1) ? "Submit" : "Next Question"}
+            {currentQuestion === questions.length - 1
+              ? "Submit"
+              : "Next Question"}
           </Button>
         </div>
       </div>

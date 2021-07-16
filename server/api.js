@@ -35,14 +35,7 @@ router.get("/students", (_, res) => {
     .catch((error) => res.send(error));
 });
 //----------------------Question route----------------------------
-// router.get("/questions", (_, res) => {
-//   const getQuestions = `SELECT question FROM questions LIMIT 5`;
-//   pool
-//     .query(getQuestions)
-//     // .then(result => res.json(result))
-//     .then((data) => res.send(data.rows))
-//     .catch((error) => res.send(error));
-// });
+
 
 //-----------------register route-----------------------------------
 router.post("/register-teacher", async (req, res) => {
@@ -105,33 +98,6 @@ router.post("/login", (req, res) => {
   });
 });
 
-//-------------------------StudentRegistrations-----------------------------
-// router.post("/register/students", async (req, res) => {
-//   console.log(req.body);
-//   const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
-//   const { firstName, lastName, email, city, country } = req.body;
-//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
-//   try {
-//     const password = await bcrypt.hash(req.body.password, 10);
-//     if (!regExpression.exec(firstName) && !regExpression.exec(lastName)) {
-//       res.status(500).send({ message: "Fill in correct field" });
-//     } else {
-//       pool
-//         .query(teacherQuery, [
-//           firstName,
-//           lastName,
-//           email,
-//           password,
-//           city,
-//           country,
-//         ])
-//         .then((result) => res.status(201).json({ message: "Account created" }));
-//     }
-//   } catch {
-//     (e) => console.error(e);
-//   }
-// });
-
 
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 
@@ -162,6 +128,7 @@ WHERE module_name = '${getLesson}'`;
           difficulty : "medium",
           incorrect_answers: [],
           question : temporary[0].question,
+          question_id : temporary[0].question_id,
           type: "multiple"
         };
         for ( let k = 1; k < temporary.length; k++) {
@@ -176,10 +143,8 @@ WHERE module_name = '${getLesson}'`;
 });
 
 //----------------------------post answer route-------------------
-let stdtAnswerCheck;
-let correctAnswerCheck;
-// `select student_answer, correct_answer from questions
-// inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
+
+
 router.post("/answer", (req, res) => {
   console.log("answer");
   res.status(200).json(req.body);
@@ -356,50 +321,56 @@ router.get("/dashboard/student/:id", function (req, res) {
 
 //=================================================CREATE=================================================
 
-//---------------------------------------------LOGIN---------------------------------------------
-// router.post("/login", (req, res) => {
-//   console.log(req.body);
-//   const newEmail = req.body.email;
-//   const newPassword = req.body.password;
-//   const teacherLoginQuery = `SELECT first_name, last_name, user_password FROM teachers WHERE email = '${newEmail}'`;
-//   const regExpression = /(@)(.+)$/;
-
-//   if (!regExpression.exec(newEmail)) {
-//     res.status(500).json({ message: "Enter correct email/password" });
-//   } else {
-//     pool.query(teacherLoginQuery).then((result) => {
-//       res.status(200);
-//       const checkLogin = result.rows[0];
-//       if (checkLogin.password === newPassword) {
-//         res.json({ message: "UserName Valid" });
-//       }
-//     });
-//   }
-// });
-
-//----------------------------------------TEACHER REGISTER----------------------------------------
-// router.post("/register/teachers", (req, res) => {
-//   const { firstName, lastName, email, password, city, country } = req.body;
-//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) returning id`;
-
-//   pool
-//     .query(teacherQuery, [firstName, lastName, email, password, city, country])
-//     .then((result) => {
-//       if (result.rowCount > 0) {
-//         res.status(201).send({
-//           result: `SUCCESS`,
-//           message: `A new post has been created in the database`,
-//         });
-//       }
-//     })
-//     .catch((e) => {
-//       console.error(e.stack);
-//       res.status(500).send({
-//         result: `FAILURE`,
-//         message: `FATAL ERROR: Internal Server Error`,
-//       });
-//     });
-// });
+//Output:This inserts the student quiz answers into the database table student_quiz_answers
+router.post("/quiz-submission/", (req, res) => {
+  const { question_id, student_id, student_answer, is_correct } = req.body;
+  const updateQuery = `
+    UPDATE student_quiz_answers
+    SET
+    student_answer = $1,
+    is_correct = $2
+    WHERE
+    question_id = $3 AND
+    student_id = $4
+  `;
+  const insertQuery = `
+  INSERT
+  INTO student_quiz_answers
+  (question_id, student_id,student_answer,is_correct)
+  VALUES($1,$2,$3,$4)
+  `;
+  pool
+    .query(updateQuery, [student_answer, is_correct, question_id, student_id])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        pool
+          .query(insertQuery, [
+            question_id,
+            student_id,
+            student_answer,
+            is_correct,
+          ])
+          .then((_) => {
+            res.send({
+              result: `SUCCESS`,
+              message: `Answer inserted`,
+            });
+          });
+      } else {
+        res.send({
+          result: `SUCCESS`,
+          message: `Answer updated`,
+        });
+      }
+    })
+    .catch((e) => {
+      console.error(e.stack);
+      res.status(500).send({
+        result: `FAILURE`,
+        message: `FATAL ERROR: Internal Server Error`,
+      });
+    });
+});
 
 //----------------------------------------STUDENT REGISTER----------------------------------------
 
@@ -436,7 +407,7 @@ router.post("/student-login", (req, res) => {
   console.log(req.body);
   const newEmail = req.body.email;
   const newPassword = req.body.password;
-  const studentLoginQuery = `SELECT first_name, last_name, user_password, groups_id FROM students WHERE email = '${newEmail}'`;
+  const studentLoginQuery = `SELECT id, first_name, last_name, user_password, groups_id FROM students WHERE email = '${newEmail}'`;
 console.log(studentLoginQuery)
   pool.query(studentLoginQuery).then((result) => {
     res.status(200);
@@ -452,7 +423,12 @@ console.log(studentLoginQuery)
     console.log(isValid);
 
     if (isValid) {
-      res.status(200).json({ message: "Login Sucessful" });
+      res.status(200).json({
+        message: "Login Sucessful",
+        userId: checkLogin["id"],
+        firstName: checkLogin["first_name"],
+        lastName: checkLogin["last_name"]
+      });
       // .catch((e) => console.error(e));
     } else {
       res.status(401).json({ message: "wrong password" });

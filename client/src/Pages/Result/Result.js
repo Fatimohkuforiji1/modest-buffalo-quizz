@@ -20,9 +20,10 @@ const Result = ({ name, score }) => {
         color="secondary"
         size="large"
         style={{ alignSelf: "center", marginTop: 20 }}
-        href="/"
+        href={history.push("/dashboard/student")}
       >
-        Go to homepage
+        {/* Go to homepage */}
+        View your dashboard
       </Button>
     </div>
   );
