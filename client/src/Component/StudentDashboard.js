@@ -7,7 +7,7 @@ const StudentDashBoard = () => {
   const { user } = useContext(AuthContext);
   const [quizInfo, setQuizInfo] = useState([]);
   console.log(quizInfo, "bye");
-
+  console.log(user);
   useEffect(() => {
     fetch(`/api/student/${user.studentId}/quizzes`) // hardcode until id is available (global context)
       .then((response) => {
@@ -18,6 +18,7 @@ const StudentDashBoard = () => {
         }
       })
       .then((data) => {
+        console.log(data, "quizzes")
         setQuizInfo(data);
       })
       .catch((e) => {

@@ -35,7 +35,14 @@ router.get("/students", (_, res) => {
     .catch((error) => res.send(error));
 });
 //----------------------Question route----------------------------
-
+// router.get("/questions", (_, res) => {
+//   const getQuestions = `SELECT question FROM questions LIMIT 5`;
+//   pool
+//     .query(getQuestions)
+//     // .then(result => res.json(result))
+//     .then((data) => res.send(data.rows))
+//     .catch((error) => res.send(error));
+// });
 
 //-----------------register route-----------------------------------
 router.post("/register-teacher", async (req, res) => {
@@ -98,6 +105,33 @@ router.post("/login", (req, res) => {
   });
 });
 
+//-------------------------StudentRegistrations-----------------------------
+// router.post("/register/students", async (req, res) => {
+//   console.log(req.body);
+//   const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+//   const { firstName, lastName, email, city, country } = req.body;
+//   const teacherQuery = `INSERT INTO teachers(first_name, last_name, email, user_password, city, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID`;
+//   try {
+//     const password = await bcrypt.hash(req.body.password, 10);
+//     if (!regExpression.exec(firstName) && !regExpression.exec(lastName)) {
+//       res.status(500).send({ message: "Fill in correct field" });
+//     } else {
+//       pool
+//         .query(teacherQuery, [
+//           firstName,
+//           lastName,
+//           email,
+//           password,
+//           city,
+//           country,
+//         ])
+//         .then((result) => res.status(201).json({ message: "Account created" }));
+//     }
+//   } catch {
+//     (e) => console.error(e);
+//   }
+// });
+
 
 //---------------------QUIZ DETAILS ROUTE-----------------------------
 
@@ -144,7 +178,8 @@ WHERE module_name = '${getLesson}'`;
 
 //----------------------------post answer route-------------------
 
-
+// `select student_answer, correct_answer from questions
+// inner join student_quiz_answers on questions.id = student_quiz_answers.question_id;`;
 router.post("/answer", (req, res) => {
   console.log("answer");
   res.status(200).json(req.body);
@@ -182,6 +217,53 @@ router.get("/questions", (req, res) => {
 //--------------------------------------QUIZ_DATA_PER_STUDENT--------------------------------------
 //Summative result of quiz data
 
+// router.get("/student/:id/quizzes", function (req, res) {
+//   const studentId = req.params.id;
+
+//   pool
+//     .query(
+//       `SELECT qz.id, qz.title FROM student_quiz_answers as sqa inner join
+// questions as q on q.id = sqa.question_id inner join
+// quizzes as qz on q.quiz_id = qz.id 
+// where student_id = $1 group by qz.id;`,
+//       [studentId]
+//     )
+//     .then((data) => {
+//       // res.send(data);
+//       let quizzes = [];
+//       let promises = [];
+//       data.rows.forEach((row) => {
+//         promises.push(
+//           pool
+//             .query(
+//               ` SELECT q.id As quiz_id,
+//                 q.title,
+//                 q.date_added,
+            
+//                 SUM(CASE WHEN sqa.is_correct THEN 1 ELSE 0 END) AS correct_count,
+//                 ((SUM(CASE WHEN sqa.is_correct THEN 1 ELSE 0 END)*100/COUNT(sqa.id))) As result_percentage,
+//                 (CASE WHEN ((SUM(CASE WHEN sqa.is_correct THEN 1 ELSE 0 END)*100/COUNT(sqa.id)))> q.percentage_pass_rate THEN 1 ELSE 0 END ) 
+// 				As Has_passed,
+//                 q.percentage_pass_rate,
+//                 (SELECT COUNT(*)FROM questions WHERE quiz_id=q.id)As number_of_questions,
+//                 (CASE WHEN COUNT(sqa.id)=(SELECT COUNT(*)FROM questions WHERE quiz_id=q.id) THEN 1 ELSE 0 END) AS completed_quiz
+//        FROM quizzes As q
+// 	   INNER JOIN questions AS qs ON q.id = qs.quiz_id
+//           inner JOIN student_quiz_answers AS sqa ON qs.id = sqa.question_id
+            
+//             WHERE sqa.student_id =$1 AND q.id = $2 group by q.id;`,
+//               [studentId, row.id]
+//             )
+//             .then((quiz) => {
+//               quizzes.push(quiz.rows[0]);
+//             })
+//         );
+//       });
+//       Promise.all(promises).then(() => res.send(quizzes));
+//       // res.send(quizzes)
+//     })
+//     .catch((error) => res.send(error));
+// });
 router.get("/student/:id/quizzes", function (req, res) {
   const studentId = req.params.id;
 

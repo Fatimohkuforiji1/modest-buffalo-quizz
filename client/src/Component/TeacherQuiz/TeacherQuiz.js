@@ -50,7 +50,7 @@ const TeacherQuiz = () => {
       }),
     }).then((data) => {
       console.log(data);
-     history.push("/dashboard/teacher");
+    //  history.push("/");
     });
   };
 
@@ -157,6 +157,10 @@ const TeacherQuiz = () => {
         <br></br>
         <input type="submit" value="SUBMIT" />
       </form>
+
+      <button onClick={() => history.push("/dashboard/teacher")}>
+        Dashboard
+      </button>
     </div>
   );
 };

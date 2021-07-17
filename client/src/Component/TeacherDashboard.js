@@ -6,7 +6,7 @@ const TeacherDashboard = () => {
   const [groupQuizInfo, setGroupQuizInfo] = useState([]);
   console.log(groupQuizInfo);
   useEffect(() => {
-    fetch(`http://localhost:3100/api/teacher/1`)
+    fetch(`/api/teacher/1`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -34,7 +34,7 @@ const TeacherDashboard = () => {
       const quiz = groupQuizInfo.quiz_information.filter(
         (qi) => qi.id === studentInfo.quiz_id
       )[0];
-      const quizDate = new Date(quiz.date_added);
+      //  const quizDate = new Date(quiz.date_added);
 
       let passed_value = "PASSED";
       if (studentInfo.has_passed === 0) {
@@ -46,7 +46,7 @@ const TeacherDashboard = () => {
           <td>{studentInfo.group_name}</td>
           <td>{`${studentInfo.student_first_name} ${studentInfo.student_last_name}`}</td>
           <td>{quiz.title}</td>
-          <td>{quizDate.toDateString()}</td>
+          {/* <td>{quizDate.toDateString()}</td> */}
           <td>{studentInfo.result_percentage}%</td>
           <td>{studentInfo.percentage_pass_rate}%</td>
           <td>{passed_value}</td>
@@ -64,7 +64,7 @@ const TeacherDashboard = () => {
           <th>Group Name</th>
           <th>Student full name</th>
           <th>Module Name</th>
-          <th>Date added</th>
+          {/* <th>Date added</th> */}
           <th>Result percentage</th>
           <th>Percentage pass</th>
           <th>Has passed</th>
