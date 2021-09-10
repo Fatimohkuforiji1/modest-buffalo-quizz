@@ -4,10 +4,10 @@
   box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   width: 8px;
-  background-color: rgb(45, 48, 221);
-}
+  background-color: rgb(158, 11, 43);
+} */
 
 a {
   text-decoration: inherit;
